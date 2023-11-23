@@ -1,0 +1,25 @@
+@font-face {
+    font-family: brandFont;
+    src: url(brand/PhosphatePro-Inline.otf);
+}
+
+.brandfont{
+    font-family: brandFont;
+    color: #e98757;
+}
+
+@font-face {
+    font-family: brandFont2;
+    src: url(brand/PhosphatePro-Solid.otf);
+}
+
+.brandfont2{
+    font-family: brandFont2;
+    color: #e98757;
+}
+
+
+.shop-image{
+    height: 180px;
+    object-fit: contain;
+}
