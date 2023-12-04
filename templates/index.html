@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Speisekarte{% endblock %}
+{% block heading %}Wähle dein Essen aus!{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+  <div class="col-4">
+      <div class="card">
+      <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top shop-image" alt="...">
+      <div class="card-body">
+          <h5 class="card-title">Item 1</h5>
+          <p class="card-text">Beschreibung des Items asdf adsf asdf asfd sadf safsad fasdfd gdg </p>
+          <a href="#" class="btn btn-primary">in den Warenkorb</a>
+      </div>
+      </div>
+  </div>
+  
+  <div class="col-4">
+    <div class="card">
+    <img src="{{ url_for('static', filename='test.png') }}" class="card-img-top shop-image" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Item 2</h5>
+        <p class="card-text">Beschreibung des Items asdf adsf asdf asfd sadf safsad fasdfd gdg </p>
+        <a href="#" class="btn btn-primary">in den Warenkorb</a>
+    </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

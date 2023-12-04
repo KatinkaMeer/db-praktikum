@@ -1,6 +1,6 @@
 @font-face {
     font-family: brandFont;
-    src: url(brand/PhosphatePro-Inline.otf);
+    src: url(../static/PhosphatePro-Inline.otf);
 }
 
 .brandfont{
@@ -10,7 +10,7 @@
 
 @font-face {
     font-family: brandFont2;
-    src: url(brand/PhosphatePro-Solid.otf);
+    src: url(../static/PhosphatePro-Solid.otf);
 }
 
 .brandfont2{
