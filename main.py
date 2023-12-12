@@ -17,8 +17,8 @@ def start_page():
 def admin_page():
     return redirect(url_for("start_page"))
 
-@app.route("/signin/", methods=["GET", "POST"])
-def sigin_page():
+@app.route("/signup/", methods=["GET", "POST"])
+def signup_page():
     if request.method == "POST":
         database.create_KundenAccount(request.form["username"], request.form["password"], "test", "test", "test", "test", "test")
     return render_template("login.html")
