@@ -55,10 +55,11 @@ def create_tables():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Oeffnungszeit(
+            Rid INTEGER,
             Wochentag INTEGER,
             Von time,
             Bis time,
-            PRIMARY KEY (Wochentag, Von, Bis)
+            PRIMARY KEY (Rid)
         )""")
 
     cursor.execute("""
@@ -91,5 +92,4 @@ def login_kunde(username, passwort):
         return False
     
     origin_pw = result[0]
-    
     return origin_pw == passwort
