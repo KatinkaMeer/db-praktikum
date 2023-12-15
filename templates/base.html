@@ -51,8 +51,11 @@
                   {{ session['user'] }}
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">edit profile</a></li>
-                  <li><a class="dropdown-item" href="#">explode pc</a></li>
+                  {% if session['business'] %}
+                  <li><a class="dropdown-item" href="#">Edit restaurant</a></li>
+                  {% else %}
+                  <li><a class="dropdown-item" href="#">Edit profile</a></li>
+                  {% endif %}
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{{ url_for('logout_page') }}">Log out</a></li>
                 </ul>

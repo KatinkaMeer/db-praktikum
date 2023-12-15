@@ -57,6 +57,7 @@ def login_customer_page():
             else:  
                 session.permanent = False
             session["user"] = request.form["username"]
+            session.pop("business", None)
             return redirect(url_for("restaurants_page"))
     return render_template("login.html")
 
@@ -71,7 +72,7 @@ def login_business_page():
                 session.permanent = False
             session["user"] = request.form["username"]
             session["business"] = True
-            return redirect(url_for("restaurants_page"))
+            return redirect(url_for("start_page"))
     return render_template("login.html", business=True)
 
 @app.route("/logout/")
@@ -81,8 +82,10 @@ def logout_page():
 
 @app.route("/restaurants/")
 def restaurants_page():
-    if "user" in session:
-        return render_template("index.html")
+    if "user" in session and not "business" in session:
+        restaurants = database.get_restaurants()
+        print(restaurants)
+        return render_template("restaurants.html", restaurants=restaurants)
     else:
         return redirect(url_for("login_customer_page"))
 

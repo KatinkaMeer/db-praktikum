@@ -114,3 +114,17 @@ def login_geschaeft(username, passwort):
     
     origin_pw = result[0]
     return origin_pw == passwort
+
+def get_restaurants():
+    restaurants = []
+    request_pointer = getData("""SELECT Restaurantname, Beschreibung, Strasse, Hausnummer, Plz FROM GeschaeftsAccount""")
+    for entry in request_pointer.fetchall():
+        restaurant = {
+            "name": entry[0],
+            "description": entry[1],
+            "street": entry[2],
+            "housenumber": entry[3],
+            "postalcode": entry[4]
+        }
+        restaurants.append(restaurant)
+    return restaurants
