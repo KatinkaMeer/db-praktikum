@@ -40,18 +40,20 @@ def create_tables():
         CREATE TABLE IF NOT EXISTS GeschaeftsAccount(
             Username TEXT PRIMARY KEY NOT NULL,
             Passwort TEXT NOT NULL,
+            Restaurantname TEXT NOT NULL,
+            Beschreibung TEST NOT NULL,
             Strasse TEXT NOT NULL,
             Hausnummer INTEGER NOT NULL,
             Plz INTEGER NOT NULL
         )""")
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS Restaurant(
-            Id INTEGER AUTO_INCREMENT NOT NULL,
-            Name TEXT,
-            Beschreibung TEXT,
-            PRIMARY KEY (Id)
-        )""")
+    #cursor.execute("""
+    #    CREATE TABLE IF NOT EXISTS Restaurant(
+    #        Id INTEGER AUTO_INCREMENT NOT NULL,
+    #        Name TEXT,
+    #        Beschreibung TEXT,
+    #        PRIMARY KEY (Id)
+    #    )""")
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Oeffnungszeit(
@@ -81,10 +83,29 @@ def create_KundenAccount(username, passwort, nachname, vorname, strasse, hausnum
         (username, passwort, nachname, vorname, strasse, hausnummer, plz)
     )
 
+def create_GeschaeftsAccount(username, passwort, resterauntname, beschreibung, strasse, hausnummer, plz):
+    executeUpdate("""
+        INSERT INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
+            VALUES(?, ?, ?, ?, ?, ?, ?)""",
+        (username, passwort, resterauntname, beschreibung, strasse, hausnummer, plz)
+    )
+
 
 def login_kunde(username, passwort):
     # Ergebnis des Vergleichs mit dem original pw aus db zum username
     request_pointer = getData("""SELECT Passwort FROM KundenAccount WHERE Username = ? """,(username,))
+    
+    result = request_pointer.fetchone()
+
+    if result == None:
+        return False
+    
+    origin_pw = result[0]
+    return origin_pw == passwort
+
+def login_geschaeft(username, passwort):
+    # Ergebnis des Vergleichs mit dem original pw aus db zum username
+    request_pointer = getData("""SELECT Passwort FROM GeschaeftsAccount WHERE Username = ? """,(username,))
     
     result = request_pointer.fetchone()
 
