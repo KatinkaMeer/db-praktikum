@@ -28,8 +28,9 @@ def signup_customer_page():
     if request.method != "POST":
         return render_template("signup.html")
 
-    if not set(required_fields).issubset(request.form.keys()):
-        return render_template("signup.html", missing_fields=True)
+    for value in request.form.values():
+        if value == '': return render_template("signup.html", missing_fields=True)
+
     database.create_KundenAccount(request.form["username"], request.form["password"], request.form["firstname"], request.form["lastname"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
     return redirect(url_for("login_customer_page"))
@@ -41,9 +42,10 @@ def signup_business_page():
 
     if request.method != "POST":
         return render_template("signup.html", business=True)
+    
+    for value in request.form.values():
+        if value == '': return render_template("signup.html", missing_fields=True)
 
-    if not set(required_fields).issubset(request.form.keys()):
-        return render_template("signup.html", missing_fields=True)
     database.create_GeschaeftsAccount(request.form["username"], request.form["password"], request.form["restaurantname"], request.form["description"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
     return redirect(url_for("login_business_page"))
@@ -51,6 +53,10 @@ def signup_business_page():
 @app.route("/login/customer", methods=["GET", "POST"])
 def login_customer_page():
     if request.method == "POST":
+
+        for value in request.form.values():
+            if value == '': return render_template("login.html", missing_fields=True)
+
         if database.login_kunde(request.form["username"], request.form["password"]):
             if "stayloggedin" in request.form:
                 session.permanent = True
@@ -64,6 +70,10 @@ def login_customer_page():
 @app.route("/login/business", methods=["GET", "POST"])
 def login_business_page():
     if request.method == "POST":
+
+        for value in request.form.values():
+            if value == '': return render_template("login.html", missing_fields=True)
+
         print(database.login_geschaeft(request.form["username"], request.form["password"]))
         if database.login_geschaeft(request.form["username"], request.form["password"]):
             if "stayloggedin" in request.form:

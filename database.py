@@ -76,12 +76,12 @@ def create_tables():
     
     cursor.execute("""
         INSERT or REPLACE INTO KundenAccount (Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz)
-        VALUES ('edge', 'weiter', 'a', 'a', 'a', 1, 47877)
+        VALUES ('edge', 'weiter', 'Pascal', 'Ritzenfeld', 'Engerweg', 6, 47877)
         """)
     
     cursor.execute("""
         INSERT or REPLACE INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
-        VALUES ('pizza', 'weiter', 'pizzapalast', 'a', 'a', 1, 47877), ('sushi', 'weiter', 'sushibar', 'a', 'a', 1, 47877)
+        VALUES ('pizza', 'weiter', 'pizzapalast', 'lecker Pizza', 'a', 1, 47877), ('sushi', 'weiter', 'sushibar', 'lecker Sushi', 'a', 1, 47877)
         """)
 
     cursor.execute("""
