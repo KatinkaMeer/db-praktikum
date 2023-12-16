@@ -83,12 +83,20 @@ def logout_page():
 @app.route("/restaurants/")
 def restaurants_page():
     if "user" in session and not "business" in session:
-        restaurants = database.get_restaurants()
+        restaurants = database.get_restaurants(session["user"])
         print(restaurants)
         return render_template("restaurants.html", restaurants=restaurants)
     else:
         return redirect(url_for("login_customer_page"))
 
+@app.route("/restaurant/<id>")
+def restaurant_page(id):
+    if "user" in session and not "business" in session:
+        restaurants = database.get_restaurants()
+        print(restaurants)
+        return render_template("restaurants.html", restaurants=restaurants)
+    else:
+        return redirect(url_for("login_customer_page"))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -47,21 +47,14 @@ def create_tables():
             Plz INTEGER NOT NULL
         )""")
 
-    #cursor.execute("""
-    #    CREATE TABLE IF NOT EXISTS Restaurant(
-    #        Id INTEGER AUTO_INCREMENT NOT NULL,
-    #        Name TEXT,
-    #        Beschreibung TEXT,
-    #        PRIMARY KEY (Id)
-    #    )""")
-
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Oeffnungszeit(
-            Rid INTEGER,
-            Wochentag INTEGER,
-            Von time,
-            Bis time,
-            PRIMARY KEY (Rid)
+            GUsername INTEGER NOT NULL,
+            Wochentag INTEGER NOT NULL,
+            Von time NOT NULL,
+            Bis time NOT NULL,
+            FOREIGN KEY (GUsername) REFERENCES GeschaeftsAccount(Username),
+            PRIMARY KEY (GUsername, Wochentag)
         )""")
 
     cursor.execute("""
@@ -73,6 +66,29 @@ def create_tables():
             PRIMARY KEY (Id) 
         )""")
     
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS Lieferradius(
+            Plz INTEGER NOT NULL,
+            GUsername INTEGER,
+            FOREIGN KEY (GUsername) REFERENCES GeschaeftsAccount(Username),
+            PRIMARY KEY (Plz, GUsername) 
+        )""")
+    
+    cursor.execute("""
+        INSERT or REPLACE INTO KundenAccount (Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz)
+        VALUES ('edge', 'weiter', 'a', 'a', 'a', 1, 47877)
+        """)
+    
+    cursor.execute("""
+        INSERT or REPLACE INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
+        VALUES ('pizza', 'weiter', 'pizzapalast', 'a', 'a', 1, 47877), ('sushi', 'weiter', 'sushibar', 'a', 'a', 1, 47877)
+        """)
+
+    cursor.execute("""
+        INSERT or REPLACE INTO Lieferradius (Plz, GUsername)
+        VALUES (47877, 'pizza'), (47877, 'sushi')
+        """)
+
     dbcon.commit()
 
 
@@ -115,9 +131,13 @@ def login_geschaeft(username, passwort):
     origin_pw = result[0]
     return origin_pw == passwort
 
-def get_restaurants():
+def get_restaurants(username):
     restaurants = []
-    request_pointer = getData("""SELECT Restaurantname, Beschreibung, Strasse, Hausnummer, Plz FROM GeschaeftsAccount""")
+    request_pointer = getData("""SELECT Restaurantname, Beschreibung, GeschaeftsAccount.Strasse, GeschaeftsAccount.Hausnummer, GeschaeftsAccount.Plz 
+                              FROM GeschaeftsAccount
+                              INNER JOIN Lieferradius ON GeschaeftsAccount.Username = Lieferradius.GUsername
+                              INNER JOIN KundenAccount ON Lieferradius.Plz = KundenACcount.Plz
+                              WHERE KundenAccount.Username = ? """,(username,))
     for entry in request_pointer.fetchall():
         restaurant = {
             "name": entry[0],
