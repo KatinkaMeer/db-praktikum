@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import timedelta
 import database
+import createdb
 
 app = Flask(__name__)
 app.secret_key = "schimmel"
 app.permanent_session_lifetime = timedelta(days=1)
-database.create_tables()
+createdb.create_tables()
 
 
 @app.route("/test/")
@@ -107,6 +108,16 @@ def restaurant_page(id):
         return render_template("restaurants.html", restaurants=restaurants)
     else:
         return redirect(url_for("login_customer_page"))
+
+@app.route("/menue/<username>")
+def menue_page(username):
+    if "user" in session and not "business" in session:
+        restaurant = database.get_restaurant(username)
+        print(restaurant)
+        return render_template("menue.html", restaurant=restaurant)
+    else:
+        return redirect(url_for("login_customer_page"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
