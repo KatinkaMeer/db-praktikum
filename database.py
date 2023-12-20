@@ -60,10 +60,12 @@ def create_tables():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Item(
             Id INTEGER AUTO_INCREMENT NOT NULL,
+            Restaurant INTEGER,
             Kategorie TEXT,
             Name TEXT,
             Preis INTEGER,
-            PRIMARY KEY (Id) 
+            PRIMARY KEY (Id),
+            FOREIGN KEY (Restaurant) REFERENCES GeschaeftsAccount(username)
         )""")
     
     cursor.execute("""
@@ -81,8 +83,10 @@ def create_tables():
     
     cursor.execute("""
         INSERT or REPLACE INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
-        VALUES ('pizza', 'weiter', 'pizzapalast', 'lecker Pizza', 'a', 1, 47877), ('sushi', 'weiter', 'sushibar', 'lecker Sushi', 'a', 1, 47877)
+        VALUES ('pizza', 'weiter', 'pizzapalast', 'lecker Pizza', 'a', 1, 47877), 
+                ('sushi', 'weiter', 'sushibar', 'lecker Sushi', 'a', 1, 47877)
         """)
+    
 
     cursor.execute("""
         INSERT or REPLACE INTO Lieferradius (Plz, GUsername)
