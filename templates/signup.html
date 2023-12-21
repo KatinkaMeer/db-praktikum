@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Sign up Page{% endblock %}
+{% block heading %}Welcome to Lieferspatz!{% endblock %}
+
+{% block content %}
+  <!--Login Panel-->
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                {% if business %}
+                <div class="card-header">
+                    Business Signup
+                </div>
+                <div class="card-body">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input name = "username" type="text" class="form-control" id="username" placeholder="Enter your username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="restaurantname">Restaurant name</label>
+                                <input name = "restaurantname" type="text" class="form-control" id="restaurantname" placeholder="Enter your restaurant name">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="description">Description</label>
+                                <input name = "description" type="text" class="form-control" id="description" placeholder="Enter your restaurant description">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-7">
+                                <label for="street">Street</label>
+                                <input name = "street" type="text" class="form-control" id="street" placeholder="Enter your street of residence">
+                            </div>
+                            <div class="col-sm-5">
+                                <label for="housenumber">House Number</label>
+                                <input name = "housenumber" type="text" class="form-control" id="housenumber" placeholder="Enter your house number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalcode">Postal Code</label>
+                            <input name = "postalcode" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">
+                        </div>
+                        {% if missing_fields == True %}
+                        <p class="text-danger">Please fill in all required fields</p>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary mt-2">Signup</button>
+                    </form>
+                </div>
+            </div>
+                {% else %}
+                <div class="card-header">
+                    Kunden Signup
+                </div>
+                <div class="card-body">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input name = "username" type="text" class="form-control" id="username" placeholder="Enter your username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="firstname">First Name</label>
+                                <input name = "firstname" type="text" class="form-control" id="firstname" placeholder="Enter your first name">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="lastname">Last Name</label>
+                                <input name = "lastname" type="text" class="form-control" id="lastname" placeholder="Enter your last name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-7">
+                                <label for="street">Street</label>
+                                <input name = "street" type="text" class="form-control" id="street" placeholder="Enter your street of residence">
+                            </div>
+                            <div class="col-sm-5">
+                                <label for="housenumber">House Number</label>
+                                <input name = "housenumber" type="text" class="form-control" id="housenumber" placeholder="Enter your house number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalcode">Postal Code</label>
+                            <input name = "postalcode" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">
+                        </div>
+                        {% if missing_fields == True %}
+                        <p class="text-danger">Please fill in all required fields</p>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary mt-2">Signup</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+  </div>
+{% endblock %}

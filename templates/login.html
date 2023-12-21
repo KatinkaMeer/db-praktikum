@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    Login
+                    {% if business %} Business {% else %} Kunden {% endif %} Login
                 </div>
                 <div class="card-body">
                     <form action="" method="POST">
@@ -21,6 +21,13 @@
                             <label for="password">Password</label>
                             <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
                         </div>
+                        <div class="form-check">
+                            <input name = "stayloggedin" type="checkbox" class="form-check-input" id="stayloggedin">
+                            <label class="form-check-label" for="stayloggedin">Stay logged in</label>
+                        </div>
+                        {% if missing_fields == True %}
+                        <p class="text-danger">Please fill in all required fields</p>
+                        {% endif %}
                         <button type="submit" class="btn btn-primary mt-2">Login</button>
                     </form>
                 </div>
