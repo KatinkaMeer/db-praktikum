@@ -52,7 +52,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   {% if session['business'] %}
-                  <li><a class="dropdown-item" href="#">Edit restaurant</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('menue_page', username=session['user']) }}">Edit restaurant</a></li>
                   {% else %}
                   <li><a class="dropdown-item" href="#">Edit profile</a></li>
                   {% endif %}

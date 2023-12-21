@@ -61,7 +61,22 @@ def login_geschaeft(username, passwort):
     origin_pw = result[0]
     return origin_pw == passwort
 
-def get_restaurants(username):
+def get_restaurants():
+    restaurants = []
+    request_pointer = getData("""SELECT Restaurantname, Beschreibung, Strasse, Hausnummer, Plz 
+                              FROM GeschaeftsAccount""")
+    for entry in request_pointer.fetchall():
+        restaurant = {
+            "name": entry[0],
+            "description": entry[1],
+            "street": entry[2],
+            "housenumber": entry[3],
+            "postalcode": entry[4]
+        }
+        restaurants.append(restaurant)
+    return restaurants
+
+def get_restaurants_near(username):
     restaurants = []
     request_pointer = getData("""SELECT Restaurantname, Beschreibung, GeschaeftsAccount.Strasse, GeschaeftsAccount.Hausnummer, GeschaeftsAccount.Plz 
                               FROM GeschaeftsAccount
@@ -79,16 +94,18 @@ def get_restaurants(username):
         restaurants.append(restaurant)
     return restaurants
 
+
 def get_restaurant(username):
     request_pointer = getData("""SELECT Restaurantname, Beschreibung, Strasse, Hausnummer, Plz 
                               FROM GeschaeftsAccount
                               WHERE Username = ? """,(username,))
-    entry = request_pointer.fetchone()
+    result = request_pointer.fetchone()
+
     restaurant = {
-            "name": entry[0],
-            "description": entry[1],
-            "street": entry[2],
-            "housenumber": entry[3],
-            "postalcode": entry[4]
+            "name": result[0],
+            "description": result[1],
+            "street": result[2],
+            "housenumber": result[3],
+            "postalcode": result[4]
         }
     return restaurant

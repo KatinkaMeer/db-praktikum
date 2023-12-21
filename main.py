@@ -94,26 +94,21 @@ def logout_page():
 @app.route("/restaurants/")
 def restaurants_page():
     if "user" in session and not "business" in session:
-        restaurants = database.get_restaurants(session["user"])
+        restaurants = database.get_restaurants_near(session["user"])
         print(restaurants)
         return render_template("restaurants.html", restaurants=restaurants)
     else:
         return redirect(url_for("login_customer_page"))
 
-@app.route("/restaurant/<id>")
-def restaurant_page(id):
-    if "user" in session and not "business" in session:
-        restaurants = database.get_restaurants()
-        print(restaurants)
-        return render_template("restaurants.html", restaurants=restaurants)
-    else:
-        return redirect(url_for("login_customer_page"))
+@app.route("/restaurants/all")
+def all_restaurants_page():
+    restaurants = database.get_restaurants()
+    return render_template("restaurants.html", restaurants=restaurants)
 
 @app.route("/menue/<username>")
 def menue_page(username):
-    if "user" in session and not "business" in session:
+    if "user" in session:
         restaurant = database.get_restaurant(username)
-        print(restaurant)
         return render_template("menue.html", restaurant=restaurant)
     else:
         return redirect(url_for("login_customer_page"))
