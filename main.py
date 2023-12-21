@@ -21,10 +21,6 @@ def start_page():
 def admin_page():
     return redirect(url_for("start_page"))
 
-<<<<<<< HEAD
-@app.route("/signup/", methods=["GET", "POST"])
-def signup_page():
-=======
 @app.route("/signup/customer", methods=["GET", "POST"])
 def signup_customer_page():
 
@@ -57,7 +53,6 @@ def signup_business_page():
     
 @app.route("/login/customer", methods=["GET", "POST"])
 def login_customer_page():
->>>>>>> 0447d0956626f01f684defaba2d6bfbbaeb7937e
     if request.method == "POST":
 
         for value in request.form.values():
