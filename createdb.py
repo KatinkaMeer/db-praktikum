@@ -106,7 +106,7 @@ def create_tables():
             ('zoesgrill', '1234', 'Zoes Grill', 'Wir präsentieren Ihnen leckere Rezepte mit Hackfleisch, Schafskäse, Lamm, Grillgemüse, Grillspießen und vielem mehr.', 'Königsberger Allee', 113, 47058),
             ('mcdaniels', '1234', 'McDaniels', 'Wir lieben es.', 'Portsmouthpl.', 1, 47051),
             ('subday', '1234', 'Subday', 'Esse frisch!', 'Königstraße', 48, 47051),
-            ('kfp', '1234', 'KFP', 'Kentucky Fried Poultry', 'Königstraße', 56, 47051)
+            ('kfp', '1234', 'KFP', 'Kentucky Fried Poultry', 'Königstraße', 56, 47051),
             ('sunsetgrill', '1234', 'Sunset Grill', 'Erleben Sie eine Symphonie der Aromen bei Sunset Grill. Unsere kulinarischen Kreationen sind eine Feier von Geschmack und Ambiente.', 'Sonnenallee', 30, 46735),
             ('fusiondelight', '1234', 'Fusion Delight', 'Tauchen Sie ein in die Welt der Fusion-Küche bei Fusion Delight. Unsere Köche verbinden verschiedene kulinarische Traditionen für ein delikates Geschmackserlebnis.', 'Mischstraße', 42, 46735),
             ('spicynoodlehouse', '1234', 'Spicy Noodle House', 'Bereiten Sie sich auf ein feuriges Fest bei Spicy Noodle House vor. Unsere Nudeln sind mit kühnen Gewürzen durchtränkt und entfachen Ihre Geschmacksknospen.', 'Feuerweg', 5, 46735),
