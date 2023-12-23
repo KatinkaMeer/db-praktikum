@@ -91,7 +91,7 @@ def logout_page():
     session.pop("user", None)
     return redirect(url_for("start_page"))
 
-@app.route("/restaurants_near_you/")
+@app.route("/restaurants/")
 def restaurants_page():
     if "user" in session and not "business" in session:
         restaurants = database.get_restaurants_near(session["user"])
@@ -100,11 +100,6 @@ def restaurants_page():
     else:
         return redirect(url_for("login_customer_page"))
     
-
-@app.route("/restaurants/all")
-def all_restaurants_page():
-    restaurants = database.get_restaurants()
-    return render_template("restaurants.html", restaurants=restaurants)
 
 @app.route("/menue/<username>")
 def menue_page(username):
