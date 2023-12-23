@@ -603,7 +603,22 @@ def create_tables():
             ('sauerkrautundwurst', 'Getränk', 'Sauerkraut-Smoothie', 350),
             ('sauerkrautundwurst', 'Getränk', 'Wurst-Wodka', 400),
             ('sauerkrautundwurst', 'Getränk', 'Senf-Mule', 300),
-            ('sauerkrautundwurst', 'Getränk', 'Sauerkrautsaft', 350);
+            ('sauerkrautundwurst', 'Getränk', 'Sauerkrautsaft', 350),
+            
+            ('cafebluerose', 'Vorspeise', 'Himbeer-Mandel-Cupcakes', 350),
+            ('cafebluerose', 'Vorspeise', 'Vanille-Blumenkohl-Muffins', 300),
+            ('cafebluerose', 'Vorspeise', 'Zitronen-Poppyseed-Scones', 400),
+            ('cafebluerose', 'Vorspeise', 'Schokoladen-Chia-Pudding', 450),
+            ('cafebluerose', 'Hauptgericht', 'Apfel-Zimt-Pfannkuchen', 550),
+            ('cafebluerose', 'Hauptgericht', 'Blumenkohl-Walnuss-Waffeln', 500),
+            ('cafebluerose', 'Hauptgericht', 'Himbeer-Mandel-French-Toast', 600),
+            ('cafebluerose', 'Hauptgericht', 'Erdbeer-Bananen-Smoothie-Bowl', 650),
+            ('cafebluerose', 'Dessert', 'Blue Rose Schokoladenkuchen', 700),
+            ('cafebluerose', 'Dessert', 'Zitronen-Lavendel-Tarte', 750),
+            ('cafebluerose', 'Getränk', 'Blumenkohl-Vanille-Latte', 400),
+            ('cafebluerose', 'Getränk', 'Himbeer-Minz-Eistee', 350),
+            ('cafebluerose', 'Getränk', 'Blue Rose Cappuccino', 450),
+            ('cafebluerose', 'Getränk', 'Vanille-Rosenwasser-Limonade', 500);
         """)
 
     cursor.execute("""
