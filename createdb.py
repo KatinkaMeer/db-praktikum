@@ -97,8 +97,16 @@ def create_tables():
     
     cursor.execute("""
         INSERT or REPLACE INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
-        VALUES ('pizza', 'weiter', 'pizzapalast', 'lecker Pizza', 'a', 1, 47877), 
-                ('sushi', 'weiter', 'sushibar', 'lecker Sushi', 'a', 1, 47877)
+        VALUES ('cafebluerose', '1234', 'Café Blue Rose', 'Café blue rose ist ein kleines, ruhiges Café in der Innenstadt. Unsere selbstgemachten Kuchen schmecken klein und groß.', 'Königstraße', 25, 46735), 
+            ('sushiheaven', '1234', 'Sushi Heaven', 'Unsere Sushi- Meister, trainiert in Japan, zaubern euch authentisches Sushi.', 'Oststraße', 16, 45545),
+            ('bowl', '1234', 'Bowl', 'Wir verkaufen verschiedene Bowls. Ihr könnt hier auch eigene Bowls zusammenstellen!', 'Landstraße', 165, 46323),
+            ('americasstory', '1234', 'Americas Story', 'Das Konzept unseres Restaurants ist es die Geschichte Amerikas durch das Essen neu zu erleben.', 'An den Buchen', 18, 45432),
+            ('sidebysoups', '1234', 'Side by Soups', 'Bei uns bekommst du Suppen aller Art. Unsere Rezepte kommen aus der ganzen Welt.', 'Ring des Lebens', 66, 49736),
+            ('mamamiapizza', '1234', 'Mamamia Pizza', 'Authentische italienische Pizza frisch aus einem Steinofen liefern wir direkt vor deine Haustür.', 'Hohe Str.', 7, 47051),
+            ('zoesgrill', '1234', 'Zoes Grill', 'Wir präsentieren Ihnen leckere Rezepte mit Hackfleisch, Schafskäse, Lamm, Grillgemüse, Grillspießen und vielem mehr.', 'Königsberger Allee', 113, 47058),
+            ('mcdaniels', '1234', 'McDaniels', 'Wir lieben es.', 'Portsmouthpl.', 1, 47051),
+            ('subday', '1234', 'Subday', 'Esse frisch!', 'Königstraße', 48, 47051),
+            ('kfp', '1234', 'KFP', 'Kentucky Fried Poultry', 'Königstraße', 56, 47051)
         """)
     
     cursor.execute("""
