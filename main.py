@@ -36,6 +36,20 @@ def signup_customer_page():
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
     return redirect(url_for("login_customer_page"))
 
+@app.route("/edit_profile", methods=["GET", "POST"])
+def edit_profile_page():
+    if "user" in session and not "business" in session:
+        if request.method == "POST" and database.login_kunde(request.form["username"], request.form["password"]):
+                
+            database.update_KundenAccount(request.form["username"], request.form["password"], request.form["firstname"], request.form["lastname"],\
+                                request.form["street"], request.form["housenumber"], request.form["postalcode"])
+            return render_template("index.html")
+            
+        profile = database.get_KundenAccount(session["user"])
+        return render_template("edit_profile.html", profile=profile)
+    else:
+        return render_template("login_kunde.html")
+
 @app.route("/signup/business", methods=["GET", "POST"])
 def signup_business_page():
 
@@ -67,6 +81,7 @@ def login_customer_page():
             session.pop("business", None)
             return redirect(url_for("restaurants_page"))
     return render_template("login.html")
+
 
 @app.route("/login/business", methods=["GET", "POST"])
 def login_business_page():
@@ -118,6 +133,7 @@ def edit_restaurant_page(username):
     else:
         return redirect(url_for("login_customer_page"))
     
+
 
 
 

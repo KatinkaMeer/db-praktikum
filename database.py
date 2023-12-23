@@ -29,6 +29,33 @@ def create_KundenAccount(username, passwort, nachname, vorname, strasse, hausnum
         (username, passwort, nachname, vorname, strasse, hausnummer, plz)
     )
 
+def update_KundenAccount(username, passwort, nachname, vorname, strasse, hausnummer, plz):
+    executeUpdate("""
+        INSERT OR REPLACE INTO KundenAccount (Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz)
+            VALUES(?, ?, ?, ?, ?, ?, ?)""",
+        (username, passwort, nachname, vorname, strasse, hausnummer, plz)
+    )
+
+def get_KundenAccount(username):
+    request_pointer = getData("""
+        SELECT Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz FROM KundenAccount
+            WHERE Username= ? """,
+        (username,))
+    
+    entry = request_pointer.fetchone()
+    profil = {
+            "username": entry[0],
+            "password": entry[1],
+            "firstname": entry[2],
+            "lastname": entry[3],
+            "street": entry[4],
+            "housenumber": entry[5],
+            "postalcode": entry[6]
+        }
+
+    return profil
+
+
 def create_GeschaeftsAccount(username, passwort, resterauntname, beschreibung, strasse, hausnummer, plz):
     executeUpdate("""
         INSERT INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
