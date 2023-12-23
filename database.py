@@ -160,3 +160,18 @@ def get_delivery_radius(username):
     for entry in request_pointer.fetchall():
         postalcodes.append(entry[0])
     return postalcodes
+
+def get_orders():
+    orders = []
+    request_pointer = getData("""SELECT *
+                              FROM Bestellung""")
+    for entry in request_pointer.fetchall():
+        order = {
+            "KUsername": entry[0],
+            "GUsername": entry[1],
+            "ordertime": entry[2],
+            "comment": entry[3],
+            "orderstatus": entry[4]
+        }
+        orders.append(order)
+    return orders

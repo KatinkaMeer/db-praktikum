@@ -111,7 +111,8 @@ def create_tables():
     
     cursor.execute("""
         INSERT or REPLACE INTO Lieferradius (Plz, GUsername)
-        VALUES (47877, 'pizza'), (47877, 'sushi')
+        VALUES (47877, 'mamamiapizza'), 
+                (47877, 'sushiheaven')
         """)
     
     cursor.execute("""
@@ -123,4 +124,9 @@ def create_tables():
                 ('sushi', 'Hauptgericht', 'Lachs Maki', 750)
         """)
 
+    cursor.execute("""
+        INSERT or REPLACE INTO Bestellung (ROWID, KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)
+        VALUES (1, 'edge', 'mamamiapizza', '19:45 Uhr', 'bring mir ein süßen lieferboten', 'in Bearbeitung')
+        """)
+    
     dbcon.commit()

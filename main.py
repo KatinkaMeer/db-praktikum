@@ -133,8 +133,10 @@ def edit_restaurant_page(username):
     else:
         return redirect(url_for("login_customer_page"))
     
-
-
+@app.route("/orders")
+def order_page():
+    orders = database.get_orders()
+    return render_template("orders.html", orders=orders)
 
 
 if __name__ == "__main__":
