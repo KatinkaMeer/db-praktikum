@@ -25,6 +25,8 @@ def create_tables():
     dbcon = sqlite3.connect("instance/db.db")
     cursor = dbcon.cursor()
     
+    ##creat etables
+
     cursor.execute("""
             CREATE TABLE IF NOT EXISTS KundenAccount(
             Username TEXT PRIMARY KEY NOT NULL,
@@ -49,8 +51,8 @@ def create_tables():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Oeffnungszeit(
-            GUsername INTEGER NOT NULL,
-            Wochentag INTEGER NOT NULL,
+            GUsername TEXT NOT NULL,
+            Wochentag TEXT NOT NULL CHECK(Wochentag IN ('Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag')),
             Von time NOT NULL,
             Bis time NOT NULL,
             FOREIGN KEY (GUsername) REFERENCES GeschaeftsAccount(Username),
@@ -59,22 +61,34 @@ def create_tables():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Item(
-            Id INTEGER AUTO_INCREMENT NOT NULL,
             Restaurant INTEGER,
-            Kategorie TEXT,
             Name TEXT,
+            Kategorie TEXT,
             Preis INTEGER,
-            PRIMARY KEY (Id),
+            PRIMARY KEY (Restaurant, Name)
             FOREIGN KEY (Restaurant) REFERENCES GeschaeftsAccount(username)
         )""")
     
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Lieferradius(
             Plz INTEGER NOT NULL,
-            GUsername INTEGER,
+            GUsername TEXT NOT NULL,
             FOREIGN KEY (GUsername) REFERENCES GeschaeftsAccount(Username),
             PRIMARY KEY (Plz, GUsername) 
         )""")
+    
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS Bestellung(
+            KUsername TEXT NOT NULL,
+            GUsername TEXT NOT NULL,
+            Eingangszeit TEXT NOT NULL,
+            Anmerkung TEXT,
+            Bestellstatus TEXT NOT NULL CHECK( Bestellstatus IN ('in Bearbeitung','in Zubereitung','storniert','abgeschlossen') )
+        )""")
+    
+
+    
+    ##insert data
     
     cursor.execute("""
         INSERT or REPLACE INTO KundenAccount (Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz)
@@ -90,6 +104,13 @@ def create_tables():
     cursor.execute("""
         INSERT or REPLACE INTO Lieferradius (Plz, GUsername)
         VALUES (47877, 'pizza'), (47877, 'sushi')
+        """)
+    
+    cursor.execute("""
+        INSERT or REPLACE INTO Item (Restaurant, Kategorie, Name, Preis)
+        VALUES ('pizza', 'Hauptgericht', 'Pizza Salami', 750),
+                ('pizza', 'Hauptgericht', 'Pizza Schinken', 750),
+                ('pizza', 'Hauptgericht', 'Pizza Dreck', 750)
         """)
 
     dbcon.commit()

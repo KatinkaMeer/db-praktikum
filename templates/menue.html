@@ -4,13 +4,18 @@
 
 {% block content %}
 <div class="row g-4 mb-4">
-  <div class="col-4">
+  <div class="col-12">
       <div class="card">
       <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top shop-image" alt="...">
       <div class="card-body">
           <h5 class="card-title">{{ restaurant['name'] }}</h5>
           <p class="card-text">{{ restaurant['description'] }}</p>
-          <a href="#" class="btn btn-warning">Speisekarte ansehen</a>
+          {% for item in items %}
+          <div class="card-body">
+            <h5 class="card-title">{{ item['name'] }}</h5>
+            <p class="card-text">{{ item['description'] }}</p>
+          </div>
+          {% endfor %}
       </div>
       </div>
   </div>

@@ -91,7 +91,7 @@ def logout_page():
     session.pop("user", None)
     return redirect(url_for("start_page"))
 
-@app.route("/restaurants/")
+@app.route("/restaurants_near_you/")
 def restaurants_page():
     if "user" in session and not "business" in session:
         restaurants = database.get_restaurants_near(session["user"])
@@ -99,6 +99,11 @@ def restaurants_page():
         return render_template("restaurants.html", restaurants=restaurants)
     else:
         return redirect(url_for("login_customer_page"))
+    
+@app.route("/items/")
+def items_page_all():
+    items = database.get_items()
+    return render_template("items.html", items=items)
 
 @app.route("/restaurants/all")
 def all_restaurants_page():
@@ -109,9 +114,20 @@ def all_restaurants_page():
 def menue_page(username):
     if "user" in session:
         restaurant = database.get_restaurant(username)
-        return render_template("menue.html", restaurant=restaurant)
+        items = database.get_items()
+        return render_template("menue.html", restaurant=restaurant, items=items)
     else:
         return redirect(url_for("login_customer_page"))
+
+@app.route("/restaurant/edit")
+def edit_restaurant_page(username):
+    if "user" in session and "business" in session:
+        postalcodes = database.get_delivery_radius(username)
+        return render_template("edit_restaurant.html", postalcodes=postalcodes)
+    else:
+        return redirect(url_for("login_customer_page"))
+    
+
 
 
 if __name__ == "__main__":

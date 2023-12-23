@@ -109,3 +109,36 @@ def get_restaurant(username):
             "postalcode": result[4]
         }
     return restaurant
+
+def get_items():
+    items = []
+    request_pointer = getData("""SELECT Name, Preis 
+                              FROM Item""")
+    for entry in request_pointer.fetchall():
+        restaurant = {
+            "name": entry[0],
+            "price": entry[1],
+        }
+        items.append(restaurant)
+    return items
+
+def get_items_from(username):
+    items = []
+    request_pointer = getData("""SELECT Name, Preis 
+                              FROM Item
+                              WHERE Restaurant = ? """, (username,))
+    for entry in request_pointer.fetchall():
+        restaurant = {
+            "name": entry[0],
+            "price": entry[1],
+        }
+        items.append(restaurant)
+    return items
+
+def get_delivery_radius(username):
+    postalcodes = []
+    request_pointer = getData("""SELECT PLZ
+                              FROM Lieferradius""")
+    for entry in request_pointer.fetchall():
+        postalcodes.append(entry[0])
+    return postalcodes
