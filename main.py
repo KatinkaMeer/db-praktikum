@@ -135,9 +135,14 @@ def edit_restaurant_page(username):
     
 @app.route("/orders")
 def order_page():
-    orders = database.get_orders()
-    return render_template("orders.html", orders=orders)
-
+    if "user" in session:
+        if "business" in session:
+            orders = database.get_orders(session["user"], True)
+            return render_template("orders_business.html", orders=orders)
+        else:
+            orders = database.get_orders(session["user"], False)
+            return render_template("orders_customer.html", orders=orders)
+    return redirect(url_for("login_customer_page"))
 
 if __name__ == "__main__":
     app.run(debug=True)
