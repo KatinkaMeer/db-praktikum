@@ -167,7 +167,27 @@ def create_tables():
                 ('mamamiapizza', 'Hauptgericht', 'Pizza Schinken', 750),
                 ('mamamiapizza', 'Hauptgericht', 'Pizza Dreck', 750),
                 ('sushiheaven', 'Hauptgericht', 'Misosuppe', 750),
-                ('sushiheaven', 'Hauptgericht', 'Lachs Maki', 750)
+                ('sushiheaven', 'Hauptgericht', 'Lachs Maki', 750),
+                   
+                ('mamamiapizza', 'Vorspeise', 'Bruschetta', 550),
+                ('mamamiapizza', 'Vorspeise', 'Caprese-Salat', 650),
+                ('mamamiapizza', 'Vorspeise', 'Knoblauchbrot', 500),
+                ('mamamiapizza', 'Vorspeise', 'Antipasti-Platte', 850),
+                ('mamamiapizza', 'Hauptgericht', 'Pizza Margherita', 750),
+                ('mamamiapizza', 'Hauptgericht', 'Pizza Quattro Formaggi', 800),
+                ('mamamiapizza', 'Hauptgericht', 'Pasta Bolognese', 700),
+                ('mamamiapizza', 'Hauptgericht', 'Lasagne al Forno', 850),
+                ('mamamiapizza', 'Hauptgericht', 'Risotto Funghi', 780),
+                ('mamamiapizza', 'Hauptgericht', 'Calzone', 820),
+                ('mamamiapizza', 'Hauptgericht', 'Gnocchi Gorgonzola', 750),
+                ('mamamiapizza', 'Hauptgericht', 'Penne all Arrabbiata', 720),
+                ('mamamiapizza', 'Hauptgericht', 'Linguine ai Frutti di Mare', 890),
+                ('mamamiapizza', 'Dessert', 'Tiramisu', 550),
+                ('mamamiapizza', 'Dessert', 'Panna Cotta', 600),
+                ('mamamiapizza', 'Getränk', 'Limonata', 350),
+                ('mamamiapizza', 'Getränk', 'Aranciata', 350),
+                ('mamamiapizza', 'Getränk', 'Pellegrino', 400),
+                ('mamamiapizza', 'Getränk', 'Acqua Minerale', 300);
         """)
 
     cursor.execute("""
