@@ -163,9 +163,9 @@ def create_tables():
     
     cursor.execute("""
         INSERT or REPLACE INTO Item (Restaurant, Kategorie, Name, Preis)
-        VALUES ('pizzamamamia', 'Hauptgericht', 'Pizza Salami', 750),
-                ('pizzamamamia', 'Hauptgericht', 'Pizza Schinken', 750),
-                ('pizzamamamia', 'Hauptgericht', 'Pizza Dreck', 750),
+        VALUES ('mamamiapizza', 'Hauptgericht', 'Pizza Salami', 750),
+                ('mamamiapizza', 'Hauptgericht', 'Pizza Schinken', 750),
+                ('mamamiapizza', 'Hauptgericht', 'Pizza Dreck', 750),
                 ('sushiheaven', 'Hauptgericht', 'Misosuppe', 750),
                 ('sushiheaven', 'Hauptgericht', 'Lachs Maki', 750)
         """)
