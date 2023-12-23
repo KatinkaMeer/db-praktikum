@@ -11,7 +11,7 @@
       <div class="card-body">
           <h5 class="card-title">{{ restaurant['name'] }}</h5>
           <p class="card-text">{{ restaurant['description'] }}</p>
-          <a href="#" class="btn btn-primary">Speisekarte ansehen</a>
+          <a href="{{ url_for('menue_page', username=restaurant['username']) }}" class="btn btn-primary">Speisekarte ansehen</a>
       </div>
       </div>
   </div>

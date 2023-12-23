@@ -100,10 +100,6 @@ def restaurants_page():
     else:
         return redirect(url_for("login_customer_page"))
     
-@app.route("/items/")
-def items_page_all():
-    items = database.get_items()
-    return render_template("items.html", items=items)
 
 @app.route("/restaurants/all")
 def all_restaurants_page():
@@ -114,7 +110,7 @@ def all_restaurants_page():
 def menue_page(username):
     if "user" in session:
         restaurant = database.get_restaurant(username)
-        items = database.get_items()
+        items = database.get_items(username)
         return render_template("menue.html", restaurant=restaurant, items=items)
     else:
         return redirect(url_for("login_customer_page"))

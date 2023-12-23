@@ -63,33 +63,35 @@ def login_geschaeft(username, passwort):
 
 def get_restaurants():
     restaurants = []
-    request_pointer = getData("""SELECT Restaurantname, Beschreibung, Strasse, Hausnummer, Plz 
+    request_pointer = getData("""SELECT Username, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz 
                               FROM GeschaeftsAccount""")
     for entry in request_pointer.fetchall():
         restaurant = {
-            "name": entry[0],
-            "description": entry[1],
-            "street": entry[2],
-            "housenumber": entry[3],
-            "postalcode": entry[4]
+            "username": entry[0],
+            "name": entry[1],
+            "description": entry[2],
+            "street": entry[3],
+            "housenumber": entry[4],
+            "postalcode": entry[5]
         }
         restaurants.append(restaurant)
     return restaurants
 
 def get_restaurants_near(username):
     restaurants = []
-    request_pointer = getData("""SELECT Restaurantname, Beschreibung, GeschaeftsAccount.Strasse, GeschaeftsAccount.Hausnummer, GeschaeftsAccount.Plz 
+    request_pointer = getData("""SELECT GeschaeftsAccount.Username, Restaurantname, Beschreibung, GeschaeftsAccount.Strasse, GeschaeftsAccount.Hausnummer, GeschaeftsAccount.Plz 
                               FROM GeschaeftsAccount
                               INNER JOIN Lieferradius ON GeschaeftsAccount.Username = Lieferradius.GUsername
                               INNER JOIN KundenAccount ON Lieferradius.Plz = KundenACcount.Plz
                               WHERE KundenAccount.Username = ? """,(username,))
     for entry in request_pointer.fetchall():
         restaurant = {
-            "name": entry[0],
-            "description": entry[1],
-            "street": entry[2],
-            "housenumber": entry[3],
-            "postalcode": entry[4]
+            "username": entry[0],
+            "name": entry[1],
+            "description": entry[2],
+            "street": entry[3],
+            "housenumber": entry[4],
+            "postalcode": entry[5]
         }
         restaurants.append(restaurant)
     return restaurants
@@ -110,27 +112,16 @@ def get_restaurant(username):
         }
     return restaurant
 
-def get_items():
+def get_items(username):
     items = []
-    request_pointer = getData("""SELECT Name, Preis 
-                              FROM Item""")
-    for entry in request_pointer.fetchall():
-        restaurant = {
-            "name": entry[0],
-            "price": entry[1],
-        }
-        items.append(restaurant)
-    return items
-
-def get_items_from(username):
-    items = []
-    request_pointer = getData("""SELECT Name, Preis 
+    request_pointer = getData("""SELECT Restaurant, Name, Preis 
                               FROM Item
                               WHERE Restaurant = ? """, (username,))
     for entry in request_pointer.fetchall():
         restaurant = {
-            "name": entry[0],
-            "price": entry[1],
+            "restaurant": entry[0],
+            "name": entry[1],
+            "price": entry[2],
         }
         items.append(restaurant)
     return items
