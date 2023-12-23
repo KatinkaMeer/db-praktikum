@@ -156,15 +156,26 @@ def get_items(username):
 def get_delivery_radius(username):
     postalcodes = []
     request_pointer = getData("""SELECT PLZ
-                              FROM Lieferradius""")
+                              FROM Lieferradius
+                              WHERE GUsername = ? """, (username,))
     for entry in request_pointer.fetchall():
         postalcodes.append(entry[0])
     return postalcodes
 
-def get_orders():
+
+def get_orders(username, business=False):
+    query = """SELECT *
+                FROM Bestellung
+                WHERE KUsername = ?
+                ORDER BY Eingangszeit DESC"""
+                
+    if business:
+        query = """SELECT *
+                FROM Bestellung
+                WHERE GUsername = ?
+                ORDER BY Eingangszeit DESC"""
     orders = []
-    request_pointer = getData("""SELECT *
-                              FROM Bestellung""")
+    request_pointer = getData(query, (username,))
     for entry in request_pointer.fetchall():
         order = {
             "KUsername": entry[0],

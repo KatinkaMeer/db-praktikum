@@ -145,7 +145,9 @@ def create_tables():
 
     cursor.execute("""
         INSERT or REPLACE INTO Bestellung (ROWID, KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)
-        VALUES (1, 'edge', 'mamamiapizza', '19:45 Uhr', 'bring mir ein süßen lieferboten', 'in Bearbeitung')
+        VALUES (1, 'edge', 'mamamiapizza', '19:45 Uhr', 'mit ohne alles', 'in Bearbeitung'),
+            (2, 'edge', 'mamamiapizza', '19:00 Uhr', 'mit ohne alles', 'in Bearbeitung'),
+            (3, 'edge', 'sushiheaven', '19:20 Uhr', 'mit ohne alles', 'in Bearbeitung')
         """)
     
     dbcon.commit()
