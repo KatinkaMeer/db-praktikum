@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-{% block title %}Restaurants{% endblock %}
-{% block heading %}Restaurants in deiner Nähe{% endblock %}
+{% block title %}Speisekarte{% endblock %}
+{% block heading %}Wähle deine Speisen aus!{% endblock %}
 
 {% block content %}
 <div class="row g-4 mb-4">
   <div class="col-12">
-      <div class="card">
-      <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top shop-image" alt="...">
+      <div class="card border-dark">
+      <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top restau-image" alt="...">
       <div class="card-body">
-          <h5 class="card-title">{{ restaurant['name'] }}</h5>
-          <p class="card-text">{{ restaurant['description'] }}</p>
+          <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
+          <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>
           {% for item in items %}
-          <div class="card-body">
-            <h5 class="card-title">{{ item['name'] }}</h5>
-            <p class="card-text">{{ item['description'] }}</p>
+          <div class="card-body row">
+            <h5 class="card-titel col">{{ item['name'] }}</h5>
+            <p class="card-text col">{{ item['price'] }}</p>
           </div>
           {% endfor %}
       </div>
