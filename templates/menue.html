@@ -10,13 +10,78 @@
       <div class="card-body">
           <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
           <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>
+
+          <ul class="nav nav-pills justify-content-center mt-4">
+            <li class="nav-item">
+              <a class="nav-link" href="#Vorspeisen">Vorspeisen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Hauptgerichte">Hauptgerichte</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Dessert">Dessert</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Getränke">Getränke</a>
+            </li>
+          </ul>
+          
+          <div class="sprungmarke" id="Vorspeisen"></div>
+          <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Vorspeisen</h6>
           {% for item in items %}
+          {% if item['category'] == 'Vorspeise' %}
           <div class="card-body row">
             <h5 class="card-titel col">{{ item['name'] }}</h5>
             <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
             <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
           </div>
+          {% endif %}
           {% endfor %}
+          </div>
+
+          <div class="sprungmarke" id="Hauptgerichte"></div>
+          <div class="mt-4">
+            <h6 class ="text-center card-header bg-transparent">Hauptgerichte</h6>
+            {% for item in items %}
+            {% if item['category'] == 'Hauptgericht' %}
+            <div class="card-body row">
+              <h5 class="card-titel col">{{ item['name'] }}</h5>
+              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+              <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+            </div>
+            {% endif %}
+            {% endfor %}
+            </div>
+
+            <div class="sprungmarke" id="Dessert"></div>
+            <div class="mt-4">
+              <h6 class ="text-center card-header bg-transparent">Dessert</h6>
+              {% for item in items %}
+              {% if item['category'] == 'Dessert' %}
+              <div class="card-body row">
+                <h5 class="card-titel col">{{ item['name'] }}</h5>
+                <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+                <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+              </div>
+              {% endif %}
+              {% endfor %}
+              </div>
+
+              <div class="sprungmarke" id="Getränke"></div>
+              <div class="mt-4">
+                <h6 class ="text-center card-header bg-transparent">Getränke</h6>
+                {% for item in items %}
+                {% if item['category'] == 'Getränk' %}
+                <div class="card-body row">
+                  <h5 class="card-titel col">{{ item['name'] }}</h5>
+                  <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+                  <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+                </div>
+                {% endif %}
+                {% endfor %}
+                </div>
+
       </div>
       </div>
   </div>

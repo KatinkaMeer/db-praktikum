@@ -28,3 +28,23 @@
     height: 200px;
     object-fit: cover;
 }
+
+.nav-pills a.nav-link{
+    color: #e98757;
+}
+
+.nav-pills a.nav-link:hover{
+    color: white;
+    background-color: #e98757;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.sprungmarke{
+    visibility: hidden;
+    height: 0px !important;
+    position: absolute;
+    margin: -50px;
+}
