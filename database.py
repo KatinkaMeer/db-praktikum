@@ -141,14 +141,16 @@ def get_restaurant(username):
 
 def get_items(username):
     items = []
-    request_pointer = getData("""SELECT Restaurant, Name, Preis 
+    request_pointer = getData("""SELECT * 
                               FROM Item
-                              WHERE Restaurant = ? """, (username,))
+                              WHERE Restaurant = ?
+                              ORDER BY Kategorie DESC""", (username,))
     for entry in request_pointer.fetchall():
         restaurant = {
             "restaurant": entry[0],
             "name": entry[1],
-            "price": entry[2],
+            "category": entry[2],
+            "price": entry[3]
         }
         items.append(restaurant)
     return items
