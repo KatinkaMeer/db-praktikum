@@ -86,7 +86,6 @@ def create_tables():
             Bestellstatus TEXT NOT NULL CHECK( Bestellstatus IN ('in Bearbeitung','in Zubereitung','storniert','abgeschlossen') )
         )""")
     
-
     
     ##insert data
     

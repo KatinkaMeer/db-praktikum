@@ -3,87 +3,170 @@
 {% block heading %}Wähle deine Speisen aus!{% endblock %}
 
 {% block content %}
-<div class="row g-4 mb-4">
-  <div class="col-12">
+<div class="row g-4 mb-4" id="wrapper">
+  <div class="col-9">
       <div class="card border-dark">
       <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top restau-image" alt="...">
       <div class="card-body">
-          <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
-          <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>
+        <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
+        <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>
 
-          <ul class="nav nav-pills justify-content-center mt-4">
-            <li class="nav-item">
-              <a class="nav-link" href="#Vorspeisen">Vorspeisen</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#Hauptgerichte">Hauptgerichte</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#Dessert">Dessert</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#Getränke">Getränke</a>
-            </li>
-          </ul>
+        <ul class="nav nav-pills justify-content-center mt-4">
+          <li class="nav-item">
+            <a class="nav-link" href="#Vorspeisen">Vorspeisen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Hauptgerichte">Hauptgerichte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Dessert">Dessert</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Getränke">Getränke</a>
+          </li>
+        </ul>
           
-          <div class="sprungmarke" id="Vorspeisen"></div>
-          <div class="mt-4">
+        <div class="sprungmarke" id="Vorspeisen"></div>
+        <div class="mt-4">
           <h6 class ="text-center card-header bg-transparent">Vorspeisen</h6>
           {% for item in items %}
           {% if item['category'] == 'Vorspeise' %}
-          <div class="card-body row">
+          <form class="card-body row">
             <h5 class="card-titel col">{{ item['name'] }}</h5>
             <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
             <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
-          </div>
+          </form>
           {% endif %}
           {% endfor %}
-          </div>
+        </div>
 
-          <div class="sprungmarke" id="Hauptgerichte"></div>
-          <div class="mt-4">
-            <h6 class ="text-center card-header bg-transparent">Hauptgerichte</h6>
-            {% for item in items %}
-            {% if item['category'] == 'Hauptgericht' %}
-            <div class="card-body row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
-              <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
-            </div>
-            {% endif %}
-            {% endfor %}
-            </div>
+        <div class="sprungmarke" id="Hauptgerichte"></div>
+        <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Hauptgerichte</h6>
+          {% for item in items %}
+          {% if item['category'] == 'Hauptgericht' %}
+          <form class="card-body row">
+            <h5 class="card-titel col">{{ item['name'] }}</h5>
+            <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
 
-            <div class="sprungmarke" id="Dessert"></div>
-            <div class="mt-4">
-              <h6 class ="text-center card-header bg-transparent">Dessert</h6>
-              {% for item in items %}
-              {% if item['category'] == 'Dessert' %}
-              <div class="card-body row">
-                <h5 class="card-titel col">{{ item['name'] }}</h5>
-                <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
-                <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
-              </div>
-              {% endif %}
-              {% endfor %}
-              </div>
+        <div class="sprungmarke" id="Dessert"></div>
+        <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Dessert</h6>
+          {% for item in items %}
+          {% if item['category'] == 'Dessert' %}
+          <form class="card-body row">
+            <h5 class="card-titel col">{{ item['name'] }}</h5>
+            <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
 
-              <div class="sprungmarke" id="Getränke"></div>
-              <div class="mt-4">
-                <h6 class ="text-center card-header bg-transparent">Getränke</h6>
-                {% for item in items %}
-                {% if item['category'] == 'Getränk' %}
-                <div class="card-body row">
-                  <h5 class="card-titel col">{{ item['name'] }}</h5>
-                  <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
-                  <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
-                </div>
-                {% endif %}
-                {% endfor %}
-                </div>
-
+        <div class="sprungmarke" id="Getränke"></div>
+        <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Getränke</h6>
+          {% for item in items %}
+          {% if item['category'] == 'Getränk' %}
+          <form class="card-body row">
+            <h5 class="card-titel col">{{ item['name'] }}</h5>
+            <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
       </div>
-      </div>
+    </div>
+  </div>
+  <div class="card border-dark col">
+    <h4 class="card-titel text-center mt-4 mb-4">Bestellung:</h5>
+    <div id="orderlist" ></div>
+    
   </div>
 </div>
+
+<script>
+  let orderlist = []
+  const orderlist_element = document.getElementById('orderlist');
+  const wrapper = document.getElementById('wrapper');
+  
+  function button_pressed(event) {
+    const isButton = event.target.nodeName === 'BUTTON';
+    if (!isButton) {
+      return;
+    }
+    var item_form = event.target.closest('form');
+    var item_name = item_form.elements['name'].value;
+    var item_price = item_form.elements['price'].value;
+
+    var item_delete = false;
+    if ("delete" in item_form.elements) {
+      item_delete = true;
+    }
+
+    
+    var found = false;
+    for (let i = 0; i < orderlist.length; i++) {
+      if (orderlist[i]["name"] == item_name) {
+        found = true;
+        if (item_delete) {
+          if (orderlist[i]["amount"] > 1) {
+            orderlist[i]["amount"]--;
+          } else {
+            orderlist.splice(i, 1);
+          }
+        }
+        else {
+          orderlist[i]["amount"]++;
+        }
+        break;
+      }
+    }
+    if (!found) {
+      orderlist.push({
+        name: item_name,
+        price: Number(item_price),
+        amount: 1
+      });
+    }
+
+    orderlist_element.innerHTML = "";
+    for (let i = 0; i < orderlist.length; i++) {
+      orderlist_element.insertAdjacentHTML("beforeend", "<h5 class='card-titel'>" + orderlist[i].name + " " + orderlist[i].amount + "x\
+        </h5><p class='card-text col'>" + (orderlist[i].price/100*orderlist[i].amount).toFixed(2) + "€</p>\
+        <form>\
+          <input type='hidden' name='name' value='" + orderlist[i].name + "'></input>\
+          <input type='hidden' name='price' value=" + orderlist[i].price + "></input>\
+          <input type='hidden' name='delete' value=1></input>\
+          <button type='button' class='btn btn-outline-secondary mb-2'>Entfernen</button>\
+        </form>");
+    }
+    wrapper.removeEventListener('click', button_pressed);
+    wrapper.addEventListener('click', button_pressed);
+
+    /*if (orderlist.length > 0) {
+      orderlist_element.style.visibility = 'hidden';
+    } else {
+      orderlist_element.style.visibility = 'visible';
+    }*/
+  }
+
+  wrapper.addEventListener('click', button_pressed);
+  </script>
+
 {% endblock %}
+

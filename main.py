@@ -116,7 +116,7 @@ def restaurants_page():
         return redirect(url_for("login_customer_page"))
     
 
-@app.route("/menue/<username>")
+@app.route("/menue/<username>", methods=["GET", "POST"])
 def menue_page(username):
     if "user" in session:
         restaurant = database.get_restaurant(username)
