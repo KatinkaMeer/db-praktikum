@@ -90,7 +90,6 @@ def login_business_page():
         for value in request.form.values():
             if value == '': return render_template("login.html", missing_fields=True)
 
-        print(database.login_geschaeft(request.form["username"], request.form["password"]))
         if database.login_geschaeft(request.form["username"], request.form["password"]):
             if "stayloggedin" in request.form:
                 session.permanent = True
@@ -110,7 +109,6 @@ def logout_page():
 def restaurants_page():
     if "user" in session and not "business" in session:
         restaurants = database.get_restaurants_near(session["user"])
-        print(restaurants)
         return render_template("restaurants.html", restaurants=restaurants)
     else:
         return redirect(url_for("login_customer_page"))
@@ -144,31 +142,36 @@ def order_page():
             return render_template("orders_customer.html", orders=orders)
     return redirect(url_for("login_customer_page"))
 
+def get_items(mDict) -> list[dict]:
+    names = request.form.getlist("orderlist_names")
+    prices = request.form.getlist("orderlist_prices")
+    amounts = request.form.getlist("orderlist_amounts")
+    items = []
+    for (name, price, amount) in zip(names, prices, amounts):
+        items.append({
+            "name": name,
+            "price": int(price),
+            "amount": int(amount)
+        })
+    return items
+
 @app.route("/confirm_order", methods=["POST"])
 def confirm_order_page():
     if "user" in session and not "business" in session:
         restaurant = request.form["restaurant"]
-        names = request.form.getlist("orderlist_names")
-        prices = request.form.getlist("orderlist_prices")
-        amounts = request.form.getlist("orderlist_amounts")
-        items = []
-        for (name, price, amount) in zip(names, prices, amounts):
-            items.append({
-                "name": name,
-                "price": int(price),
-                "amount": int(amount)
-            })
+        items = get_items(request.form)
         item_sum = 0
         for item in items:
             item_sum += item["price"] * item["amount"]
-        return render_template("confirm_order.html", restaurant=restaurant, items=items, item_sum=item_sum)
+        return render_template("confirm_order.html", restaurant=restaurant, items=items)
     else:
         return redirect(url_for("login_customer_page"))
 
 @app.route("/place_order", methods=["POST"])
 def place_order_page():
     if "user" in session and not "business" in session:
-        print("jaaaaaa")
+        items = get_items(request.form)
+        database.create_order(session["user"], request.form["restaurant"], items, request.form["comment"])
         return render_template("place_order.html")
     else:
         return redirect(url_for("login_customer_page"))

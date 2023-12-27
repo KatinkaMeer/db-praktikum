@@ -1,5 +1,6 @@
 import sqlite3
 import createdb
+import datetime
 
 def executeUpdate(sql, params = ()):
     dbcon = sqlite3.connect("instance/db.db")
@@ -8,6 +9,7 @@ def executeUpdate(sql, params = ()):
     dbcon.commit()
     cursor.close()
     dbcon.close()
+    return cursor.lastrowid
 
 def getData(sql, params = ()):
     dbcon = sqlite3.connect("instance/db.db")
@@ -143,7 +145,7 @@ def get_items(username):
     items = []
     request_pointer = getData("""SELECT * 
                               FROM Item
-                              WHERE Restaurant = ?
+                              WHERE Restaurant = ? AND Deaktiviert IS NULL
                               ORDER BY Kategorie DESC""", (username,))
     for entry in request_pointer.fetchall():
         restaurant = {
@@ -188,3 +190,17 @@ def get_orders(username, business=False):
         }
         orders.append(order)
     return orders
+
+def create_order(username: str, restaurant: str, items: list[dict], comment: str):
+    timestamp = datetime.datetime.now()
+    rowid = executeUpdate("""
+        INSERT INTO Bestellung (KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)
+        VALUES(?, ?, ?, ?, 'in Bearbeitung')""",
+    (username, restaurant, timestamp, comment))
+    
+    for item in items:
+        executeUpdate("""
+            INSERT INTO bestellung_beinhaltet (Bestellung, Itemname, Menge)
+            VALUES(?, ?, ?)""",
+        (rowid, item["name"], item["amount"]))
+    

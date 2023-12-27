@@ -4,8 +4,8 @@
 
 {% block content %}
 <div class="row g-4 mb-4" id="wrapper">
-  <div class="col-9">
-    <div class="card border-dark">
+  <div class="col-7">
+    <div class="card border-dark overflow-auto" style="max-height: 1000px;">
       <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top restau-image" alt="...">
       <div class="card-body">
         <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
@@ -93,7 +93,7 @@
     </div>
   </div>
   <div class="card border-dark col">
-    <h4 class="card-titel card-header text-center bg-transparent mt-4 mb-4">Bestellung:</h4>
+    <h4 class="card-titel card-header text-center bg-transparent mt-2 mb-4">Bestellung:</h4>
     <div class="card-header bg-transparent" id="orderlist" ></div>
     <form id="orderform" action="{{ url_for('confirm_order_page') }}" method="POST">
     </form>
@@ -148,22 +148,29 @@
         amount: 1
       });
     }
+    update_list();
+  }
+
+  function update_list() {
     let final_sum = 0;
     orderlist_element.innerHTML = "";
     orderform_element.innerHTML = "\
       <input type='hidden' name='restaurant' value='{{ restaurant['name'] }}'></input>\
-      <button id='order' type='submit'class='btn btn-outline-secondary mb-2'>Jetzt Bestellen</button>";
+      <button id='order' type='submit'class='btn btn-lg btn-outline-secondary mb-2 form-control'>Jetzt Bestellen</button>";
 
     for (let i = 0; i < orderlist.length; i++) {
       orderlist_element.insertAdjacentHTML("beforeend", "\
-        <h5 class='card-titel'>" + orderlist[i].name + " " + orderlist[i].amount + "x</h5>\
-          <p class='card-text col'>" + (orderlist[i].price/100*orderlist[i].amount).toFixed(2) + "€</p>\
-          <form>\
+        <div class='row'>\
+          <h5 class='card-titel col-4'>" + orderlist[i].name + "</h5>\
+          <h5 class='card-titel col-2'>" + orderlist[i].amount + "x</h5>\
+          <p class='card-text col-3'>" + (orderlist[i].price/100*orderlist[i].amount).toFixed(2) + "€</p>\
+          <form class='card-text col-3'>\
             <input type='hidden' name='name' value='" + orderlist[i].name + "'></input>\
             <input type='hidden' name='price' value=" + orderlist[i].price + "></input>\
             <input type='hidden' name='delete' value=1></input>\
-            <button type='button' class='btn btn-outline-secondary mb-2'>Entfernen</button>\
-          </form>");
+            <button type='button' class='btn btn-outline-secondary btn-sm mb-4'>Entfernen</button>\
+          </form>\
+        </div");
       orderform_element.insertAdjacentHTML("beforeend", "\
         <input type='hidden' name='orderlist_names' value='" + orderlist[i].name + "'></input>\
         <input type='hidden' name='orderlist_prices' value=" + orderlist[i].price + "></input>\
@@ -171,19 +178,21 @@
 
         final_sum += orderlist[i].price * orderlist[i].amount;
     }
-    orderlist_element.insertAdjacentHTML("beforeend", "<h5 class='card-header bg-transparent'>Summe:</h5>\
-      <p class='card-text col'>" + (final_sum/100).toFixed(2) + "€</p>");
+    orderlist_element.insertAdjacentHTML("beforeend", "\
+      <h5 class='card-header bg-transparent'>Summe:</h5>\
+      <h5 class='card-header card-text bg-transparent col text-center'>" + (final_sum/100).toFixed(2) + "€</h5>");
     wrapper.removeEventListener('click', button_pressed);
     wrapper.addEventListener('click', button_pressed);
 
-    /*if (orderlist.length > 0) {
-      orderlist_element.style.visibility = 'hidden';
-    } else {
+    if (orderlist.length > 0) {
       orderlist_element.style.visibility = 'visible';
-    }*/
+      orderform_element.style.visibility = 'visible';
+    } else {
+      orderlist_element.style.visibility = 'hidden';
+      orderform_element.style.visibility = 'hidden';
+    }
   }
-
-  wrapper.addEventListener('click', button_pressed);
+  update_list();
   </script>
 
 {% endblock %}

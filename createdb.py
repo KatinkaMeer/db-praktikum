@@ -65,7 +65,8 @@ def create_tables():
             Name TEXT,
             Kategorie TEXT,
             Preis INTEGER,
-            PRIMARY KEY (Restaurant, Name)
+            Deaktiviert INTEGER,
+            PRIMARY KEY (Restaurant, Name),
             FOREIGN KEY (Restaurant) REFERENCES GeschaeftsAccount(username)
         )""")
     
@@ -89,8 +90,8 @@ def create_tables():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS bestellung_beinhaltet(
             Bestellung INTEGER NOT NULL,
-            GUsername TEXT NOT NULL,
-            Itemname TEXT NOT NULL
+            Itemname TEXT NOT NULL,
+            Menge INTEGER NOT NULL
         )""")
     
     
@@ -625,13 +626,6 @@ def create_tables():
             ('cafebluerose', 'Getränk', 'Himbeer-Minz-Eistee', 350),
             ('cafebluerose', 'Getränk', 'Blue Rose Cappuccino', 450),
             ('cafebluerose', 'Getränk', 'Vanille-Rosenwasser-Limonade', 500);
-        """)
-
-    cursor.execute("""
-        INSERT or REPLACE INTO Bestellung (ROWID, KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)
-        VALUES (1, 'edge', 'mamamiapizza', '19:45 Uhr', 'mit ohne alles', 'in Bearbeitung'),
-            (2, 'edge', 'mamamiapizza', '19:00 Uhr', 'mit ohne alles', 'in Bearbeitung'),
-            (3, 'edge', 'sushiheaven', '19:20 Uhr', 'mit ohne alles', 'in Bearbeitung')
         """)
     
     dbcon.commit()
