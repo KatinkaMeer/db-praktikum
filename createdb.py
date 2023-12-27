@@ -85,6 +85,13 @@ def create_tables():
             Anmerkung TEXT,
             Bestellstatus TEXT NOT NULL CHECK( Bestellstatus IN ('in Bearbeitung','in Zubereitung','storniert','abgeschlossen') )
         )""")
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS bestellung_beinhaltet(
+            Bestellung INTEGER NOT NULL,
+            GUsername TEXT NOT NULL,
+            Itemname TEXT NOT NULL
+        )""")
     
     
     ##insert data

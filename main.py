@@ -144,5 +144,14 @@ def order_page():
             return render_template("orders_customer.html", orders=orders)
     return redirect(url_for("login_customer_page"))
 
+@app.route("/confirm_order", methods=["POST"])
+def confirm_order_page():
+    if "user" in session and not "business" in session:
+        print(request.json)
+        return render_template("index.html")
+    else:
+        return redirect(url_for("login_customer_page"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)

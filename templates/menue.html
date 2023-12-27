@@ -93,10 +93,11 @@
     </div>
   </div>
   <div class="card border-dark col">
-    <h4 class="card-titel text-center mt-4 mb-4">Bestellung:</h5>
-    <div id="orderlist" ></div>
-    
+    <h4 class="card-titel card-header text-center bg-transparent mt-4 mb-4">Bestellung:</h5>
+    <div class="card-header bg-transparent" id="orderlist" ></div>
+    <button id="order" type="button" class="btn btn-outline-secondary mb-2">Jetzt Bestellen</button>
   </div>
+
 </div>
 
 <script>
@@ -109,6 +110,18 @@
     if (!isButton) {
       return;
     }
+
+    if (event.target.id == "order") {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://127.0.0.1:5000/confirm_order", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify({
+        orderlist: orderlist
+      }));
+      return
+    }
+
+
     var item_form = event.target.closest('form');
     var item_name = item_form.elements['name'].value;
     var item_price = item_form.elements['price'].value;
@@ -143,7 +156,7 @@
         amount: 1
       });
     }
-
+    let final_sum = 0;
     orderlist_element.innerHTML = "";
     for (let i = 0; i < orderlist.length; i++) {
       orderlist_element.insertAdjacentHTML("beforeend", "<h5 class='card-titel'>" + orderlist[i].name + " " + orderlist[i].amount + "x\
@@ -154,7 +167,10 @@
           <input type='hidden' name='delete' value=1></input>\
           <button type='button' class='btn btn-outline-secondary mb-2'>Entfernen</button>\
         </form>");
+        final_sum += orderlist[i].price * orderlist[i].amount;
     }
+    orderlist_element.insertAdjacentHTML("beforeend", "<div class='card-header bg-transparent'>Summe:</div>\
+      </h5><p class='card-text col'>" + (final_sum/100).toFixed(2) + "€</p>");
     wrapper.removeEventListener('click', button_pressed);
     wrapper.addEventListener('click', button_pressed);
 
