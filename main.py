@@ -147,11 +147,31 @@ def order_page():
 @app.route("/confirm_order", methods=["POST"])
 def confirm_order_page():
     if "user" in session and not "business" in session:
-        print(request.json)
-        return render_template("index.html")
+        restaurant = request.form["restaurant"]
+        names = request.form.getlist("orderlist_names")
+        prices = request.form.getlist("orderlist_prices")
+        amounts = request.form.getlist("orderlist_amounts")
+        items = []
+        for (name, price, amount) in zip(names, prices, amounts):
+            items.append({
+                "name": name,
+                "price": int(price),
+                "amount": int(amount)
+            })
+        item_sum = 0
+        for item in items:
+            item_sum += item["price"] * item["amount"]
+        return render_template("confirm_order.html", restaurant=restaurant, items=items, item_sum=item_sum)
     else:
         return redirect(url_for("login_customer_page"))
 
+@app.route("/place_order", methods=["POST"])
+def place_order_page():
+    if "user" in session and not "business" in session:
+        print("jaaaaaa")
+        return render_template("place_order.html")
+    else:
+        return redirect(url_for("login_customer_page"))
 
 if __name__ == "__main__":
     app.run(debug=True)
