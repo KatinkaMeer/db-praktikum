@@ -6,7 +6,7 @@
   {% for restaurant in restaurants %}
   
       <div class="card mt-2 mb-4 p-2">
-      <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top restau-image" alt="...">
+      <img src="{{ url_for('static', filename=restaurant['image_path']) }}" class="card-img-top restau-image" alt="...">
       <div class="card-body">
           <h5 class="card-title">{{ restaurant['name'] }}</h5>
           <p class="card-text">{{ restaurant['description'] }}</p>

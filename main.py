@@ -2,10 +2,15 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import timedelta
 import database
 import createdb
+import os
+
+UPLOAD_FOLDER = './static/business'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.secret_key = "schimmel"
 app.permanent_session_lifetime = timedelta(days=1)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 createdb.create_tables()
 
 
@@ -29,6 +34,10 @@ def signup_customer_page():
     if request.method != "POST":
         return render_template("signup.html")
 
+    usernames = database.get_usernames()
+    if request.form["username"] in usernames:
+        return render_template("signup.html", username_taken=True)
+
     for value in request.form.values():
         if value == '': return render_template("signup.html", missing_fields=True)
 
@@ -50,16 +59,35 @@ def edit_profile_page():
     else:
         return render_template("login_kunde.html")
 
+def save_restaurant_image(img):
+    _, extension = os.path.splitext(img.filename)
+    for other_file in os.listdir(app.config['UPLOAD_FOLDER']):
+        stem, other_extension = os.path.splitext(other_file)
+        if request.form["username"] == stem:
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], other_file))
+    img.save(os.path.join(app.config['UPLOAD_FOLDER'], request.form["username"] + extension))
+
 @app.route("/signup/business", methods=["GET", "POST"])
 def signup_business_page():
 
     required_fields = ["username", "password", "restaurantname", "description", "street", "housenumber", "postalcode"]
+    
 
     if request.method != "POST":
         return render_template("signup.html", business=True)
-    
+
+    usernames = database.get_usernames(business=True)
+    if request.form["username"] in usernames:
+        return render_template("signup.html", business=True, username_taken=True)
+
     for value in request.form.values():
-        if value == '': return render_template("signup.html", missing_fields=True)
+        if value == '': return render_template("signup.html", missing_fields=True, business=True)
+
+
+    if "image" in request.files and request.files["image"].filename:
+        print(type(request.files["image"]))
+        save_restaurant_image(request.files["image"])
+        
 
     database.create_GeschaeftsAccount(request.form["username"], request.form["password"], request.form["restaurantname"], request.form["description"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
@@ -109,6 +137,17 @@ def logout_page():
 def restaurants_page():
     if "user" in session and not "business" in session:
         restaurants = database.get_restaurants_near(session["user"])
+        image_names = os.listdir(app.config['UPLOAD_FOLDER'])
+        image_tuples = list(map(os.path.splitext, image_names))
+        for restaurant in restaurants:
+            image_path = "test1.jpeg"
+            for index, value in enumerate(image_tuples):
+                if restaurant["username"] == value[0]:
+                    image_path = 'business/' + value[0] + value[1]
+                    image_tuples.pop(index)
+                    break
+            restaurant["image_path"] = image_path
+            
         return render_template("restaurants.html", restaurants=restaurants)
     else:
         return redirect(url_for("login_customer_page"))

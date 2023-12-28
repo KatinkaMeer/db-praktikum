@@ -120,7 +120,7 @@ def get_restaurants_near(username):
             "description": entry[2],
             "street": entry[3],
             "housenumber": entry[4],
-            "postalcode": entry[5]
+            "postalcode": entry[5],
         }
         restaurants.append(restaurant)
     return restaurants
@@ -204,3 +204,18 @@ def create_order(username: str, restaurant: str, items: list[dict], comment: str
             VALUES(?, ?, ?)""",
         (rowid, item["name"], item["amount"]))
     
+def get_usernames(business=False) -> list:
+    query = """SELECT Username
+                FROM KundenAccount"""
+                
+    if business:
+        query = """SELECT Username
+                FROM GeschaeftsAccount"""
+
+    request_pointer = getData(query)
+
+    usernames = []
+    for username in request_pointer.fetchall():
+        usernames.append(username[0])
+
+    return usernames
