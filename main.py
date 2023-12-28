@@ -140,13 +140,12 @@ def restaurants_page():
         image_names = os.listdir(app.config['UPLOAD_FOLDER'])
         image_tuples = list(map(os.path.splitext, image_names))
         for restaurant in restaurants:
-            image_path = "test1.jpeg"
+            restaurant["image_path"] = "test1.jpeg"
             for index, value in enumerate(image_tuples):
                 if restaurant["username"] == value[0]:
-                    image_path = 'business/' + value[0] + value[1]
+                    restaurant["image_path"] = 'business/' + value[0] + value[1]
                     image_tuples.pop(index)
                     break
-            restaurant["image_path"] = image_path
             
         return render_template("restaurants.html", restaurants=restaurants)
     else:
@@ -157,6 +156,15 @@ def restaurants_page():
 def menue_page(username):
     if "user" in session:
         restaurant = database.get_restaurant(username)
+        image_names = os.listdir(app.config['UPLOAD_FOLDER'])
+        image_tuples = list(map(os.path.splitext, image_names))
+        restaurant["image_path"] = "test1.jpeg"
+        for index, value in enumerate(image_tuples):
+            if username == value[0]:
+                restaurant["image_path"] = 'business/' + value[0] + value[1]
+                image_tuples.pop(index)
+                break
+
         items = database.get_items(username)
         return render_template("menue.html", restaurant=restaurant, items=items)
     else:

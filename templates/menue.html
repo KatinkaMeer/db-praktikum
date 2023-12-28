@@ -6,7 +6,7 @@
 <div class="row g-4 mb-4" id="wrapper">
   <div class="col-7">
     <div class="card border-dark overflow-auto" style="max-height: 1000px;">
-      <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top restau-image" alt="...">
+      <img src="{{ url_for('static', filename=restaurant['image_path']) }}" class="card-img-top restau-image" alt="...">
       <div class="card-body">
         <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
         <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>

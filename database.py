@@ -127,17 +127,18 @@ def get_restaurants_near(username):
 
 
 def get_restaurant(username):
-    request_pointer = getData("""SELECT Restaurantname, Beschreibung, Strasse, Hausnummer, Plz 
+    request_pointer = getData("""SELECT Username, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz 
                               FROM GeschaeftsAccount
                               WHERE Username = ? """,(username,))
     result = request_pointer.fetchone()
 
     restaurant = {
-            "name": result[0],
-            "description": result[1],
-            "street": result[2],
-            "housenumber": result[3],
-            "postalcode": result[4]
+            "username": result[0],
+            "name": result[1],
+            "description": result[2],
+            "street": result[3],
+            "housenumber": result[4],
+            "postalcode": result[5]
         }
     return restaurant
 
