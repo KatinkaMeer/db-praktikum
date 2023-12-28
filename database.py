@@ -169,27 +169,41 @@ def get_delivery_radius(username):
 
 
 def get_orders(username, business=False):
-    query = """SELECT *
-                FROM Bestellung
-                WHERE KUsername = ?
-                ORDER BY Eingangszeit DESC"""
-                
-    if business:
-        query = """SELECT *
-                FROM Bestellung
-                WHERE GUsername = ?
-                ORDER BY Eingangszeit DESC"""
     orders = []
-    request_pointer = getData(query, (username,))
+    request_pointer = getData(f"""
+        SELECT rowid, *
+        FROM Bestellung
+        WHERE {'GUsername' if business else 'KUsername'} = ?
+        ORDER BY Eingangszeit DESC""",
+        (username,))
+    
     for entry in request_pointer.fetchall():
         order = {
-            "KUsername": entry[0],
-            "GUsername": entry[1],
-            "ordertime": entry[2],
-            "comment": entry[3],
-            "orderstatus": entry[4]
+            "id": entry[0],
+            "KUsername": entry[1],
+            "GUsername": entry[2],
+            "ordertime": entry[3],
+            "comment": entry[4],
+            "orderstatus": entry[5]
         }
+
+        item_request_pointer = getData(f"""
+            SELECT *
+            FROM bestellung_beinhaltet JOIN Item ON Item.Restaurant = '{order["GUsername"]}' AND bestellung_beinhaltet.Itemname = Item.Name
+            WHERE Bestellung = ?""",
+            (order["id"],))
+
+        order["items"] = []
+        for x in item_request_pointer.fetchall():
+            order["items"].append({
+                "name": x[1],
+                "price": x[6],
+                "amount": x[2],
+                "category": x[5],
+            })
         orders.append(order)
+
+    
     return orders
 
 def create_order(username: str, restaurant: str, items: list[dict], comment: str):
@@ -206,14 +220,10 @@ def create_order(username: str, restaurant: str, items: list[dict], comment: str
         (rowid, item["name"], item["amount"]))
     
 def get_usernames(business=False) -> list:
-    query = """SELECT Username
-                FROM KundenAccount"""
-                
-    if business:
-        query = """SELECT Username
-                FROM GeschaeftsAccount"""
 
-    request_pointer = getData(query)
+    request_pointer = getData(f"""
+        SELECT Username
+        FROM {'GeschaeftsAccount' if business else get_KundenAccount}""")
 
     usernames = []
     for username in request_pointer.fetchall():

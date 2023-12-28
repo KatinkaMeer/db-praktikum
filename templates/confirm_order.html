@@ -7,7 +7,7 @@
   <div class="col-7">
     <div class="card border-dark overflow-auto" style="max-height: 1000px;">
       <div class="card-body">
-        <h3 class="card-title card-header bg-transparent">{{ restaurant }}</h3>
+        <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
         <div class="mt-4">
           <div class="card-header bg-transparent" id="orderlist" ></div>
         </div>
@@ -93,7 +93,7 @@
   function update_list() {
     let final_sum = 0;
     orderlist_element.innerHTML = "";
-    orderform_element.innerHTML = "<input type='hidden' name='restaurant' value='{{ restaurant }}'></input>";
+    orderform_element.innerHTML = "<input type='hidden' name='restaurant' value='{{ restaurant['username'] }}'></input>";
 
     for (let i = 0; i < orderlist.length; i++) {
       orderlist_element.insertAdjacentHTML("beforeend", "\

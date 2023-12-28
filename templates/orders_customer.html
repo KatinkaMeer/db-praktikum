@@ -5,16 +5,33 @@
 {% block content %}
 <div class="row g-4 mb-4">
   {% for order in orders %}
-  <div class="col-4">
       <div class="card">
-      <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top shop-image" alt="...">
       <div class="card-body">
-          <h5 class="card-title">{{ order['KUsername'] }}</h5>
-          <p class="card-text">{{ order['GUsername'] }}</p>
-          <p class="card-text">{{ order['ordertime'] }}</p>
+        <div class="row card-header bg-transparent mb-2">
+          <div class="col">
+            <h5 class="card-title">{{ order['GUsername'] }}</h5>
+          </div>
+          <div class="col">
+            <p class="card-text">{{ order['ordertime'] }}</p>
+          </div>
+          <div class="col">
+            <p class="card-text">{{ order['orderstatus'] }}</p>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-outline-secondary">Storieren</button>
+          </div>
+        </div>
+          
+          
+          {% for item in order['items'] %}
+          <div class="row">
+            <p class="card-text col">{{ item['name'] }}</p>
+            <p class="card-text col">{{ item['amount'] }}x</p>
+            <p class="card-text col">{{ "%.2f" | format(item['price']*item['amount']/100) }}€</p>
+          </div>
+          {% endfor %}
       </div>
       </div>
-  </div>
   {% endfor %}
 </div>
 {% endblock %}

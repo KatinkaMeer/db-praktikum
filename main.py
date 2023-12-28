@@ -205,7 +205,7 @@ def get_items(mDict) -> list[dict]:
 @app.route("/confirm_order", methods=["POST"])
 def confirm_order_page():
     if "user" in session and not "business" in session:
-        restaurant = request.form["restaurant"]
+        restaurant = restaurant = database.get_restaurant(request.form["restaurant"])
         items = get_items(request.form)
         item_sum = 0
         for item in items:
