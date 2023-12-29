@@ -14,10 +14,6 @@
                 <div class="card-body">
                     <form action="" method="POST">
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input name = "username" type="text" class="form-control" id="username" placeholder="Enter your username">
-                        </div>
-                        <div class="form-group">
                             <label for="password">Password</label>
                             <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
                         </div>
@@ -45,10 +41,16 @@
                             <label for="postalcode">Postal Code</label>
                             <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">
                         </div>
-                        {% if missing_fields == True %}
-                        <p class="text-danger">Please fill in all required fields</p>
+                        {% if missing_fields %}
+                        <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
                         {% endif %}
-                        <button type="submit" class="btn btn-primary mt-2">Änderungen übernehmen</button>
+                        {% if wrong_credentials %}
+                        <p class="text-danger">Falsches Passwort</p>
+                        {% endif %}
+                        {% if saved_changes %}
+                        <p class="text-success">Änderungen erfolgreich gespeichert</p>
+                        {% endif %}
+                        <button type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Login Page{% endblock %}
-{% block heading %}Welcome to Lieferspatz!{% endblock %}
+{% block heading %}Wilkommen bei Lieferspatz!{% endblock %}
 
 {% block content %}
   <!--Login Panel-->
@@ -23,10 +23,13 @@
                         </div>
                         <div class="form-check">
                             <input name = "stayloggedin" type="checkbox" class="form-check-input" id="stayloggedin">
-                            <label class="form-check-label" for="stayloggedin">Stay logged in</label>
+                            <label class="form-check-label" for="stayloggedin">Angemeldet bleiben</label>
                         </div>
                         {% if missing_fields == True %}
-                        <p class="text-danger">Please fill in all required fields</p>
+                        <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
+                        {% endif %}
+                        {% if wrong_credentials %}
+                        <p class="text-danger">Falsche Zugangsdaten</p>
                         {% endif %}
                         <button class="btn btn-primary mt-2">Login</button>
                     </form>

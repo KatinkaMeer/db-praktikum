@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from datetime import timedelta
+import datetime
 import database
 import createdb
 import os
@@ -9,7 +9,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
 app.secret_key = "schimmel"
-app.permanent_session_lifetime = timedelta(days=1)
+app.permanent_session_lifetime = datetime.timedelta(days=1)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 createdb.create_tables()
 
@@ -48,16 +48,23 @@ def signup_customer_page():
 @app.route("/edit_profile", methods=["GET", "POST"])
 def edit_profile_page():
     if "user" in session and not "business" in session:
-        if request.method == "POST" and database.login_kunde(request.form["username"], request.form["password"]):
-                
-            database.update_KundenAccount(request.form["username"], request.form["password"], request.form["firstname"], request.form["lastname"],\
-                                request.form["street"], request.form["housenumber"], request.form["postalcode"])
-            return render_template("index.html")
-            
         profile = database.get_KundenAccount(session["user"])
+        if request.method == "POST":
+
+            if not request.form["password"]:
+                return render_template("edit_profile.html", profile=profile, missing_fields=True)
+
+            if database.login_kunde(session["user"], request.form["password"]):
+                
+                database.update_KundenAccount(session["user"], request.form["password"], request.form["firstname"], request.form["lastname"],\
+                                request.form["street"], request.form["housenumber"], request.form["postalcode"])
+                return render_template("edit_profile.html", profile=profile, saved_changes=True)
+            else:
+                return render_template("edit_profile.html", profile=profile, wrong_credentials=True)
+        
         return render_template("edit_profile.html", profile=profile)
     else:
-        return render_template("login_kunde.html")
+        return redirect(url_for("login_customer_page"))
 
 def save_restaurant_image(img):
     _, extension = os.path.splitext(img.filename)
@@ -108,6 +115,8 @@ def login_customer_page():
             session["user"] = request.form["username"]
             session.pop("business", None)
             return redirect(url_for("restaurants_page"))
+        else:
+            return render_template("login.html", wrong_credentials=True)
     return render_template("login.html")
 
 
@@ -126,6 +135,8 @@ def login_business_page():
             session["user"] = request.form["username"]
             session["business"] = True
             return redirect(url_for("start_page"))
+        else:
+            return render_template("login.html", business=True, wrong_credentials=True)
     return render_template("login.html", business=True)
 
 @app.route("/logout/")
@@ -136,7 +147,9 @@ def logout_page():
 @app.route("/restaurants/")
 def restaurants_page():
     if "user" in session and not "business" in session:
-        restaurants = database.get_restaurants_near(session["user"])
+        day_index = datetime.datetime.now().weekday()
+        days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+        restaurants = database.get_restaurants_near_and_open(session["user"], days[day_index])
         image_names = os.listdir(app.config['UPLOAD_FOLDER'])
         image_tuples = list(map(os.path.splitext, image_names))
         for restaurant in restaurants:
@@ -170,13 +183,22 @@ def menue_page(username):
     else:
         return redirect(url_for("login_customer_page"))
 
-@app.route("/restaurant/edit")
-def edit_restaurant_page(username):
+    
+@app.route("/edit_restaurant", methods=["GET", "POST"])
+def edit_restaurant_page():
     if "user" in session and "business" in session:
-        postalcodes = database.get_delivery_radius(username)
-        return render_template("edit_restaurant.html", postalcodes=postalcodes)
+        if request.method == "POST" and database.login_kunde(request.form["username"], request.form["password"]):
+                
+            postalcodes = database.get_delivery_radius(session["user"])
+            return render_template("edit_restaurant.html", postalcodes=postalcodes)
+            database.update_KundenAccount(request.form["username"], request.form["password"], request.form["firstname"], request.form["lastname"],\
+                                request.form["street"], request.form["housenumber"], request.form["postalcode"])
+            return render_template("index.html")
+            
+        profile = database.get_KundenAccount(session["user"])
+        return render_template("edit_profile.html", profile=profile)
     else:
-        return redirect(url_for("login_customer_page"))
+        return redirect(url_for(login_business_page))
     
 @app.route("/orders")
 def order_page():

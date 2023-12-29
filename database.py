@@ -106,7 +106,7 @@ def get_restaurants():
         restaurants.append(restaurant)
     return restaurants
 
-def get_restaurants_near(username):
+def get_restaurants_near_and_open(username, day):
     restaurants = []
     request_pointer = getData("""SELECT GeschaeftsAccount.Username, Restaurantname, Beschreibung, GeschaeftsAccount.Strasse, GeschaeftsAccount.Hausnummer, GeschaeftsAccount.Plz 
                               FROM GeschaeftsAccount
@@ -122,7 +122,25 @@ def get_restaurants_near(username):
             "housenumber": entry[4],
             "postalcode": entry[5],
         }
-        restaurants.append(restaurant)
+
+        hours = get_business_hours_for(restaurant["username"], day)
+        if hours:
+            
+            time = datetime.datetime.now().strftime("%H:%M") #Zeitstempel im Format Stunde(24):Minute
+
+            #teile stunde und minute auf und caste zu int
+            now_hour, now_min = [int(x) for x in time.split(":")]   
+            start_hour, start_min = [int(x) for x in hours["from"].split(":")]
+            end_hour, end_min = [int(x) for x in hours["until"].split(":")]
+
+            if (now_hour == start_hour and now_min < start_min)\
+            or (now_hour == end_hour and now_min >= end_min)\
+            or (now_hour < start_hour or now_hour >= end_hour):
+                continue
+                
+            
+            restaurants.append(restaurant)
+
     return restaurants
 
 
@@ -230,3 +248,39 @@ def get_usernames(business=False) -> list:
         usernames.append(username[0])
 
     return usernames
+
+
+def get_business_hours(username):
+    times = []
+    request_pointer = getData("""
+        SELECT *
+        FROM Oeffnungszeiten
+        WHERE GUsername = ?""",
+        (username,))
+    
+    for entry in request_pointer.fetchall():
+        times.append({
+            "restaurant": entry[0],
+            "day": entry[1],
+            "from": entry[2],
+            "until": entry[3],
+        })
+    return times
+
+def get_business_hours_for(username, day):
+    request_pointer = getData("""
+        SELECT *
+        FROM Oeffnungszeit
+        WHERE GUsername = ? AND Wochentag = ?""",
+        (username, day))
+    entry = request_pointer.fetchone()
+    result = None
+    if entry:
+        result = {
+            "restaurant": entry[0],
+            "day": entry[1],
+            "from": entry[2],
+            "until": entry[3],
+        }
+    return result
+    

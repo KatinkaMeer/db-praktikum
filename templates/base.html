@@ -31,6 +31,9 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{ url_for('restaurants_page') }}">Restaurants</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('order_page') }}">Bestellungen</a>
+              </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
               {% if session['user'] %}
