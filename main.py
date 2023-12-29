@@ -7,6 +7,7 @@ import os
 UPLOAD_FOLDER = './static/business'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 WEEKDAYS = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+DEFAULT_IMAGE = "test1.jpeg"
 
 app = Flask(__name__)
 app.secret_key = "schimmel"
@@ -153,7 +154,7 @@ def restaurants_page():
         image_names = os.listdir(app.config['UPLOAD_FOLDER'])
         image_tuples = list(map(os.path.splitext, image_names))
         for restaurant in restaurants:
-            restaurant["image_path"] = "test1.jpeg"
+            restaurant["image_path"] = DEFAULT_IMAGE
             for index, value in enumerate(image_tuples):
                 if restaurant["username"] == value[0]:
                     restaurant["image_path"] = 'business/' + value[0] + value[1]
