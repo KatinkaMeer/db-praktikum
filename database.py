@@ -167,13 +167,14 @@ def get_items(username):
                               WHERE Restaurant = ? AND Deaktiviert IS NULL
                               ORDER BY Kategorie DESC""", (username,))
     for entry in request_pointer.fetchall():
-        restaurant = {
+        item = {
             "restaurant": entry[0],
             "name": entry[1],
             "category": entry[2],
-            "price": entry[3]
+            "description": entry[3],
+            "price": entry[4]
         }
-        items.append(restaurant)
+        items.append(item)
     return items
 
 def get_delivery_radius(username):

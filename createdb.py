@@ -64,6 +64,7 @@ def create_tables():
             Restaurant INTEGER,
             Name TEXT,
             Kategorie TEXT,
+            IBeschreibung TEXT,
             Preis INTEGER,
             Deaktiviert INTEGER,
             PRIMARY KEY (Restaurant, Name),
@@ -628,6 +629,13 @@ def create_tables():
             ('cafebluerose', 'Getränk', 'Vanille-Rosenwasser-Limonade', 500);
         """)
     
+    cursor.execute("""
+        INSERT or REPLACE INTO Item (Restaurant, Name, IBeschreibung, Kategorie, Preis)
+        VALUES ('mamamiapizza', 'Bruschetta', 'mit gehackten Tomaten und frischem Basilikum', 'Vorspeise', 550),
+            ('mamamiapizza', 'Caprese-Salat', 'gesalzene rohe Tomatenscheiben mit Mozzarellascheiben, Basilikumblätter in Olivenöl beträufelt', 'Vorspeise', 650);
+        """)
+                    
+
     cursor.execute("""
         INSERT or REPLACE INTO Oeffnungszeit (GUsername, Wochentag, Von, Bis)
         VALUES ('cafebluerose', 'Montag', '00:00', '24:00'),
