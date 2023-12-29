@@ -11,6 +11,27 @@
         <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
         <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>
 
+
+        <a class="btn btn-outline-secondary mb-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Öffnungszeiten
+        </a>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            {% for day in weekdays %}
+              <div class="bg-transparent mb-3 row">
+                <div class="card-text col">{{ day }}: </div>
+                {% if day in restaurant['times'].keys() %}
+                <div class="card-text col">{{ restaurant['times'][day]['from'] }} - {{ restaurant['times'][day]['until'] }}</div>
+                {% else %}
+                <div class="card-text col">geschlossen</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+
+        
         <ul class="nav nav-pills justify-content-center mt-4">
           <li class="nav-item">
             <a class="nav-link" href="#Vorspeisen">Vorspeisen</a>

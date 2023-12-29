@@ -631,14 +631,11 @@ def create_tables():
     cursor.execute("""
         INSERT or REPLACE INTO Oeffnungszeit (GUsername, Wochentag, Von, Bis)
         VALUES ('cafebluerose', 'Montag', '00:00', '24:00'),
-            ('cafebluerose', 'Dienstag', '00:00', '24:00'),
             ('cafebluerose', 'Mittwoch', '00:00', '24:00'),
             ('cafebluerose', 'Donnerstag', '00:00', '24:00'),
             ('cafebluerose', 'Freitag', '00:00', '24:00'),
-            ('cafebluerose', 'Samstag', '00:00', '24:00'),
             ('cafebluerose', 'Sonntag', '00:00', '24:00'),
                    
-            ('sushiheaven', 'Montag', '00:00', '24:00'),
             ('sushiheaven', 'Dienstag', '00:00', '24:00'),
             ('sushiheaven', 'Mittwoch', '00:00', '24:00'),
             ('sushiheaven', 'Donnerstag', '00:00', '24:00'),
@@ -647,7 +644,6 @@ def create_tables():
             ('sushiheaven', 'Sonntag', '00:00', '24:00'),
                    
             ('bowl', 'Montag', '00:00', '24:00'),
-            ('bowl', 'Dienstag', '00:00', '24:00'),
             ('bowl', 'Mittwoch', '00:00', '24:00'),
             ('bowl', 'Donnerstag', '00:00', '24:00'),
             ('bowl', 'Freitag', '00:00', '24:00'),
@@ -656,23 +652,18 @@ def create_tables():
                    
             ('americanstory', 'Montag', '00:00', '24:00'),
             ('americanstory', 'Dienstag', '00:00', '24:00'),
-            ('americanstory', 'Mittwoch', '00:00', '24:00'),
             ('americanstory', 'Donnerstag', '00:00', '24:00'),
             ('americanstory', 'Freitag', '00:00', '24:00'),
             ('americanstory', 'Samstag', '00:00', '24:00'),
-            ('americanstory', 'Sonntag', '00:00', '24:00'),
                    
             ('sidebysoups', 'Montag', '00:00', '24:00'),
-            ('sidebysoups', 'Dienstag', '00:00', '24:00'),
             ('sidebysoups', 'Mittwoch', '00:00', '24:00'),
             ('sidebysoups', 'Donnerstag', '00:00', '24:00'),
-            ('sidebysoups', 'Freitag', '00:00', '24:00'),
             ('sidebysoups', 'Samstag', '00:00', '24:00'),
             ('sidebysoups', 'Sonntag', '00:00', '24:00'),
             
             ('mamamiapizza', 'Montag', '00:00', '24:00'),
             ('mamamiapizza', 'Dienstag', '00:00', '24:00'),
-            ('mamamiapizza', 'Mittwoch', '00:00', '24:00'),
             ('mamamiapizza', 'Donnerstag', '00:00', '24:00'),
             ('mamamiapizza', 'Freitag', '00:00', '24:00'),
             ('mamamiapizza', 'Samstag', '00:00', '24:00'),

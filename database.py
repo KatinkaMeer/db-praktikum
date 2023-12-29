@@ -251,20 +251,18 @@ def get_usernames(business=False) -> list:
 
 
 def get_business_hours(username):
-    times = []
+    times = {}
     request_pointer = getData("""
         SELECT *
-        FROM Oeffnungszeiten
+        FROM Oeffnungszeit
         WHERE GUsername = ?""",
         (username,))
     
     for entry in request_pointer.fetchall():
-        times.append({
-            "restaurant": entry[0],
-            "day": entry[1],
+        times[entry[1]] = {
             "from": entry[2],
             "until": entry[3],
-        })
+        }
     return times
 
 def get_business_hours_for(username, day):

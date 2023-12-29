@@ -6,6 +6,7 @@ import os
 
 UPLOAD_FOLDER = './static/business'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+WEEKDAYS = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 
 app = Flask(__name__)
 app.secret_key = "schimmel"
@@ -148,8 +149,7 @@ def logout_page():
 def restaurants_page():
     if "user" in session and not "business" in session:
         day_index = datetime.datetime.now().weekday()
-        days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
-        restaurants = database.get_restaurants_near_and_open(session["user"], days[day_index])
+        restaurants = database.get_restaurants_near_and_open(session["user"], WEEKDAYS[day_index])
         image_names = os.listdir(app.config['UPLOAD_FOLDER'])
         image_tuples = list(map(os.path.splitext, image_names))
         for restaurant in restaurants:
@@ -169,6 +169,7 @@ def restaurants_page():
 def menue_page(username):
     if "user" in session:
         restaurant = database.get_restaurant(username)
+        restaurant["times"] = database.get_business_hours(username)
         image_names = os.listdir(app.config['UPLOAD_FOLDER'])
         image_tuples = list(map(os.path.splitext, image_names))
         restaurant["image_path"] = "test1.jpeg"
@@ -179,7 +180,7 @@ def menue_page(username):
                 break
 
         items = database.get_items(username)
-        return render_template("menue.html", restaurant=restaurant, items=items)
+        return render_template("menue.html", restaurant=restaurant, items=items, weekdays=WEEKDAYS)
     else:
         return redirect(url_for("login_customer_page"))
 
