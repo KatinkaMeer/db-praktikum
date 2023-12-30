@@ -202,10 +202,22 @@ def edit_restaurant_page():
     else:
         return redirect(url_for(login_business_page))
     
-@app.route("/orders")
+@app.route("/orders", methods=["GET", "POST"])
 def order_page():
     if "user" in session:
         if "business" in session:
+            if request.method == "POST":
+                
+                if "abschließen" in request.form:
+                    status = "abgeschlossen"
+                elif "akzeptieren" in request.form:
+                    status = "in Zubereitung"
+                else:
+                    status = "storniert"
+
+                ## Pascall ist dafür schuldig: status = "abgeschlossen" if "abschließen" in request.form else ("in Zubereitung" if "akzeptieren" in request.form else "storniert") 
+
+                database.update_orderstatus(request.form["orderid"], status)
             orders = database.get_orders(session["user"], True)
             return render_template("orders_business.html", orders=orders)
         else:

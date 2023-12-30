@@ -203,7 +203,7 @@ def get_orders(username, business=False):
             "GUsername": entry[2],
             "ordertime": entry[3],
             "comment": entry[4],
-            "orderstatus": entry[5]
+            "orderstatus": entry[5],
         }
 
         item_request_pointer = getData(f"""
@@ -214,11 +214,13 @@ def get_orders(username, business=False):
 
         order["items"] = []
         for x in item_request_pointer.fetchall():
+            print(x)
             order["items"].append({
                 "name": x[1],
-                "price": x[6],
+                "price": x[7],
                 "amount": x[2],
                 "category": x[5],
+                "description": x[6],
             })
         orders.append(order)
 
@@ -283,3 +285,9 @@ def get_business_hours_for(username, day):
         }
     return result
     
+def update_orderstatus(orderid: int, status: str):
+    executeUpdate("""
+        UPDATE Bestellung
+        SET Bestellstatus = ?
+        WHERE rowid == ?
+        """, (status, orderid))
