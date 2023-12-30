@@ -215,8 +215,6 @@ def order_page():
                 else:
                     status = "storniert"
 
-                ## Pascall ist dafür schuldig: status = "abgeschlossen" if "abschließen" in request.form else ("in Zubereitung" if "akzeptieren" in request.form else "storniert") 
-
                 database.update_orderstatus(request.form["orderid"], status)
             orders = database.get_orders(session["user"], True)
             return render_template("orders_business.html", orders=orders)

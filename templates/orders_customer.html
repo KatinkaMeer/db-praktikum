@@ -30,6 +30,9 @@
             <p class="card-text col">{{ "%.2f" | format(item['price']*item['amount']/100) }}€</p>
           </div>
           {% endfor %}
+          <div class="card-text">
+            Anmerkung: {{ order['comment'] }}
+          </div>
       </div>
       </div>
   {% endfor %}
