@@ -205,8 +205,7 @@ def edit_restaurant_page():
 @app.route("/orders", methods=["GET", "POST"])
 def order_page():
     if "user" in session:
-        if "business" in session:
-            if request.method == "POST":
+        if request.method == "POST":
                 
                 if "abschließen" in request.form:
                     status = "abgeschlossen"
@@ -216,6 +215,7 @@ def order_page():
                     status = "storniert"
 
                 database.update_orderstatus(request.form["orderid"], status)
+        if "business" in session:
             orders = database.get_orders(session["user"], True)
             return render_template("orders_business.html", orders=orders)
         else:

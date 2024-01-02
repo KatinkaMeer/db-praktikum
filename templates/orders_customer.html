@@ -10,17 +10,23 @@
         <div class="card">
         <div class="card-body">
           <div class="row card-header bg-transparent mb-2">
-            <div class="col">
+            <div class="col-3">
               <h5 class="card-title">{{ order['GUsername'] }}</h5>
             </div>
-            <div class="col">
+            <div class="col-3">
               <p class="card-text">{{ order['ordertime'].split('.')[0] }}</p>
             </div>
-            <div class="col">
+            <div class="col-3">
               <p class="card-text">{{ order['orderstatus'] }}</p>
             </div>
-            <div class="col">
-              <button type="button" class="btn btn-outline-secondary">Storieren</button>
+            <div class="col-3">
+              {% if order['orderstatus'] == 'in Zubereitung' %}
+              <form method="POST">
+                <input type="hidden" name="stornieren" value="1">
+                <input type="hidden" name="orderid" value="{{ order['id'] }}">
+                <button type="submit" class="btn btn-outline-danger my-1 form-control">Storieren</button>
+              </form>
+              {% endif %}
             </div>
           </div>
             
