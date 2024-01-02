@@ -4,55 +4,59 @@
 
 {% block content %}
 <div class="row g-4 mb-4">
-  {% for order in orders %}
-      <div class="card">
-      <div class="card-body">
-        <div class="row card-header bg-transparent mb-2">
-          <div class="col-3">
-            <h5 class="card-title">{{ order['KUsername'] }}</h5>
+  {% for status in ['in Bearbeitung', 'in Zubereitung', 'abgeschlossen/storniert'] %}
+    {% for order in orders %}
+      {% if order['orderstatus'] in status %}
+        <div class="card">
+        <div class="card-body">
+          <div class="row card-header bg-transparent mb-2">
+            <div class="col-3">
+              <h5 class="card-title">{{ order['KUsername'] }}</h5>
+            </div>
+            <div class="col-3">
+              <p class="card-text">{{ order['ordertime'].split('.')[0] }}</p>
+            </div>
+            <div class="col-3">
+              <p class="card-text">{{ order['orderstatus'] }}</p>
+            </div>
+            <div class="col-3">
+              {% if order['orderstatus'] == 'in Bearbeitung' %}
+              <form method="POST"> 
+                <input type="hidden" name="akzeptieren" value="1">
+                <input type="hidden" name="orderid" value="{{ order['id'] }}">
+                <button type="submit" class="btn btn-outline-success my-1 form-control">Akzeptieren</button>
+              </form>
+              <form method="POST">
+                <input type="hidden" name="stornieren" value="1">
+                <input type="hidden" name="orderid" value="{{ order['id'] }}">
+                <button type="submit" class="btn btn-outline-danger my-1 form-control">Storieren</button>
+              </form>
+              {% endif %}
+              {% if order['orderstatus'] == 'in Zubereitung' %}
+              <form method="POST"> 
+                <input type="hidden" name="abschließen" value="1">
+                <input type="hidden" name="orderid" value="{{ order['id'] }}">
+                <button type="submit" class="btn btn-outline-success my-1 form-control">Abschließen</button>
+              </form>
+              {% endif %}
+            </div>
           </div>
-          <div class="col-3">
-            <p class="card-text">{{ order['ordertime'] }}</p>
-          </div>
-          <div class="col-3">
-            <p class="card-text">{{ order['orderstatus'] }}</p>
-          </div>
-          <div class="col-3">
-            {% if order['orderstatus'] == 'in Bearbeitung' %}
-            <form method="POST"> 
-              <input type="hidden" name="akzeptieren" value="1">
-              <input type="hidden" name="orderid" value="{{ order['id'] }}">
-              <button type="submit" class="btn btn-outline-success my-1 form-control">Akzeptieren</button>
-            </form>
-            <form method="POST">
-              <input type="hidden" name="stornieren" value="1">
-              <input type="hidden" name="orderid" value="{{ order['id'] }}">
-              <button type="submit" class="btn btn-outline-danger my-1 form-control">Storieren</button>
-            </form>
-            {% endif %}
-            {% if order['orderstatus'] == 'in Zubereitung' %}
-            <form method="POST"> 
-              <input type="hidden" name="abschließen" value="1">
-              <input type="hidden" name="orderid" value="{{ order['id'] }}">
-              <button type="submit" class="btn btn-outline-success my-1 form-control">Abschließen</button>
-            </form>
-            {% endif %}
-          </div>
+            
+            
+            {% for item in order['items'] %}
+            <div class="row">
+              <p class="card-text col">{{ item['name'] }}</p>
+              <p class="card-text col">{{ item['amount'] }}x</p>
+              <p class="card-text col">{{ "%.2f" | format(item['price']*item['amount']/100) }}€</p>
+            </div>
+            {% endfor %}
+            <div class="card-text">
+              Anmerkung: {{ order['comment'] }}
+            </div>
         </div>
-          
-          
-          {% for item in order['items'] %}
-          <div class="row">
-            <p class="card-text col">{{ item['name'] }}</p>
-            <p class="card-text col">{{ item['amount'] }}x</p>
-            <p class="card-text col">{{ "%.2f" | format(item['price']*item['amount']/100) }}€</p>
-          </div>
-          {% endfor %}
-          <div class="card-text">
-            Anmerkung: {{ order['comment'] }}
-          </div>
-      </div>
-      </div>
+        </div>
+      {% endif %}
+    {% endfor %}
   {% endfor %}
 </div>
 {% endblock %}
