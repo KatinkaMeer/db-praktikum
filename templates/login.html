@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    {% if business %} Business {% else %} Kunden {% endif %} Login
+                    {% if business %} Geschäfts-{% else %} Kunden-{% endif %}Login
                 </div>
                 <div class="card-body">
                     <form action="" method="POST">
@@ -21,7 +21,7 @@
                             <label for="password">Password</label>
                             <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
                         </div>
-                        <div class="form-check">
+                        <div class="form-check mt-1">
                             <input name = "stayloggedin" type="checkbox" class="form-check-input" id="stayloggedin">
                             <label class="form-check-label" for="stayloggedin">Angemeldet bleiben</label>
                         </div>
@@ -31,7 +31,7 @@
                         {% if wrong_credentials %}
                         <p class="text-danger">Falsche Zugangsdaten</p>
                         {% endif %}
-                        <button class="btn btn-primary mt-2">Login</button>
+                        <button class="btn btn-lg btn-primary mt-2 form-control">Anmelden</button>
                     </form>
                 </div>
             </div>
