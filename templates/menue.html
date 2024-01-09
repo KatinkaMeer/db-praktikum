@@ -4,8 +4,8 @@
 
 {% block content %}
 <div class="row g-4 mb-4" id="wrapper">
-  <div class="col-7">
-    <div class="card border-dark overflow-auto" style="max-height: 1000px;">
+  <div class="col-10">
+    <div class="card border-dark">
       <img src="{{ url_for('static', filename=restaurant['image_path']) }}" class="card-img-top restau-image" alt="...">
       <div class="card-body">
         <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
@@ -125,7 +125,7 @@
       </div>
     </div>
   </div>
-  <div class="card border-dark col">
+  <div class="card border-dark col-3" style="position: fixed; left: 72.5%">
     <h4 class="card-titel card-header text-center bg-transparent mt-2 mb-4">Bestellung:</h4>
     <div class="card-header bg-transparent" id="orderlist" ></div>
     <form id="orderform" action="{{ url_for('confirm_order_page') }}" method="POST">
