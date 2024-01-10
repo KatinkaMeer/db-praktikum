@@ -9,7 +9,7 @@
       {% if order['orderstatus'] in status %}
         <div class="card">
         <div class="card-body">
-          <div class="row card-header bg-transparent mb-2">
+          <div class="row card-header bg-transparent mb-4">
             <div class="col-3">
               <h5 class="card-title">{{ order['GUsername'] }}</h5>
             </div>
@@ -17,14 +17,16 @@
               <p class="card-text">{{ order['ordertime'].split('.')[0] }}</p>
             </div>
             <div class="col-3">
-              <p class="card-text">{{ order['orderstatus'] }}</p>
+              <div class="card-text p-1 text-center rounded-3 text-white bg-{{
+                'success' if order['orderstatus'] == 'in Zubereitung' else 'warning' if order['orderstatus'] == 'in Bearbeitung' else 'secondary'  
+                }}">{{ order['orderstatus'] }}</div>
             </div>
             <div class="col-3">
-              {% if order['orderstatus'] == 'in Zubereitung' %}
+              {% if order['orderstatus'] == 'in Bearbeitung' %}
               <form method="POST">
                 <input type="hidden" name="stornieren" value="1">
                 <input type="hidden" name="orderid" value="{{ order['id'] }}">
-                <button type="submit" class="btn btn-outline-danger my-1 form-control">Storieren</button>
+                <button type="submit" class="btn btn-outline-danger form-control">Storieren</button>
               </form>
               {% endif %}
             </div>
@@ -38,6 +40,7 @@
               <p class="card-text col">{{ "%.2f" | format(item['price']*item['amount']/100) }}€</p>
             </div>
             {% endfor %}
+            <div class="row card-header bg-transparent mb-2"></div>
             <div class="card-text">
               Anmerkung: {{ order['comment'] }}
             </div>
