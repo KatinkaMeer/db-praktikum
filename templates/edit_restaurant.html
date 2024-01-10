@@ -1,16 +1,60 @@
 {% extends "base.html" %}
 {% block title %}Edit Restaurant{% endblock %}
-{% block heading %}Ändern Sie ihr Restaurant-Profil{% endblock %}
+{% block heading %}Ändern Sie ihr Restaurant Profil{% endblock %}
 
 {% block content %}
-<div class="row g-4 mb-4">
-  <div class="col-4">
-      <div class="card">
-      <img src="{{ url_for('static', filename='test1.jpeg') }}" class="card-img-top shop-image" alt="...">
-      <h5 class="card-title">{{ restaurant['name'] }}</h5>
-      <p class="card-text">{{ restaurant['description'] }}</p>
-      <a href="#" class="btn btn-warning">Speisekarte ansehen</a>
-      </div>
+  <!--Login Panel-->
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Ihr Restaurant
+                </div>
+                <div class="card-body">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label for="name">Restaurant Name</label>
+                                <input name = "name" value="{{ profile['name'] }}" type="text" class="form-control" id="name" placeholder="Enter your restaurant name">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="description">Description</label>
+                                <input name = "description" value="{{ profile['description'] }}" type="text" class="form-control" id="description" placeholder="Enter a description for your restaurant">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-7">
+                                <label for="street">Street</label>
+                                <input name = "street" value="{{ profile['street'] }}" type="text" class="form-control" id="street" placeholder="Enter the street of your establishment">
+                            </div>
+                            <div class="col-sm-5">
+                                <label for="housenumber">House Number</label>
+                                <input name = "housenumber" value="{{ profile['housenumber'] }}" type="text" class="form-control" id="housenumber" placeholder="Enter your house number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="postalcode">Postal Code</label>
+                            <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">
+                        </div>
+                        {% if missing_fields %}
+                        <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
+                        {% endif %}
+                        {% if wrong_credentials %}
+                        <p class="text-danger">Falsches Passwort</p>
+                        {% endif %}
+                        {% if saved_changes %}
+                        <p class="text-success">Änderungen erfolgreich gespeichert</p>
+                        {% endif %}
+                        <button type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
 {% endblock %}

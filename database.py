@@ -65,6 +65,19 @@ def create_GeschaeftsAccount(username, passwort, resterauntname, beschreibung, s
         (username, passwort, resterauntname, beschreibung, strasse, hausnummer, plz)
     )
 
+def update_GeschaeftsAccount(username, passwort, resterauntname, beschreibung, strasse, hausnummer, plz):
+    executeUpdate("""
+        INSERT OR REPLACE INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
+            VALUES(?, ?, ?, ?, ?, ?, ?)""",
+        (username, passwort, resterauntname, beschreibung, strasse, hausnummer, plz)
+    )
+
+def update_items(restaurant, kategorie, itemname, preis):
+    executeUpdate("""
+        INSERT OR REPLACE INTO Item (Restaurant, Kategorie, Name, Preis)
+                  VALUES(?, ?, ?, ?, ?, ?, ?)""",
+        (restaurant, kategorie, itemname, preis)
+    )
 
 def login_kunde(username, passwort):
     # Ergebnis des Vergleichs mit dem original pw aus db zum username
