@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    Ihr Restaurant
+                    Ihr Restaurant Profil bearbeiten:
                 </div>
                 <div class="card-body">
                     <form action="" method="POST">
@@ -23,8 +23,8 @@
                                 <input name = "name" value="{{ profile['name'] }}" type="text" class="form-control" id="name" placeholder="Enter your restaurant name">
                             </div>
                             <div class="col-sm-6">
-                                <label for="description">Description</label>
-                                <input name = "description" value="{{ profile['description'] }}" type="text" class="form-control" id="description" placeholder="Enter a description for your restaurant">
+                                <label for="postalcode">Postal Code</label>
+                                <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">                                
                             </div>
                         </div>
                         <div class="form-group row">
@@ -38,8 +38,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="postalcode">Postal Code</label>
-                            <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">
+                            <label for="description">Description</label>
+                            <option input name = "description" value="{{ profile['description'] }}" type="text" class="form-control" id="description" placeholder="Enter a description for your restaurant">
+
                         </div>
                         {% if missing_fields %}
                         <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
@@ -54,6 +55,136 @@
                     </form>
                 </div>
             </div>
+
+            <br>
+
+            <div class="card">
+                <div class="card-header">
+                    Öffnungszeiten bearbeiten:
+                </div>
+                <div class="card-body">
+                Öffnungszeiten
+              </a>
+                <div class="card card-body">
+                  <form action="" method="POST">
+                    {% for day in weekdays %}
+                      <div class="bg-transparent mb-3 row">
+                        <div class="card-text col">{{ day }}: </div>
+                        {% if day in restaurant['times'].keys() %}
+                        <div class="card-text col">{{ restaurant['times'][day]['from'] }} - {{ restaurant['times'][day]['until'] }}</div>
+                        {% else %}
+                        <div class="card-text col">geschlossen</div>
+                        {% endif %}
+                      </div>
+                    {% endfor %}
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <div class="card">
+              <div class="card-header">
+                    Speisekarte bearbeiten:
+                </div>
+              <ul class="nav nav-pills justify-content-center mt-4">
+                <li class="nav-item">
+                  <a class="nav-link" href="#Vorspeisen">Vorspeisen</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#Hauptgerichte">Hauptgerichte</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#Dessert">Dessert</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#Getränke">Getränke</a>
+                </li>
+              </ul>
+                
+              <div class="sprungmarke" id="Vorspeisen"></div>
+              <div class="mt-4">
+                <h6 class ="text-center card-header bg-transparent">Vorspeisen</h6>
+                {% for item in items %}
+                {% if item['category'] == 'Vorspeise' %}
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                      <label for="name"></label>
+                      <input name = "name" value="{{ item['name'] }}" type="text" class="form-control" id="name">
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="category"></label>
+                    <input name = "category" value="{{ item['category'] }}" type="text" class="form-control" id="name">
+                </div>
+                <form class="card-body">
+                  <div class="row">
+                    <h5 class="card-titel col">{{ item['name'] }}</h5>
+                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+                  </div>
+                  <p class="card-text">{{ item['description'] }}</p>
+                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+                </form>
+                {% endif %}
+                {% endfor %}
+              </div>
+      
+              <div class="sprungmarke" id="Hauptgerichte"></div>
+              <div class="mt-4">
+                <h6 class ="text-center card-header bg-transparent">Hauptgerichte</h6>
+                {% for item in items %}
+                {% if item['category'] == 'Hauptgericht' %}
+                <form class="card-body">
+                  <div class="row">
+                    <h5 class="card-titel col">{{ item['name'] }}</h5>
+                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+                  </div>
+                  <p class="card-text">{{ item['description'] }}</p>
+                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+                </form>
+                {% endif %}
+                {% endfor %}
+              </div>
+      
+              <div class="sprungmarke" id="Dessert"></div>
+              <div class="mt-4">
+                <h6 class ="text-center card-header bg-transparent">Dessert</h6>
+                {% for item in items %}
+                {% if item['category'] == 'Dessert' %}
+                <form class="card-body">
+                  <div class="row">
+                    <h5 class="card-titel col">{{ item['name'] }}</h5>
+                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+                  </div>
+                  <p class="card-text">{{ item['description'] }}</p>
+                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+                </form>
+                {% endif %}
+                {% endfor %}
+              </div>
+      
+              <div class="sprungmarke" id="Getränke"></div>
+              <div class="mt-4">
+                <h6 class ="text-center card-header bg-transparent">Getränke</h6>
+                {% for item in items %}
+                {% if item['category'] == 'Getränk' %}
+                <form class="card-body">
+                  <div class="row">
+                    <h5 class="card-titel col">{{ item['name'] }}</h5>
+                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+                  </div>
+                  <p class="card-text">{{ item['description'] }}</p>
+                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+                </form>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </div>

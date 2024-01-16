@@ -74,21 +74,24 @@ def edit_restaurant_page():
     if "user" in session and "business" in session:
         profile = database.get_restaurant(session["user"])
         items = database.get_items(session["user"])
+        deliverradius = database.get_delivery_radius(session["user"])
+        openhours = database.get_business_hours(session["user"])
         if request.method == "POST":
+            print("ja oder was langes")
 
             if not request.form["password"]:
-                return render_template("edit_restaurant.html", profile=profile, items=items, missing_fields=True)
+                return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, openhours=openhours, missing_fields=True)
 
             if database.login_geschaeft(session["user"], request.form["password"]):
                 
                 database.update_GeschaeftsAccount(session["user"], request.form["password"], request.form["name"], request.form["description"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
-                #database.update_items(session["user"], request.form["name"],  request.form["category"], request.form["description"], request.form["price"])
-                return render_template("edit_restaurant.html", profile=profile, items=items, saved_changes=True)
+                database.update_items(session["user"], request.form["name"],  request.form["category"], request.form["description"], request.form["price"])
+                return render_template("edit_restaurant.html", profile=profile, item=items, deliverradius=deliverradius, openhours=openhours, saved_changes=True)
             else:
-                return render_template("edit_restaurant.html", profile=profile, items=items, wrong_credentials=True)
+                return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, openhours=openhours, wrong_credentials=True)
         
-        return render_template("edit_restaurant.html", profile=profile, items=items)
+        return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, openhours=openhours)
     else:
         return redirect(url_for("login_business_page"))
 

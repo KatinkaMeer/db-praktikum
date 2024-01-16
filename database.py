@@ -72,11 +72,18 @@ def update_GeschaeftsAccount(username, passwort, resterauntname, beschreibung, s
         (username, passwort, resterauntname, beschreibung, strasse, hausnummer, plz)
     )
 
-def update_items(restaurant, kategorie, itemname, preis):
+def update_items(restaurant, itemname, kategorie, beschreibung, preis, deaktiviert):
     executeUpdate("""
-        INSERT OR REPLACE INTO Item (Restaurant, Kategorie, Name, Preis)
-                  VALUES(?, ?, ?, ?, ?, ?, ?)""",
-        (restaurant, kategorie, itemname, preis)
+        INSERT OR REPLACE INTO Item (Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
+                  VALUES(?, ?, ?, ?, ?, ?)""",
+        (restaurant, itemname, kategorie,  beschreibung, preis, deaktiviert)
+    )
+
+def update_lieferradius(plz,username):
+    executeUpdate("""
+        INSERT OR REPLACE INTO Item (Plz, Name)
+                  VALUES(?, ?)""",
+        (plz,username)
     )
 
 def login_kunde(username, passwort):
@@ -185,7 +192,8 @@ def get_items(username):
             "name": entry[1],
             "category": entry[2],
             "description": entry[3],
-            "price": entry[4]
+            "price": entry[4],
+            "deactivated": entry[5] 
         }
         items.append(item)
     return items
