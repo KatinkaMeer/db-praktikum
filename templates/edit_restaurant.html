@@ -15,38 +15,53 @@
                     <form action="" method="POST">
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <div class="invalid-feedback">
+                              Bitte geben Sie ihr Passwort ein.
+                            </div>
+                            {% if wrong_credentials %}
+                            <p class="text-danger">Falsches Passwort</p>
+                            {% endif %}
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label for="name">Restaurant Name</label>
-                                <input name = "name" value="{{ profile['name'] }}" type="text" class="form-control" id="name" placeholder="Enter your restaurant name">
+                                <input name = "name" value="{{ profile['name'] }}" type="text" class="form-control" id="name" placeholder="Enter your restaurant name" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="postalcode">Postal Code</label>
-                                <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">                                
+                                <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>                                
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-7">
                                 <label for="street">Street</label>
-                                <input name = "street" value="{{ profile['street'] }}" type="text" class="form-control" id="street" placeholder="Enter the street of your establishment">
+                                <input name = "street" value="{{ profile['street'] }}" type="text" class="form-control" id="street" placeholder="Enter the street of your establishment" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>
                             </div>
                             <div class="col-sm-5">
                                 <label for="housenumber">House Number</label>
-                                <input name = "housenumber" value="{{ profile['housenumber'] }}" type="text" class="form-control" id="housenumber" placeholder="Enter your house number">
+                                <input name = "housenumber" value="{{ profile['housenumber'] }}" type="text" class="form-control" id="housenumber" placeholder="Enter your house number" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <option input name = "description" value="{{ profile['description'] }}" type="text" class="form-control" id="description" placeholder="Enter a description for your restaurant">
+                            <textarea input name = "description" type="text" class="form-control" rows=3 id="description" placeholder="Enter a description for your restaurant">{{ profile['description'] }}</textarea>
 
                         </div>
                         {% if missing_fields %}
                         <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
-                        {% endif %}
-                        {% if wrong_credentials %}
-                        <p class="text-danger">Falsches Passwort</p>
                         {% endif %}
                         {% if saved_changes %}
                         <p class="text-success">Änderungen erfolgreich gespeichert</p>
@@ -67,22 +82,44 @@
               </a>
                 <div class="card card-body">
                   <form action="" method="POST">
-                    {% for day in weekdays %}
-                      <div class="bg-transparent mb-3 row">
-                        <div class="card-text col">{{ day }}: </div>
-                        {% if day in restaurant['times'].keys() %}
-                        <div class="card-text col">{{ restaurant['times'][day]['from'] }} - {{ restaurant['times'][day]['until'] }}</div>
-                        {% else %}
-                        <div class="card-text col">geschlossen</div>
-                        {% endif %}
-                      </div>
-                    {% endfor %}
+                    <div class="bg-transparent mb-3 row">
+                      {% for day in weekdays %}
+                        <div class="bg-transparent mb-3 row">
+                          <div class="card-text col">{{ day }}: </div>
+                          {% if day in profile['times'].keys() %}
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="closed" onclick=""> nicht geöffnet.
+                          <fieldset>
+                          </div>
+                          <input class="card-text col" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit XX:XX ein">
+                          <input class="card-text col" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit XX:XX ein">
+                          </fieldset>
+                          {% else %}
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="closed" checked> nicht geöffnet.
+                          </div>
+                          <fieldset disabled>
+                          <input class="card-text col" placeholder= "Geben Sie die Öffnungszeit XX:XX ein">
+                          <input class="card-text col" placeholder= "Geben Sie die Schließzeit XX:XX ein">
+                          </fieldset>
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                    {% if saved_changes %}
+                    <p class="text-success">Änderungen erfolgreich gespeichert</p>
+                    {% endif %}
+                    <button type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
                   </form>
                 </div>
               </div>
             </div>
 
             <br>
+
+            <!--Lieferradius editieren-->
+
+            <!--br-->
 
             <div class="card">
               <div class="card-header">

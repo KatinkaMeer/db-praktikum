@@ -60,6 +60,13 @@ def edit_profile_page():
                 
                 database.update_KundenAccount(session["user"], request.form["password"], request.form["firstname"], request.form["lastname"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
+                
+                profile['firstname'] = request.form["firstname"]
+                profile['lastname'] = request.form["lastname"]
+                profile['street'] = request.form["street"]
+                profile['housenumber'] = request.form["housenumber"]
+                profile['postalcode'] = request.form["postalcode"]
+
                 return render_template("edit_profile.html", profile=profile, saved_changes=True)
             else:
                 return render_template("edit_profile.html", profile=profile, wrong_credentials=True)
@@ -75,23 +82,31 @@ def edit_restaurant_page():
         profile = database.get_restaurant(session["user"])
         items = database.get_items(session["user"])
         deliverradius = database.get_delivery_radius(session["user"])
-        openhours = database.get_business_hours(session["user"])
+        profile["times"] = database.get_business_hours(session["user"]) 
         if request.method == "POST":
-            print("ja oder was langes")
 
-            if not request.form["password"]:
-                return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, openhours=openhours, missing_fields=True)
+            #if not request.form["password"]:
+                #return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, weekdays=WEEKDAYS, missing_fields=True)
 
+            #Passwortcheck
             if database.login_geschaeft(session["user"], request.form["password"]):
                 
                 database.update_GeschaeftsAccount(session["user"], request.form["password"], request.form["name"], request.form["description"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
-                database.update_items(session["user"], request.form["name"],  request.form["category"], request.form["description"], request.form["price"])
-                return render_template("edit_restaurant.html", profile=profile, item=items, deliverradius=deliverradius, openhours=openhours, saved_changes=True)
+                
+                profile['name'] = request.form["name"]
+                profile['description'] = request.form["description"]
+                profile['street'] = request.form["street"]
+                profile['housenumber'] = request.form["housenumber"]
+                profile['postalcode'] = request.form["postalcode"]
+
+                return render_template("edit_restaurant.html", profile=profile, item=items, deliverradius=deliverradius, weekdays=WEEKDAYS, saved_changes=True)
             else:
-                return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, openhours=openhours, wrong_credentials=True)
+                return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, weekdays=WEEKDAYS, wrong_credentials=True)
         
-        return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, openhours=openhours)
+            if request.form["time"]
+
+        return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, weekdays=WEEKDAYS)
     else:
         return redirect(url_for("login_business_page"))
 
