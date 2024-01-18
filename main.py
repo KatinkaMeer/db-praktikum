@@ -268,5 +268,16 @@ def place_order_page():
     else:
         return redirect(url_for("login_customer_page"))
 
+@app.route("/get_new_orders_amount", methods=["GET"])
+def get_new_orders_amount():
+    amount = 0
+    if "user" in session and "business" in session:
+        orders = database.get_orders(session['user'], business=True)
+        for order in orders:
+            if order['orderstatus'] == 'in Bearbeitung':
+                amount += 1
+    return {'amount': amount}
+
+
 if __name__ == "__main__":
     app.run(debug=True)

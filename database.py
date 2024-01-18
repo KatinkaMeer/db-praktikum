@@ -235,7 +235,6 @@ def get_orders(username, business=False):
 
         order["items"] = []
         for x in item_request_pointer.fetchall():
-            print(x)
             order["items"].append({
                 "name": x[1],
                 "price": x[7],
