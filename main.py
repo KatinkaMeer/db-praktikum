@@ -104,8 +104,6 @@ def edit_restaurant_page():
             else:
                 return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, weekdays=WEEKDAYS, wrong_credentials=True)
         
-            if request.form["time"]
-
         return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, weekdays=WEEKDAYS)
     else:
         return redirect(url_for("login_business_page"))

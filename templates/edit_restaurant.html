@@ -124,100 +124,23 @@
             <div class="card">
               <div class="card-header">
                     Speisekarte bearbeiten:
-                </div>
-              <ul class="nav nav-pills justify-content-center mt-4">
-                <li class="nav-item">
-                  <a class="nav-link" href="#Vorspeisen">Vorspeisen</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#Hauptgerichte">Hauptgerichte</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#Dessert">Dessert</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#Getränke">Getränke</a>
-                </li>
-              </ul>
-                
-              <div class="sprungmarke" id="Vorspeisen"></div>
-              <div class="mt-4">
-                <h6 class ="text-center card-header bg-transparent">Vorspeisen</h6>
+              </div>
                 {% for item in items %}
-                {% if item['category'] == 'Vorspeise' %}
                 <div class="form-group row">
                   <div class="col-sm-6">
-                      <label for="name"></label>
+                      <label for="name">Item Name</label>
                       <input name = "name" value="{{ item['name'] }}" type="text" class="form-control" id="name">
                   </div>
                   <div class="col-sm-6">
-                    <label for="category"></label>
+                    <label for="category">Kategorie</label>
                     <input name = "category" value="{{ item['category'] }}" type="text" class="form-control" id="name">
                 </div>
                 <form class="card-body">
-                  <div class="row">
-                    <h5 class="card-titel col">{{ item['name'] }}</h5>
-                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
-                  </div>
-                  <p class="card-text">{{ item['description'] }}</p>
-                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+                  <label for="description">Beschreibung</label>
+                  <input type="text" name="description" value="{{ item['description'] }}"></input>
+                  <label for="price">Preis</label>
+                  <input type="text" name="price" value="{{ item['price'] }}">€</input>
                 </form>
-                {% endif %}
-                {% endfor %}
-              </div>
-      
-              <div class="sprungmarke" id="Hauptgerichte"></div>
-              <div class="mt-4">
-                <h6 class ="text-center card-header bg-transparent">Hauptgerichte</h6>
-                {% for item in items %}
-                {% if item['category'] == 'Hauptgericht' %}
-                <form class="card-body">
-                  <div class="row">
-                    <h5 class="card-titel col">{{ item['name'] }}</h5>
-                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
-                  </div>
-                  <p class="card-text">{{ item['description'] }}</p>
-                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-                </form>
-                {% endif %}
-                {% endfor %}
-              </div>
-      
-              <div class="sprungmarke" id="Dessert"></div>
-              <div class="mt-4">
-                <h6 class ="text-center card-header bg-transparent">Dessert</h6>
-                {% for item in items %}
-                {% if item['category'] == 'Dessert' %}
-                <form class="card-body">
-                  <div class="row">
-                    <h5 class="card-titel col">{{ item['name'] }}</h5>
-                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
-                  </div>
-                  <p class="card-text">{{ item['description'] }}</p>
-                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-                </form>
-                {% endif %}
-                {% endfor %}
-              </div>
-      
-              <div class="sprungmarke" id="Getränke"></div>
-              <div class="mt-4">
-                <h6 class ="text-center card-header bg-transparent">Getränke</h6>
-                {% for item in items %}
-                {% if item['category'] == 'Getränk' %}
-                <form class="card-body">
-                  <div class="row">
-                    <h5 class="card-titel col">{{ item['name'] }}</h5>
-                    <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
-                  </div>
-                  <p class="card-text">{{ item['description'] }}</p>
-                  <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-                  <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-                </form>
-                {% endif %}
                 {% endfor %}
               </div>
             </div>
