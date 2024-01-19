@@ -91,8 +91,8 @@
                             <input class="form-check-input" type="checkbox" id="closed" onclick=""> nicht geöffnet.
                           <fieldset>
                           </div>
-                          <input class="card-text col" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit XX:XX ein">
-                          <input class="card-text col" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit XX:XX ein">
+                          <input type=time class="card-text col" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit XX:XX ein">
+                          <input type=time class="card-text col" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit XX:XX ein">
                           </fieldset>
                           {% else %}
                           <div class="form-check">
