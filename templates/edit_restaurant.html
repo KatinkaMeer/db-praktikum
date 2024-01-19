@@ -69,80 +69,9 @@
                         <button type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
                     </form>
                 </div>
-            </div>
-
-            <br>
-
-            <div class="card">
-                <div class="card-header">
-                    Öffnungszeiten bearbeiten:
-                </div>
-                <div class="card-body">
-                Öffnungszeiten
-              </a>
-                <div class="card card-body">
-                  <form action="" method="POST">
-                    <div class="bg-transparent mb-3 row">
-                      {% for day in weekdays %}
-                        <div class="bg-transparent mb-3 row">
-                          <div class="card-text col">{{ day }}: </div>
-                          {% if day in profile['times'].keys() %}
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="closed" onclick=""> nicht geöffnet.
-                          <fieldset>
-                          </div>
-                          <input type=time class="card-text col" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit XX:XX ein">
-                          <input type=time class="card-text col" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit XX:XX ein">
-                          </fieldset>
-                          {% else %}
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="closed" checked> nicht geöffnet.
-                          </div>
-                          <fieldset disabled>
-                          <input class="card-text col" placeholder= "Geben Sie die Öffnungszeit XX:XX ein">
-                          <input class="card-text col" placeholder= "Geben Sie die Schließzeit XX:XX ein">
-                          </fieldset>
-                          {% endif %}
-                        </div>
-                      {% endfor %}
-                    </div>
-                    {% if saved_changes %}
-                    <p class="text-success">Änderungen erfolgreich gespeichert</p>
-                    {% endif %}
-                    <button type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <br>
-
-            <!--Lieferradius editieren-->
-
-            <!--br-->
-
-            <div class="card">
-              <div class="card-header">
-                    Speisekarte bearbeiten:
-              </div>
-                {% for item in items %}
-                <div class="form-group row">
-                  <div class="col-sm-6">
-                      <label for="name">Item Name</label>
-                      <input name = "name" value="{{ item['name'] }}" type="text" class="form-control" id="name">
-                  </div>
-                  <div class="col-sm-6">
-                    <label for="category">Kategorie</label>
-                    <input name = "category" value="{{ item['category'] }}" type="text" class="form-control" id="name">
-                </div>
-                <form class="card-body">
-                  <label for="description">Beschreibung</label>
-                  <input type="text" name="description" value="{{ item['description'] }}"></input>
-                  <label for="price">Preis</label>
-                  <input type="text" name="price" value="{{ item['price'] }}">€</input>
-                </form>
-                {% endfor %}
-              </div>
+                <a class="btn btn-outline-secondary mt-2" href=edit_time>Öffnungszeiten bearbeiten</a>
+                <a class="btn btn-outline-secondary mt-2" href=edit_delivery_radius>Lieferradius bearbeiten</a>
+                <a class="btn btn-outline-secondary mt-2" href=edit_menue>Speisekarte bearbeiten</a>
             </div>
           </div>
         </div>

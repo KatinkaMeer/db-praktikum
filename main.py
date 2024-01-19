@@ -80,9 +80,6 @@ def edit_profile_page():
 def edit_restaurant_page():
     if "user" in session and "business" in session:
         profile = database.get_restaurant(session["user"])
-        items = database.get_items(session["user"])
-        deliverradius = database.get_delivery_radius(session["user"])
-        profile["times"] = database.get_business_hours(session["user"]) 
         if request.method == "POST":
 
             #if not request.form["password"]:
@@ -91,20 +88,21 @@ def edit_restaurant_page():
             #Passwortcheck
             if database.login_geschaeft(session["user"], request.form["password"]):
                 
+                #Datenbank update
                 database.update_GeschaeftsAccount(session["user"], request.form["password"], request.form["name"], request.form["description"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
-                
+                #Website Update 
                 profile['name'] = request.form["name"]
                 profile['description'] = request.form["description"]
                 profile['street'] = request.form["street"]
                 profile['housenumber'] = request.form["housenumber"]
                 profile['postalcode'] = request.form["postalcode"]
 
-                return render_template("edit_restaurant.html", profile=profile, item=items, deliverradius=deliverradius, weekdays=WEEKDAYS, saved_changes=True)
+                return render_template("edit_restaurant.html", profile=profile, saved_changes=True)
             else:
-                return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, weekdays=WEEKDAYS, wrong_credentials=True)
+                return render_template("edit_restaurant.html", profile=profile, wrong_credentials=True)
         
-        return render_template("edit_restaurant.html", profile=profile, items=items, deliverradius=deliverradius, weekdays=WEEKDAYS)
+        return render_template("edit_restaurant.html", profile=profile)
     else:
         return redirect(url_for("login_business_page"))
 
@@ -115,6 +113,35 @@ def save_restaurant_image(img):
         if request.form["username"] == stem:
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], other_file))
     img.save(os.path.join(app.config['UPLOAD_FOLDER'], request.form["username"] + extension))
+
+
+@app.route("/edit_time", methods=["GET", "POST"])
+def edit_restaurant_time():
+    if "user" in session and "business" in session:
+        profile = database.get_restaurant(session["user"])
+        profile["times"] = database.get_business_hours(session["user"])
+        return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS)
+    else:
+        return redirect(url_for("login_business_page")) 
+    
+@app.route("/edit_delivery_radius", methods=["GET", "POST"])
+def edit_restaurant_delivery_radius():
+    if "user" in session and "business" in session:
+        profile = database.get_restaurant(session["user"])
+        deliverradius = database.get_delivery_radius(session["user"])
+        return render_template("edit_delivery_radius.html", profile=profile, deliverradius=deliverradius)
+    else:
+        return redirect(url_for("login_business_page")) 
+    
+@app.route("/edit_menue", methods=["GET", "POST"])
+def edit_restaurant_menue():
+    if "user" in session and "business" in session:
+        profile = database.get_restaurant(session["user"])
+        items = database.get_items(session["user"])
+        return render_template("edit_menue.html", profile=profile, items=items)
+    else:
+        return redirect(url_for("login_business_page")) 
+    
 
 @app.route("/signup/business", methods=["GET", "POST"])
 def signup_business_page():
@@ -297,3 +324,10 @@ def get_new_orders_amount():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+def check_time():
+    
+    if open < close:
+        return True
+    else:
+        return False

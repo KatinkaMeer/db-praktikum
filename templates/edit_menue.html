@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Edit Menue{% endblock %}
+{% block heading %}Ändern Sie ihr Menü{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+          Speisekarte bearbeiten:
+    </div>
+      {% for item in items %}
+      <div class="form-group row">
+        <div class="col-sm-6">
+            <label for="name">Item Name</label>
+            <input name = "name" value="{{ item['name'] }}" type="text" class="form-control" id="name">
+        </div>
+        <div class="col-sm-6">
+          <label for="category">Kategorie</label>
+          <input name = "category" value="{{ item['category'] }}" type="text" class="form-control" id="name">
+      </div>
+      <form class="card-body">
+        <label for="description">Beschreibung</label>
+        <input type="text" name="description" value="{{ item['description'] }}"></input>
+        <label for="price">Preis</label>
+        <input type="text" name="price" value="{{ item['price'] }}">€</input>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+  {% endblock %}
