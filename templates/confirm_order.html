@@ -71,7 +71,12 @@
           if (orderlist[i]["amount"] > 1) {
             orderlist[i]["amount"]--;
           } else {
-            orderlist.splice(i, 1);
+            if (orderlist.length > 1) {
+              orderlist.splice(i, 1);
+            } else {
+              alert("Die Bestellung darf nicht leer sein.");
+            }
+            
           }
         }
         else {
