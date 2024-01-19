@@ -129,6 +129,7 @@ def edit_restaurant_delivery_radius():
     if "user" in session and "business" in session:
         profile = database.get_restaurant(session["user"])
         deliverradius = database.get_delivery_radius(session["user"])
+        print(deliverradius)
         return render_template("edit_delivery_radius.html", profile=profile, deliverradius=deliverradius)
     else:
         return redirect(url_for("login_business_page")) 

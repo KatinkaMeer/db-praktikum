@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Edit Menue{% endblock %}
+{% block heading %}Ändern Sie ihr Menü{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    Speisekarte bearbeiten:
+                </div>
+                {% for PLZ in deliverradius %}
+                <div class="form-group nopadding">
+                    <div class="col-sm-6">
+                        <label for="PLZ">Postleitzahl</label>
+                        <input name = "PLZ" value="{{ deliverradius['plz'] }}" type="text" class="form-control" id="PLZ" pattern="[0-9]{5}" placeholder="Enter your postal code">
+                {% endfor %}
+                    <div class="input-group-btn">
+                    <button class="btn btn-success" type="button" onclick="education_fields();">+ </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Das soll eigentlich neue Buttons hinzufügen: https://bootsnipp.com/snippets/AXVrV-->>
+<script>
+var room = 1;
+function education_fields() {
+ 
+    room++;
+    var objTo = document.getElementById('education_fields')
+    var divtest = document.createElement("div");
+	divtest.setAttribute("class", "form-group removeclass"+room);
+	var rdiv = 'removeclass'+room;
+    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="Schoolname" name="Schoolname[]" value="" placeholder="School name"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="Major" name="Major[]" value="" placeholder="Major"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="Degree" name="Degree[]" value="" placeholder="Degree"></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"> <select class="form-control" id="educationDate" name="educationDate[]"><option value="">Date</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option> </select><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
+    
+    objTo.appendChild(divtest)
+}
+   function remove_education_fields(rid) {
+	   $('.removeclass'+rid).remove();
+   }
+</script>
+
+{% endblock %}

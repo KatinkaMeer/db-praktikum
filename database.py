@@ -204,7 +204,10 @@ def get_delivery_radius(username):
                               FROM Lieferradius
                               WHERE GUsername = ? """, (username,))
     for entry in request_pointer.fetchall():
-        postalcodes.append(entry[0])
+        postalcode = {
+            "plz": entry[0]
+        }
+        postalcodes.append(postalcode)
     return postalcodes
 
 
