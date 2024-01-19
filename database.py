@@ -248,6 +248,7 @@ def get_orders(username, business=False):
     return orders
 
 def create_order(username: str, restaurant: str, items: list[dict], comment: str):
+    if not items: raise Exception('Es wurde eine leere Bestellung empfangen.')
     timestamp = datetime.datetime.now()
     rowid = executeUpdate("""
         INSERT INTO Bestellung (KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)

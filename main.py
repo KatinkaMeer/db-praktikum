@@ -276,7 +276,10 @@ def confirm_order_page():
 def place_order_page():
     if "user" in session and not "business" in session:
         items = get_items(request.form)
-        database.create_order(session["user"], request.form["restaurant"], items, request.form["comment"])
+        try:
+            database.create_order(session["user"], request.form["restaurant"], items, request.form["comment"])
+        except Exception as err:
+            return render_template("error.html", error_message=err)
         return render_template("place_order.html")
     else:
         return redirect(url_for("login_customer_page"))
