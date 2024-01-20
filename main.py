@@ -97,9 +97,10 @@ def edit_restaurant_page():
                 profile['street'] = request.form["street"]
                 profile['housenumber'] = request.form["housenumber"]
                 profile['postalcode'] = request.form["postalcode"]
-
+                print(request.files)
                 if "image" in request.files and request.files["image"].filename:
-                    save_restaurant_image(request.files["image"])
+                    
+                    save_restaurant_image(request.files["image"], session['user'])
 
                 return render_template("edit_restaurant.html", profile=profile, saved_changes=True)
             else:
@@ -109,13 +110,13 @@ def edit_restaurant_page():
     else:
         return redirect(url_for("login_business_page"))
 
-def save_restaurant_image(img):
+def save_restaurant_image(img, username):
     _, extension = os.path.splitext(img.filename)
     for other_file in os.listdir(app.config['UPLOAD_FOLDER']):
         stem, other_extension = os.path.splitext(other_file)
-        if request.form["username"] == stem:
+        if username == stem:
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], other_file))
-    img.save(os.path.join(app.config['UPLOAD_FOLDER'], request.form["username"] + extension))
+    img.save(os.path.join(app.config['UPLOAD_FOLDER'], username + extension))
 
 
 @app.route("/edit_time", methods=["GET", "POST"])
@@ -149,6 +150,15 @@ def edit_restaurant_delivery_radius():
 @app.route("/edit_menue", methods=["GET", "POST"])
 def edit_restaurant_menue():
     if "user" in session and "business" in session:
+        if request.method == "POST":
+            if "add_button" in request.form:
+                print(request.form)
+                database.create_item(session['user'], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
+            elif "delete_button" in request.form:
+                database.delete_item(request.form["id"], request.form["restaurant"], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
+            elif "update_button" in request.form:
+                database.delete_item(request.form["id"])
+
         restaurant = database.get_restaurant(session["user"])
         items = database.get_items(session["user"])
         return render_template("edit_menue.html", restaurant=restaurant, items=items)
@@ -174,7 +184,7 @@ def signup_business_page():
 
 
     if "image" in request.files and request.files["image"].filename:
-        save_restaurant_image(request.files["image"])
+        save_restaurant_image(request.files["image"], request.form["username"])
         
 
     database.create_GeschaeftsAccount(request.form["username"], request.form["password"], request.form["restaurantname"], request.form["description"],\

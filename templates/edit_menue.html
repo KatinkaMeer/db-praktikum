@@ -5,8 +5,7 @@
 {% block content %}
 <div class="row g-4 mb-4" id="wrapper">
   <div class="col-12">
-    <div class="card border-dark overflow-auto" style="max-height: 1000px;">
-      <img src="{{ url_for('static', filename=restaurant['image_path']) }}" class="card-img-top restau-image" alt="...">
+    <div class="card border-dark">
       <div class="card-body">
         <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
         <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>
@@ -26,39 +25,61 @@
           </li>
         </ul>
           
+        <form class="card-body" method="POST">
+          <div class="row">
+            <div class="col-3">
+              <input type="text" name="name" class="col-2 form-control" placeholder="Name" required></input>
+            </div>
+            <div class="col-3">
+              <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3" required></textarea>
+            </div>
+            <div class="col-2">
+              <input type="number" class="form-control" step="1" pattern="\d+" name="price" placeholder="Preis in Cent" required></input>
+            </div>
+            <div class="col-2">
+              <select class="form-control" name="category" placeholder="Preis">
+                {% for category in ['Vorspeise', 'Hauptgericht', 'Dessert', 'Getränk'] %}
+                <option value="{{ category }}" >{{ category }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-2">
+              <button name="add_button" class="btn btn-outline-success mb-2 form-control">Hinzufügen</button>
+            </div>
+          </div>
+        </form>
+
         <div class="sprungmarke" id="Vorspeisen"></div>
         <div class="mt-4">
           <h6 class ="text-center card-header bg-transparent">Vorspeisen</h6>
           {% for item in items %}
           {% if item['category'] == 'Vorspeise' %}
-          <form class="card-body">
+          <form class="card-body" method="POST">
             <h5 class="card-titel col">{{ item['name'] }}</h5>
             <div class="row">
-              <div class="col-2">
+              <div class="col-3">
                 <input type="text" name="name" class="col-2 form-control" value="{{ item['name'] }}" placeholder="Name"></input>
               </div>
-              <div class="col-2">
+              <div class="col-3">
                 <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
               </div>
               <div class="col-2">
-                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] // 100 }}" placeholder="Preis"></input>
               </div>
               <div class="col-2">
-                <select class="form-control" name="category" value="{{ item['price'] }}" placeholder="Preis">
-                  <option value="">Volvo</option>
+                <select class="form-control" name="category" placeholder="Preis">
+                  {% for category in ['Vorspeise', 'Hauptgericht', 'Dessert', 'Getränk'] %}
+                  <option value="{{ category }}" {% if item['category'] == category %}selected{% endif %}>{{ category }}</option>
+                  {% endfor %}
                 </select>
               </div>
-              <div class="col-2">
-                <button type="button" name="update_button" class="btn btn-outline-secondary mb-2 form-control">Übernehmen</button>
+              <div class="col-1">
+                <button name="update_button" class="btn btn-outline-success mb-2 form-control">Save</button>
               </div>
-              <div class="col-2">
-                <button type="button" name="delete_button" class="btn btn-outline-secondary mb-2 form-control">Entfernen</button>
+              <div class="col-1">
+                <button name="delete_button" class="btn btn-outline-danger mb-2 form-control">X</button>
               </div>
               <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-              
-              
-              
-              
             </div>
           </form>
           {% endif %}
@@ -70,16 +91,33 @@
           <h6 class ="text-center card-header bg-transparent">Hauptgerichte</h6>
           {% for item in items %}
           {% if item['category'] == 'Hauptgericht' %}
-          <form class="card-body">
+          <form class="card-body" method="POST">
+            <h5 class="card-titel col">{{ item['name'] }}</h5>
             <div class="row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+              <div class="col-3">
+                <input type="text" name="name" class="col-2 form-control" placeholder="Name"></input>
+              </div>
+              <div class="col-3">
+                <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
+              </div>
+              <div class="col-2">
+                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+              </div>
+              <div class="col-2">
+                <select class="form-control" name="category" value="{{ item['price'] }}" placeholder="Preis">
+                  {% for category in ['Vorspeise', 'Hauptgericht', 'Dessert', 'Getränk'] %}
+                  <option value="{{ category }}" {% if item['category'] == category %}selected{% endif %}>{{ category }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-1">
+                <button name="update_button" class="btn btn-outline-success mb-2 form-control">Save</button>
+              </div>
+              <div class="col-1">
+                <button name="delete_button" class="btn btn-outline-danger mb-2 form-control">X</button>
+              </div>
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
             </div>
-            <p class="card-text">{{ item['description'] }}</p>
-            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
           </form>
           {% endif %}
           {% endfor %}
@@ -90,16 +128,33 @@
           <h6 class ="text-center card-header bg-transparent">Dessert</h6>
           {% for item in items %}
           {% if item['category'] == 'Dessert' %}
-          <form class="card-body">
+          <form class="card-body" method="POST">
+            <h5 class="card-titel col">{{ item['name'] }}</h5>
             <div class="row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+              <div class="col-3">
+                <input type="text" name="name" class="col-2 form-control" value="{{ item['name'] }}" placeholder="Name"></input>
+              </div>
+              <div class="col-3">
+                <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
+              </div>
+              <div class="col-2">
+                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+              </div>
+              <div class="col-2">
+                <select class="form-control" name="category" placeholder="Preis">
+                  {% for category in ['Vorspeise', 'Hauptgericht', 'Dessert', 'Getränk'] %}
+                  <option value="{{ category }}" {% if item['category'] == category %}selected{% endif %}>{{ category }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-1">
+                <button name="update_button" class="btn btn-outline-success mb-2 form-control">Save</button>
+              </div>
+              <div class="col-1">
+                <button name="delete_button" class="btn btn-outline-danger mb-2 form-control">X</button>
+              </div>
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
             </div>
-            <p class="card-text">{{ item['description'] }}</p>
-            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
           </form>
           {% endif %}
           {% endfor %}
@@ -110,16 +165,33 @@
           <h6 class ="text-center card-header bg-transparent">Getränke</h6>
           {% for item in items %}
           {% if item['category'] == 'Getränk' %}
-          <form class="card-body">
+          <form class="card-body" method="POST">
+            <h5 class="card-titel col">{{ item['name'] }}</h5>
             <div class="row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+              <div class="col-3">
+                <input type="text" name="name" class="col-2 form-control" value="{{ item['name'] }}" placeholder="Name"></input>
+              </div>
+              <div class="col-3">
+                <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
+              </div>
+              <div class="col-2">
+                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+              </div>
+              <div class="col-2">
+                <select class="form-control" name="category" placeholder="Preis">
+                  {% for category in ['Vorspeise', 'Hauptgericht', 'Dessert', 'Getränk'] %}
+                  <option value="{{ category }}" {% if item['category'] == category %}selected{% endif %}>{{ category }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-1">
+                <button name="update_button" class="btn btn-outline-success mb-2 form-control">Save</button>
+              </div>
+              <div class="col-1">
+                <button name="delete_button" class="btn btn-outline-danger mb-2 form-control">X</button>
+              </div>
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
             </div>
-            <p class="card-text">{{ item['description'] }}</p>
-            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
           </form>
           {% endif %}
           {% endfor %}
