@@ -70,35 +70,56 @@
                             {% if username_taken %}
                             <p class="text-danger">Nutzername bereits vergeben</p>
                             {% endif %}
-                            <input name = "username" type="text" class="form-control" id="username" placeholder="Enter your username">
+                            <input name = "username" type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                            <div class="invalid-feedback">
+                              Bitte füllen Sie dieses Textfeld aus.
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="password">Passwort</label>
-                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <div class="invalid-feedback">
+                              Bitte füllen Sie dieses Textfeld aus.
+                            </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label for="firstname">Vorname</label>
-                                <input name = "firstname" type="text" class="form-control" id="firstname" placeholder="Enter your first name">
+                                <input name = "firstname" type="text" class="form-control" id="firstname" placeholder="Enter your first name" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <label for="lastname">Nachname</label>
-                                <input name = "lastname" type="text" class="form-control" id="lastname" placeholder="Enter your last name">
+                                <input name = "lastname" type="text" class="form-control" id="lastname" placeholder="Enter your last name" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-7">
                                 <label for="street">Straße</label>
-                                <input name = "street" type="text" class="form-control" id="street" placeholder="Enter your street of residence">
+                                <input name = "street" type="text" class="form-control" id="street" placeholder="Enter your street of residence" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>
                             </div>
                             <div class="col-sm-5">
                                 <label for="housenumber">Hausnummer</label>
-                                <input name = "housenumber" type="text" class="form-control" id="housenumber" placeholder="Enter your house number">
+                                <input name = "housenumber" type="text" class="form-control" id="housenumber" placeholder="Enter your house number" required>
+                                <div class="invalid-feedback">
+                                  Bitte füllen Sie dieses Textfeld aus.
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="postalcode">Postleitzahl</label>
-                            <input name = "postalcode" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code">
+                            <input name = "postalcode" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code" required>
+                            <div class="invalid-feedback">
+                              Bitte füllen Sie dieses Textfeld aus.
+                            </div>
                         </div>
                         {% if missing_fields %}
                         <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
