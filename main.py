@@ -131,9 +131,18 @@ def edit_restaurant_time():
 def edit_restaurant_delivery_radius():
     if "user" in session and "business" in session:
         profile = database.get_restaurant(session["user"])
-        deliverradius = database.get_delivery_radius(session["user"])
-        print(deliverradius)
-        return render_template("edit_delivery_radius.html", profile=profile, deliverradius=deliverradius)
+        delivery_radius = database.get_delivery_radius(session["user"])
+        if request.method == "POST":
+            if "submit new PLZ" in request.form:
+                if database.check_plz(request.form["new PLZ"]):
+                    delivery_radius.append(request.form["new PLZ"])
+                    database.update_lieferradius(request.form["new PLZ"], session["user"])
+                    print(delivery_radius)
+                    return render_template("edit_delivery_radius.html", profile=profile, delivery_radius=delivery_radius, saved_changes=True)
+            #elif "delete PLZ" in request.form:
+
+
+        return render_template("edit_delivery_radius.html", profile=profile, delivery_radius=delivery_radius)
     else:
         return redirect(url_for("login_business_page")) 
     
@@ -323,9 +332,3 @@ def get_new_orders_amount():
 if __name__ == "__main__":
     app.run(debug=True)
 
-def check_time():
-    
-    if open < close:
-        return True
-    else:
-        return False

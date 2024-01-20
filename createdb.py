@@ -129,6 +129,7 @@ def create_tables():
                 (47877, 'sushiheaven'),
                 (47877, 'cafebluerose'),
                 (47877, 'bowl'),
+                (46149, 'bowl'),
                 (47877, 'americasstory'),
                 (47877, 'sidebysoups'),
                 (47877, 'zoesgrill'),

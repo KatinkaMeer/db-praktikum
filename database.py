@@ -81,7 +81,7 @@ def update_items(restaurant, itemname, kategorie, beschreibung, preis, deaktivie
 
 def update_lieferradius(plz,username):
     executeUpdate("""
-        INSERT OR REPLACE INTO Item (Plz, Name)
+        INSERT OR REPLACE INTO Lieferradius (Plz, GUsername)
                   VALUES(?, ?)""",
         (plz,username)
     )
@@ -253,10 +253,7 @@ def get_delivery_radius(username):
                               FROM Lieferradius
                               WHERE GUsername = ? """, (username,))
     for entry in request_pointer.fetchall():
-        postalcode = {
-            "plz": entry[0]
-        }
-        postalcodes.append(postalcode)
+        postalcodes.append(entry[0])
     return postalcodes
 
 
@@ -365,3 +362,11 @@ def update_orderstatus(orderid: int, status: str):
         SET Bestellstatus = ?
         WHERE rowid == ?
         """, (status, orderid))
+    
+def check_plz(eingabe):
+    return eingabe.isnumeric() and len(eingabe) == 5 
+    
+
+
+
+    
