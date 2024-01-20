@@ -56,7 +56,8 @@ def create_tables():
             Deaktiviert INTEGER DEFAULT 0 CHECK(Deaktiviert IN (0, 1)),
             PRIMARY KEY (ID),
             FOREIGN KEY (Restaurant) REFERENCES GeschaeftsAccount(username),
-            UNIQUE(Restaurant, Name, Kategorie, IBeschreibung, Preis)                   
+            UNIQUE(Restaurant, Name, Kategorie, IBeschreibung, Preis),
+            UNIQUE(Restaurant, Name, Deaktiviert)                  
         );""")
 
     cursor.execute("""

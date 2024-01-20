@@ -217,34 +217,12 @@ def get_item(id):
     return item
 
 def create_item(restaurant, name, category, description, price):
-    request_pointer = getData("""SELECT *
-                              FROM Item
-                              WHERE Restaurant = ? AND
-                                    Name = ?
-                                    """,(restaurant, name))
-    result = request_pointer.fetchone()
-
-    duplicate_id = None
-    if result:
-        request_pointer = executeUpdate("""UPDATE Item 
-                                        SET Deaktiviert = 1 
-                                        WHERE Restaurant = ? AND
-                                            Name = ?
-                                            """,(restaurant, name))
-        request_pointer = getData("""SELECT *
-                              FROM Item
-                              WHERE Restaurant = ? AND
-                                    Name = ? AND
-                                    Kategorie = ? AND
-                                    IBeschreibung = ? AND
-                                    Preis = ?
-                                    """,(restaurant, name, category, description, price))
-        result = request_pointer.fetchone()
-        duplicate_id = result[0] if result else None
-
-    request_pointer = executeUpdate("""INSERT OR REPLACE INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
-                                        VALUES (?, ?, ?, ?, ?, ?, 0)
-                                            """,(duplicate_id, restaurant, name, category, description, price))
+    try:
+        request_pointer = executeUpdate("""INSERT OR ABORT INTO Item(Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
+                                        VALUES (?, ?, ?, ?, ?, 0)
+                                            """,(restaurant, name, category, description, price))
+    except Exception as err:
+        raise Exception('item already on menu')
 
 
 def update_item(id, restaurant, name, category, description, price):

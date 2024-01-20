@@ -148,9 +148,14 @@ def edit_restaurant_delivery_radius():
 @app.route("/edit_menue", methods=["GET", "POST"])
 def edit_restaurant_menue():
     if "user" in session and "business" in session:
+        restaurant = database.get_restaurant(session["user"])
+        items = database.get_items(session["user"])
         if request.method == "POST":
             if "add_button" in request.form:
-                database.create_item(session['user'], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
+                try:
+                    database.create_item(session['user'], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
+                except Exception as err:
+                    return render_template("edit_menue.html", restaurant=restaurant, items=items, error=err)
             elif "update_button" in request.form:
                 database.update_item(request.form['id'], session['user'], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
             elif "delete_button" in request.form:
