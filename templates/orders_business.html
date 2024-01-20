@@ -47,15 +47,22 @@
             
             {% for item in order['items'] %}
             <div class="row">
-              <p class="card-text col">{{ item['name'] }}</p>
-              <p class="card-text col">{{ item['amount'] }}x</p>
-              <p class="card-text col">{{ "%.2f" | format(item['price']*item['amount']/100) }}€</p>
+              <p class="card-text col-4">{{ item['name'] }}</p>
+              <p class="card-text col-4">{{ item['amount'] }}x</p>
+              <p class="card-text col-4">{{ "%.2f" | format(item['price']*item['amount']/100) }}€</p>
             </div>
-            {% endfor %}
             <div class="row card-header bg-transparent mb-2"></div>
-            <div class="card-text">
-              Anmerkung: {{ order['comment'] }}
+            {% endfor %}
+            <div class="card-text row">
+              <div class="col-4">
+                Anmerkung: {{ order['comment'] }}
+              </div>
+              <div class="col-4"></div>
+              <div class="col-4">
+                Summe: {{ "%.2f" | format(order['sum']/100) }}€
+              </div>
             </div>
+            
         </div>
         </div>
       {% endif %}

@@ -41,8 +41,14 @@
             </div>
             {% endfor %}
             <div class="row card-header bg-transparent mb-2"></div>
-            <div class="card-text">
-              Anmerkung: {{ order['comment'] }}
+            <div class="card-text row">
+              <div class="col-4">
+                Anmerkung: {{ order['comment'] }}
+              </div>
+              <div class="col-4"></div>
+              <div class="col-4">
+                Summe: {{ "%.2f" | format(order['sum']/100) }}€
+              </div>
             </div>
         </div>
         </div>
