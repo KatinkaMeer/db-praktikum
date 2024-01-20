@@ -247,8 +247,6 @@ def create_item(restaurant, name, category, description, price):
 
 
 
-
-
 def get_delivery_radius(username):
     postalcodes = []
     request_pointer = getData("""SELECT PLZ
