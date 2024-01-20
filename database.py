@@ -307,9 +307,14 @@ def get_orders(username, business=False):
                 "category": x[4],
                 "description": x[5],
             })
+
+        summe = 0
+        for item in order['items']:
+            summe += item['amount'] * item['price']
+        order['sum'] = summe
+
         orders.append(order)
 
-    
     return orders
 
 def create_order(username: str, restaurant: str, items: list[dict], comment: str):
