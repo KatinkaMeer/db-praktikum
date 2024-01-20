@@ -98,6 +98,9 @@ def edit_restaurant_page():
                 profile['housenumber'] = request.form["housenumber"]
                 profile['postalcode'] = request.form["postalcode"]
 
+                if "image" in request.files and request.files["image"].filename:
+                    save_restaurant_image(request.files["image"])
+
                 return render_template("edit_restaurant.html", profile=profile, saved_changes=True)
             else:
                 return render_template("edit_restaurant.html", profile=profile, wrong_credentials=True)
@@ -162,7 +165,6 @@ def signup_business_page():
 
 
     if "image" in request.files and request.files["image"].filename:
-        print(type(request.files["image"]))
         save_restaurant_image(request.files["image"])
         
 
