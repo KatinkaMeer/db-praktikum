@@ -140,9 +140,9 @@ def edit_restaurant_delivery_radius():
 @app.route("/edit_menue", methods=["GET", "POST"])
 def edit_restaurant_menue():
     if "user" in session and "business" in session:
-        profile = database.get_restaurant(session["user"])
+        restaurant = database.get_restaurant(session["user"])
         items = database.get_items(session["user"])
-        return render_template("edit_menue.html", profile=profile, items=items)
+        return render_template("edit_menue.html", restaurant=restaurant, items=items)
     else:
         return redirect(url_for("login_business_page")) 
     

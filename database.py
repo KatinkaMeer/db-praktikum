@@ -327,7 +327,6 @@ def get_usernames(business=False) -> list:
 
     return usernames
 
-
 def get_business_hours(username):
     times = {}
     request_pointer = getData("""
