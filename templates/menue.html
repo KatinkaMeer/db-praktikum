@@ -58,6 +58,7 @@
               <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
             </div>
             <p class="card-text">{{ item['description'] }}</p>
+            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
             <input type="hidden" name="name" value="{{ item['name'] }}"></input>
             <input type="hidden" name="price" value="{{ item['price'] }}"></input>
             <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
@@ -77,6 +78,7 @@
               <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
             </div>
             <p class="card-text">{{ item['description'] }}</p>
+            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
             <input type="hidden" name="name" value="{{ item['name'] }}"></input>
             <input type="hidden" name="price" value="{{ item['price'] }}"></input>
             <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
@@ -96,6 +98,7 @@
               <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
             </div>
             <p class="card-text">{{ item['description'] }}</p>
+            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
             <input type="hidden" name="name" value="{{ item['name'] }}"></input>
             <input type="hidden" name="price" value="{{ item['price'] }}"></input>
             <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
@@ -115,6 +118,7 @@
               <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
             </div>
             <p class="card-text">{{ item['description'] }}</p>
+            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
             <input type="hidden" name="name" value="{{ item['name'] }}"></input>
             <input type="hidden" name="price" value="{{ item['price'] }}"></input>
             <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
@@ -148,6 +152,7 @@
 
 
     var item_form = event.target.closest('form');
+    var item_id = item_form.elements['id'].value;
     var item_name = item_form.elements['name'].value;
     var item_price = item_form.elements['price'].value;
 
@@ -176,6 +181,7 @@
     }
     if (!found) {
       orderlist.push({
+        id: item_id,
         name: item_name,
         price: Number(item_price),
         amount: 1
@@ -198,6 +204,7 @@
           <h5 class='card-titel col-2'>" + orderlist[i].amount + "x</h5>\
           <p class='card-text col-3'>" + (orderlist[i].price/100*orderlist[i].amount).toFixed(2) + "€</p>\
           <form class='card-text col-3'>\
+            <input type='hidden' name='id' value='" + orderlist[i].id + "'></input>\
             <input type='hidden' name='name' value='" + orderlist[i].name + "'></input>\
             <input type='hidden' name='price' value=" + orderlist[i].price + "></input>\
             <input type='hidden' name='delete' value=1></input>\
@@ -205,6 +212,7 @@
           </form>\
         </div");
       orderform_element.insertAdjacentHTML("beforeend", "\
+        <input type='hidden' name='orderlist_ids' value='" + orderlist[i].id + "'></input>\
         <input type='hidden' name='orderlist_names' value='" + orderlist[i].name + "'></input>\
         <input type='hidden' name='orderlist_prices' value=" + orderlist[i].price + "></input>\
         <input type='hidden' name='orderlist_amounts' value=" + orderlist[i].amount + "></input>");

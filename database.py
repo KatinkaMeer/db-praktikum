@@ -184,19 +184,38 @@ def get_items(username):
     items = []
     request_pointer = getData("""SELECT * 
                               FROM Item
-                              WHERE Restaurant = ? AND Deaktiviert IS NULL
+                              WHERE Restaurant = ? AND Deaktiviert = 0
                               ORDER BY Kategorie DESC""", (username,))
     for entry in request_pointer.fetchall():
         item = {
-            "restaurant": entry[0],
-            "name": entry[1],
-            "category": entry[2],
-            "description": entry[3],
-            "price": entry[4],
-            "deactivated": entry[5] 
+            "id": entry[0],
+            "restaurant": entry[1],
+            "name": entry[2],
+            "category": entry[3],
+            "description": entry[4],
+            "price": entry[5],
+            "deactivated": entry[6] 
         }
         items.append(item)
     return items
+
+def get_item(id):
+    request_pointer = getData("""SELECT *
+                              FROM Item
+                              WHERE ID = ? """,(id,))
+    result = request_pointer.fetchone()
+
+    item = {
+            "id": result[0],
+            "restaurant": result[1],
+            "name": result[2],
+            "category": result[3],
+            "description": result[4],
+            "price": result[5],
+            "deactivated": result[6]
+        }
+    return item
+
 
 def get_delivery_radius(username):
     postalcodes = []
@@ -231,19 +250,21 @@ def get_orders(username, business=False):
         }
 
         item_request_pointer = getData(f"""
-            SELECT *
-            FROM bestellung_beinhaltet JOIN Item ON Item.Restaurant = '{order["GUsername"]}' AND bestellung_beinhaltet.Itemname = Item.Name
+            SELECT Item.ID, Item.Name, Item.Preis, bestellung_beinhaltet.Menge, Item.Kategorie, Item.IBeschreibung
+            FROM bestellung_beinhaltet JOIN Item ON bestellung_beinhaltet.ItemID = Item.ID
             WHERE Bestellung = ?""",
             (order["id"],))
 
         order["items"] = []
         for x in item_request_pointer.fetchall():
+            print(1)
             order["items"].append({
+                "id": x[0],
                 "name": x[1],
-                "price": x[7],
-                "amount": x[2],
-                "category": x[5],
-                "description": x[6],
+                "price": x[2],
+                "amount": x[3],
+                "category": x[4],
+                "description": x[5],
             })
         orders.append(order)
 
@@ -260,9 +281,9 @@ def create_order(username: str, restaurant: str, items: list[dict], comment: str
     
     for item in items:
         executeUpdate("""
-            INSERT INTO bestellung_beinhaltet (Bestellung, Itemname, Menge)
+            INSERT OR ABORT INTO bestellung_beinhaltet (Bestellung, ItemID, Menge)
             VALUES(?, ?, ?)""",
-        (rowid, item["name"], item["amount"]))
+        (rowid, item["id"], item["amount"]))
     
 def get_usernames(business=False) -> list:
 

@@ -3,6 +3,14 @@
 {% block heading %}Ein Fehler ist aufgetreten{% endblock %}
 
 {% block content %}
-<p class="mt-5 mb-5">{{ error_message }}</p>
+<div class="row">
+    <div class="col">
+        <p class="mt-5 mb-5">{{ error_message }}</p>
+    </div>
+    <div class="col">
+        <img src="static\error_logo.png" height="350px" width="350px">
+    </div>
+</div>
+
 {% endblock %}
 

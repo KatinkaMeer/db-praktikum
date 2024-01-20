@@ -54,23 +54,45 @@ def create_tables():
             GUsername TEXT NOT NULL,
             Wochentag TEXT NOT NULL CHECK(Wochentag IN ('Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag')),
             Von time NOT NULL,
-            Bis time NOT NULL,
+            Bis time NOT NULL CHECK(Von < Bis),
             FOREIGN KEY (GUsername) REFERENCES GeschaeftsAccount(Username),
             PRIMARY KEY (GUsername, Wochentag)
         )""")
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Item(
+            ID INTEGER NOT NULL,
             Restaurant INTEGER,
             Name TEXT,
             Kategorie TEXT,
             IBeschreibung TEXT,
             Preis INTEGER,
-            Deaktiviert INTEGER,
-            PRIMARY KEY (Restaurant, Name),
-            FOREIGN KEY (Restaurant) REFERENCES GeschaeftsAccount(username)
-        )""")
+            Deaktiviert INTEGER DEFAULT 0 CHECK(Deaktiviert IN (0, 1)),
+            PRIMARY KEY (ID),
+            FOREIGN KEY (Restaurant) REFERENCES GeschaeftsAccount(username),
+            UNIQUE(Restaurant, Name, Kategorie, IBeschreibung, Preis)                   
+        );""")
     
+    cursor.execute("""
+        CREATE TRIGGER IF NOT EXISTS deactivate_item
+        BEFORE INSERT ON Item
+        WHEN EXISTS(SELECT * FROM bestellung_beinhaltet WHERE ItemID = New.ID)
+        BEGIN
+        UPDATE Item SET Deaktiviert = 1
+        WHERE Restaurant = New.Restaurant AND Name = New.Name;
+        END;
+        """)
+    
+    cursor.execute("""
+        CREATE TRIGGER IF NOT EXISTS delete_item
+        BEFORE INSERT ON Item
+        WHEN NOT EXISTS(SELECT * FROM bestellung_beinhaltet WHERE ItemID = New.ID)
+        BEGIN
+        DELETE FROM Item
+        WHERE Restaurant = New.Restaurant AND Name = New.Name;
+        END;
+        """)
+
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Lieferradius(
             Plz INTEGER NOT NULL,
@@ -91,8 +113,10 @@ def create_tables():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS bestellung_beinhaltet(
             Bestellung INTEGER NOT NULL,
-            Itemname TEXT NOT NULL,
-            Menge INTEGER NOT NULL
+            ItemID INTEGER NOT NULL,
+            Menge INTEGER NOT NULL,
+            FOREIGN KEY(Bestellung) REFERENCES Bestellung(ID)
+            FOREIGN KEY(ItemID) REFERENCES Item(ID) ON DELETE CASCADE
         )""")
     
     

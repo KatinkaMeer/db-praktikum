@@ -276,16 +276,14 @@ def order_page():
     return redirect(url_for("login_customer_page"))
 
 def get_items(mDict) -> list[dict]:
-    names = request.form.getlist("orderlist_names")
-    prices = request.form.getlist("orderlist_prices")
+    ids = request.form.getlist("orderlist_ids")
     amounts = request.form.getlist("orderlist_amounts")
     items = []
-    for (name, price, amount) in zip(names, prices, amounts):
-        items.append({
-            "name": name,
-            "price": int(price),
-            "amount": int(amount)
-        })
+    for id, amount in zip(ids, amounts):
+        item = database.get_item(id)
+        if item:
+            item['amount'] = amount
+            items.append(item)
     return items
 
 @app.route("/confirm_order", methods=["POST"])
@@ -293,9 +291,6 @@ def confirm_order_page():
     if "user" in session and not "business" in session:
         restaurant = restaurant = database.get_restaurant(request.form["restaurant"])
         items = get_items(request.form)
-        item_sum = 0
-        for item in items:
-            item_sum += item["price"] * item["amount"]
         return render_template("confirm_order.html", restaurant=restaurant, items=items)
     else:
         return redirect(url_for("login_customer_page"))
