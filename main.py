@@ -133,12 +133,20 @@ def edit_restaurant_delivery_radius():
         profile = database.get_restaurant(session["user"])
         delivery_radius = database.get_delivery_radius(session["user"])
         if request.method == "POST":
+            print(request.form)
             if "submit new PLZ" in request.form:
                 if database.check_plz(request.form["new PLZ"]):
                     delivery_radius.append(request.form["new PLZ"])
                     database.update_lieferradius(request.form["new PLZ"], session["user"])
                     return render_template("edit_delivery_radius.html", profile=profile, delivery_radius=delivery_radius, saved_changes=True)
-            #elif "delete PLZ" in request.form:
+                else:
+                    return render_template("edit_delivery_radius.html", profile=profile, delivery_radius=delivery_radius, wrong_credentials=True)
+
+            elif "delete PLZ" in request.form:
+                print(request.form["delete PLZ"], session["user"])
+                database.delete_lieferradius(request.form["delete PLZ"], session["user"])
+                delivery_radius = database.get_delivery_radius(session["user"])
+                return render_template("edit_delivery_radius.html", profile=profile, delivery_radius=delivery_radius, deleted_changes=True)
 
 
         return render_template("edit_delivery_radius.html", profile=profile, delivery_radius=delivery_radius)
