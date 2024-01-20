@@ -224,6 +224,7 @@ def create_item(restaurant, name, category, description, price):
                                     """,(restaurant, name))
     result = request_pointer.fetchone()
 
+    duplicate_id = None
     if result:
         request_pointer = executeUpdate("""UPDATE Item 
                                         SET Deaktiviert = 1 
@@ -240,11 +241,47 @@ def create_item(restaurant, name, category, description, price):
                                     """,(restaurant, name, category, description, price))
         result = request_pointer.fetchone()
         duplicate_id = result[0] if result else None
-        request_pointer = executeUpdate("""INSERT OR REPLACE INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
-                                        VALUES (?, ?, ?, ?, ?, 0)
+
+    request_pointer = executeUpdate("""INSERT OR REPLACE INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
+                                        VALUES (?, ?, ?, ?, ?, ?, 0)
                                             """,(duplicate_id, restaurant, name, category, description, price))
 
 
+def update_item(id, restaurant, name, category, description, price):
+    request_pointer = getData("""SELECT *
+                              FROM bestellung_beinhaltet
+                              WHERE ItemID = ?
+                                    """,(id,))
+    result = request_pointer.fetchone()
+    if result:
+        request_pointer = executeUpdate("""UPDATE Item
+                                            SET Deaktiviert = 1
+                                            WHERE ID = ?
+                                        """,(id,))
+        request_pointer = executeUpdate("""INSERT OR IGNORE INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
+                                            VALUES (?, ?, ?, ?, ?, ?, 0)
+                                            """,(None, restaurant, name, category, description, price))
+    else:
+        request_pointer = executeUpdate("""UPDATE OR IGNORE ITEM
+                                            SET Name = ?, Kategorie = ?, IBeschreibung = ?, Preis = ?
+                                            WHERE ID = ?
+                                            """,(name, category, description, price, id))
+
+def delete_item(id):
+    request_pointer = getData("""SELECT *
+                              FROM bestellung_beinhaltet
+                              WHERE ItemID = ? 
+                                    """,(id,))
+    result = request_pointer.fetchone()
+
+    if result:
+        request_pointer = executeUpdate("""UPDATE Item 
+                                        SET Deaktiviert = 1 
+                                        WHERE ID = ?
+                                            """,(id,))
+    else:
+        request_pointer = executeUpdate("""DELETE FROM Item WHERE ID = ?
+                                            """,(id,))
 
 
 def get_delivery_radius(username):
@@ -284,7 +321,6 @@ def get_orders(username, business=False):
 
         order["items"] = []
         for x in item_request_pointer.fetchall():
-            print(1)
             order["items"].append({
                 "id": x[0],
                 "name": x[1],

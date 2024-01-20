@@ -97,7 +97,6 @@ def edit_restaurant_page():
                 profile['street'] = request.form["street"]
                 profile['housenumber'] = request.form["housenumber"]
                 profile['postalcode'] = request.form["postalcode"]
-                print(request.files)
                 if "image" in request.files and request.files["image"].filename:
                     
                     save_restaurant_image(request.files["image"], session['user'])
@@ -138,7 +137,6 @@ def edit_restaurant_delivery_radius():
                 if database.check_plz(request.form["new PLZ"]):
                     delivery_radius.append(request.form["new PLZ"])
                     database.update_lieferradius(request.form["new PLZ"], session["user"])
-                    print(delivery_radius)
                     return render_template("edit_delivery_radius.html", profile=profile, delivery_radius=delivery_radius, saved_changes=True)
             #elif "delete PLZ" in request.form:
 
@@ -152,11 +150,10 @@ def edit_restaurant_menue():
     if "user" in session and "business" in session:
         if request.method == "POST":
             if "add_button" in request.form:
-                print(request.form)
                 database.create_item(session['user'], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
-            elif "delete_button" in request.form:
-                database.delete_item(request.form["id"], request.form["restaurant"], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
             elif "update_button" in request.form:
+                database.update_item(request.form['id'], session['user'], request.form["name"], request.form["category"], request.form["description"], request.form["price"])
+            elif "delete_button" in request.form:
                 database.delete_item(request.form["id"])
 
         restaurant = database.get_restaurant(session["user"])
