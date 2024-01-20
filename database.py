@@ -319,7 +319,7 @@ def get_usernames(business=False) -> list:
 
     request_pointer = getData(f"""
         SELECT Username
-        FROM {'GeschaeftsAccount' if business else get_KundenAccount}""")
+        FROM {'GeschaeftsAccount' if business else 'KundenAccount'}""")
 
     usernames = []
     for username in request_pointer.fetchall():
