@@ -216,6 +216,38 @@ def get_item(id):
         }
     return item
 
+def create_item(restaurant, name, category, description, price):
+    request_pointer = getData("""SELECT *
+                              FROM Item
+                              WHERE Restaurant = ? AND
+                                    Name = ?
+                                    """,(restaurant, name))
+    result = request_pointer.fetchone()
+
+    if result:
+        request_pointer = executeUpdate("""UPDATE Item 
+                                        SET Deaktiviert = 1 
+                                        WHERE Restaurant = ? AND
+                                            Name = ?
+                                            """,(restaurant, name))
+        request_pointer = getData("""SELECT *
+                              FROM Item
+                              WHERE Restaurant = ? AND
+                                    Name = ? AND
+                                    Kategorie = ? AND
+                                    IBeschreibung = ? AND
+                                    Preis = ?
+                                    """,(restaurant, name, category, description, price))
+        result = request_pointer.fetchone()
+        duplicate_id = result[0] if result else None
+        request_pointer = executeUpdate("""INSERT OR REPLACE INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
+                                        VALUES (?, ?, ?, ?, ?, 0)
+                                            """,(duplicate_id, restaurant, name, category, description, price))
+
+
+
+
+
 
 def get_delivery_radius(username):
     postalcodes = []

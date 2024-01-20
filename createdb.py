@@ -1,19 +1,5 @@
 import sqlite3
 
-def executeUpdate(sql, params = ()):
-    dbcon = sqlite3.connect("instance/db.db")
-    cursor = dbcon.cursor()
-    cursor.execute(sql, params)
-    dbcon.commit()
-    cursor.close()
-    dbcon.close()
-
-def getData(sql, params = ()):
-    dbcon = sqlite3.connect("instance/db.db")
-    cursor = dbcon.cursor()
-    cursor.execute(sql, params)
-    return cursor
-
 # SQLite3 Datatypes:
 # NULL
 # INTEGER
@@ -62,36 +48,16 @@ def create_tables():
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Item(
             ID INTEGER NOT NULL,
-            Restaurant INTEGER,
-            Name TEXT,
-            Kategorie TEXT,
-            IBeschreibung TEXT,
-            Preis INTEGER,
+            Restaurant TEXT NOT NULL,
+            Name TEXT NOT NULL,
+            Kategorie TEXT CHECK(Kategorie IN ('Vorspeise', 'Hauptgericht', 'Dessert', 'Getränk')),
+            IBeschreibung TEXT NOT NULL DEFAULT '',
+            Preis INTEGER NOT NULL,
             Deaktiviert INTEGER DEFAULT 0 CHECK(Deaktiviert IN (0, 1)),
             PRIMARY KEY (ID),
             FOREIGN KEY (Restaurant) REFERENCES GeschaeftsAccount(username),
             UNIQUE(Restaurant, Name, Kategorie, IBeschreibung, Preis)                   
         );""")
-    
-    cursor.execute("""
-        CREATE TRIGGER IF NOT EXISTS deactivate_item
-        BEFORE INSERT ON Item
-        WHEN EXISTS(SELECT * FROM bestellung_beinhaltet WHERE ItemID = New.ID)
-        BEGIN
-        UPDATE Item SET Deaktiviert = 1
-        WHERE Restaurant = New.Restaurant AND Name = New.Name;
-        END;
-        """)
-    
-    cursor.execute("""
-        CREATE TRIGGER IF NOT EXISTS delete_item
-        BEFORE INSERT ON Item
-        WHEN NOT EXISTS(SELECT * FROM bestellung_beinhaltet WHERE ItemID = New.ID)
-        BEGIN
-        DELETE FROM Item
-        WHERE Restaurant = New.Restaurant AND Name = New.Name;
-        END;
-        """)
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Lieferradius(
@@ -123,12 +89,12 @@ def create_tables():
     ##insert data
     
     cursor.execute("""
-        INSERT or REPLACE INTO KundenAccount (Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz)
+        INSERT or IGNORE INTO KundenAccount (Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz)
         VALUES ('edge', 'weiter', 'Pascal', 'Ritzenfeld', 'Engerweg', 6, 47877)
         """)
     
     cursor.execute("""
-        INSERT or REPLACE INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
+        INSERT or IGNORE INTO GeschaeftsAccount (Username, Passwort, Restaurantname, Beschreibung, Strasse, Hausnummer, Plz)
         VALUES ('cafebluerose', '1234', 'Café Blue Rose', 'Café blue rose ist ein kleines, ruhiges Café in der Innenstadt. Unsere selbstgemachten Kuchen schmecken Klein und Groß.', 'Königstraße', 25, 46735), 
             ('sushiheaven', '1234', 'Sushi Heaven', 'Unsere Sushi- Meister, trainiert in Japan, zaubern euch authentisches Sushi.', 'Oststraße', 16, 45545),
             ('bowl', '1234', 'Bowl', 'Wir verkaufen verschiedene Bowls. Ihr könnt hier auch eigene Bowls zusammenstellen!', 'Landstraße', 165, 46323),
@@ -158,7 +124,7 @@ def create_tables():
             """)
     
     cursor.execute("""
-        INSERT or REPLACE INTO Lieferradius (Plz, GUsername)
+        INSERT or IGNORE INTO Lieferradius (Plz, GUsername)
         VALUES (47877, 'mamamiapizza'), 
                 (47877, 'sushiheaven'),
                 (47877, 'cafebluerose'),
@@ -190,8 +156,9 @@ def create_tables():
                 (47877, 'pretzelparadies');
         """)
     
+
     cursor.execute("""
-        INSERT or REPLACE INTO Item (Restaurant, Kategorie, Name, Preis)
+        INSERT or IGNORE INTO Item (Restaurant, Kategorie, Name, Preis)
         VALUES ('mamamiapizza', 'Vorspeise', 'Bruschetta', 550),
             ('mamamiapizza', 'Vorspeise', 'Caprese-Salat', 650),
             ('mamamiapizza', 'Vorspeise', 'Knoblauchbrot', 500),
@@ -654,14 +621,14 @@ def create_tables():
         """)
     
     cursor.execute("""
-        INSERT or REPLACE INTO Item (Restaurant, Name, IBeschreibung, Kategorie, Preis)
+        INSERT or IGNORE INTO Item (Restaurant, Name, IBeschreibung, Kategorie, Preis)
         VALUES ('mamamiapizza', 'Bruschetta', 'mit gehackten Tomaten und frischem Basilikum', 'Vorspeise', 550),
             ('mamamiapizza', 'Caprese-Salat', 'gesalzene rohe Tomatenscheiben mit Mozzarellascheiben, Basilikumblätter in Olivenöl beträufelt', 'Vorspeise', 650);
         """)
                     
 
     cursor.execute("""
-        INSERT or REPLACE INTO Oeffnungszeit (GUsername, Wochentag, Von, Bis)
+        INSERT or IGNORE INTO Oeffnungszeit (GUsername, Wochentag, Von, Bis)
         VALUES ('cafebluerose', 'Montag', '00:00', '24:00'),
             ('cafebluerose', 'Mittwoch', '00:00', '24:00'),
             ('cafebluerose', 'Donnerstag', '00:00', '24:00'),
@@ -714,3 +681,4 @@ def create_tables():
     
     
     dbcon.commit()
+    dbcon.close()
