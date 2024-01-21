@@ -302,6 +302,22 @@ def restaurants_page():
                     break
             
         return render_template("restaurants.html", restaurants=restaurants)
+    
+    elif "user" in session and "business" in session:
+            restaurant = database.get_restaurant(session["user"])
+
+            image_name = os.listdir(app.config['UPLOAD_FOLDER'])
+            image_tuple = list(map(os.path.splitext, image_name))
+            restaurant["image_path"] = DEFAULT_IMAGE
+
+            for index, value in enumerate(image_tuple):
+                if restaurant["username"] == value[0]:
+                    restaurant["image_path"] = 'business/' + value[0] + value[1]
+                    image_tuple.pop(index)
+                    break
+
+            return render_template("restaurant_preview.html", restaurant=restaurant)
+
     else:
         return redirect(url_for("login_customer_page"))
     
