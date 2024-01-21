@@ -1,23 +1,28 @@
 {% extends "base.html" %}
 {% block title %}Edit Menue{% endblock %}
-{% block heading %}Ändern Sie ihr Menü{% endblock %}
+{% block heading %}Lieferradius bearbeiten{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col card">
-            <div class="card-header">
-                Lieferradius bearbeiten:
+        <div class="col-6 card">
+            <div class="card-header bg-transparent">
+                Postleitzahlen hinzufügen oder entfernen:
             </div>
-            <div class="form-group nopadding">
-                <div class="col-6">
+            <div class="card-body form-group nopadding">
+                <div>
                     <form action="" method="POST">
-                        <label for="PLZ">Postleitzahl</label>
+                        <h4>Postleitzahl</h4>
+                        <div class="row">
+                        <div class="col-6">
                         <input name="new PLZ" type="number" min="0" class="form-control" id="new PLZ"
-                            placeholder="Enter a postal code">
-                        <button name="submit new PLZ" type="submit"
-                            class="btn btn-outline-secondary mt-2 form-control colum">Füge eine neue Postleitzahl
-                            ein</button>
+                            placeholder="PLZ eingeben">
+                        </div>
+                        <div class="col-6">
+                            <button name="submit new PLZ" type="submit"
+                                class="btn btn-outline-success form-control colum">hinzufügen</button>
+                        </div>   
+                        </div> 
                         {% if saved_changes %}
                         <p class="text-success">Änderungen erfolgreich gespeichert</p>
                         {% endif %}
@@ -25,14 +30,21 @@
                         <p class="text-danger">Keine gültige Postleitzahl</p>
                         {% endif %}
                     </form>
-                    <h4>Postleitzahl Liste:</h4>
+                    <h4 class="mt-3">Aktueller Lieferradius:</h4>
                     {% for plz in delivery_radius %}
                     <form action="" method="POST">
-                        <fieldset disabled>
-                            <input name="PLZ" value="{{ plz }}" class="form-control">
-                        </fieldset>
-                        <button name="delete PLZ" value="{{ plz }}" type="submit"
-                            class="btn btn-outline-secondary mt-2 form-control colum">Lösche die Postleitzahl</button>
+                        <div class="row">
+                            <div class="col-6">
+                                <fieldset disabled>
+                                    <input name="PLZ" value="{{ plz }}" class="form-control">
+                                </fieldset>
+                            </div>
+                            <div class="col-6">
+                                <button name="delete PLZ" value="{{ plz }}" type="submit"
+                                    class="btn btn-outline-danger form-control colum">entfernen</button>
+                            </div>
+                        </div>
+                        <div class="mb-4"></div>
                         {% endfor %}
                         {% if deleted_changes %}
                         <p class="text-success">Postleitzahl erfolgreich gelöscht</p>
