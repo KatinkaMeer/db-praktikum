@@ -130,6 +130,7 @@ def get_restaurants():
     return restaurants
 
 def get_restaurants_near_and_open(username, day):
+    print(username, day)
     restaurants = []
     request_pointer = getData("""SELECT GeschaeftsAccount.Username, Restaurantname, Beschreibung, GeschaeftsAccount.Strasse, GeschaeftsAccount.Hausnummer, GeschaeftsAccount.Plz 
                               FROM GeschaeftsAccount
@@ -145,20 +146,20 @@ def get_restaurants_near_and_open(username, day):
             "housenumber": entry[4],
             "postalcode": entry[5],
         }
-
         hours = get_business_hours_for(restaurant["username"], day)
         if hours:
-            
             time = datetime.now().strftime("%H:%M") #Zeitstempel im Format Stunde(24):Minute
 
             #teile stunde und minute auf und caste zu int
             now_hour, now_min = [int(x) for x in time.split(":")]   
             start_hour, start_min = [int(x) for x in hours["from"].split(":")]
             end_hour, end_min = [int(x) for x in hours["until"].split(":")]
+            
 
             if (now_hour == start_hour and now_min < start_min)\
             or (now_hour == end_hour and now_min >= end_min)\
-            or (now_hour < start_hour or now_hour >= end_hour):
+            or (now_hour < start_hour or now_hour > end_hour):
+                
                 continue
                 
             
