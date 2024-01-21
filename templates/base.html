@@ -52,29 +52,29 @@
                   <li><a class="dropdown-item" href="{{ url_for('edit_restaurant_time') }}">Öffnungszeiten bearbeiten</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('edit_restaurant_menue') }}">Speisekarte bearbeiten</a></li>
                   {% else %}
-                  <li><a class="dropdown-item" href="{{ url_for('edit_profile_page') }}">Edit profile</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('edit_profile_page') }}">Profil bearbeiten</a></li>
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{{ url_for('logout_page') }}">Log out</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('logout_page') }}">Ausloggen</a></li>
                 </ul>
               </li>
               {% else %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Login
+                  Einloggen
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="{{ url_for('login_business_page') }}">Business</a></li>
-                  <li><a class="dropdown-item" href="{{ url_for('login_customer_page') }}">Customer</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('login_customer_page') }}">Kunde</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('login_business_page') }}">Restaurant</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Sign up
+                  Registrieren
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="{{ url_for('signup_business_page') }}">Business</a></li>
-                  <li><a class="dropdown-item" href="{{ url_for('signup_customer_page') }}">Customer</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('signup_customer_page') }}">Kunde</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('signup_business_page') }}">Restaurant</a></li>
                 </ul>
               </li>
               {% endif %}
