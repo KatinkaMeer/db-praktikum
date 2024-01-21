@@ -38,7 +38,7 @@
               <input type="number" class="form-control" step="1" pattern="\d+" name="price" placeholder="Preis in Cent" required></input>
             </div>
             <div class="col-2">
-              <select class="form-control" name="category" placeholder="Preis">
+              <select class="form-control" name="category">
                 {% for category in ['Vorspeise', 'Hauptgericht', 'Dessert', 'Getränk'] %}
                 <option value="{{ category }}" >{{ category }}</option>
                 {% endfor %}

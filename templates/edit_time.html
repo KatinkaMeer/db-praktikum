@@ -3,46 +3,37 @@
 {% block heading %}Öffnungszeiten bearbeiten{% endblock %}
 
 {% block content %}
-    <div class="justify-content-center">
-      <div class="card">
-        <div class="card-body bg-transparent">
-            <form action="" method="POST">
-              <div class="row">
-                {% for day in weekdays %}
-                <div class="bg-transparent mb-3 col-3">
-                  <div class="card-text">{{ day }}: </div>
-                  {% if day in profile['times'].keys() %}
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="closed" value="{{ profile['times'] }}">geschlossen
-                  </div>
-                  <input type=time class="card-text" name="openingTime {{ day }}"
-                    value="{{ profile['times'][day]['from'] }}" placeholder="Geben Sie die Öffnungszeit ein">
-                  <input type=time class="card-text" name="closingTime {{ day }}"
-                    value="{{ profile['times'][day]['until'] }}" placeholder="Geben Sie die Schließzeit ein">
-                  </fieldset>
-                  {% else %}
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="closed" checked> nicht geöffnet.
-                  </div>
-                  <fieldset> <!-- disabled> -->
-                    <input type=time class="card-text" name="openingTime {{ day }}" value=""
-                      placeholder="Geben Sie die Öffnungszeit ein">
-                    <input type=time class="card-text" name="closingTime {{ day }}" value=""
-                      placeholder="Geben Sie die Schließzeit ein">
-                  </fieldset>
-                  {% endif %}
-                </div>
-                {% endfor %}
-              </div>
-              {% if saved_changes %}
-              <p class="text-success">Änderungen erfolgreich gespeichert</p>
-              {% endif %}
-              {% if wrong_credentials %}
-              <p class="text-danger">Nicht alle Öffnungszeiten konnten geändert werden. Bitte überprüfen!</p>
-              {% endif %}
-              <button name="save" type="submit" class="btn btn-outline-success mt-2">Änderungen übernehmen</button>
-            </form>
+<div class="justify-content-center">
+  <div class="card">
+    <div class="card-body bg-transparent">
+      <form action="" method="POST">
+        <div class="row">
+          {% for day in weekdays %}
+          <div class="bg-transparent mb-3 col-3">
+            <div class="card-text">{{ day }}: </div>
+            <select name="open_closed_{{ day }}">
+              <option value="open" {% if day in profile['times'].keys() %} selected {% endif %}>geöffnet</option>
+              <option value="closed" {% if not day in profile['times'].keys() %} selected {% endif %}>geschlossen</option>
+            </select>
+            {% if day in profile['times'].keys() %}
+            <input type=time class="card-text" name="openingTime_{{ day }}" value="{{ profile['times'][day]['from'] }}" placeholder="Geben Sie die Öffnungszeit ein">
+            <input type=time class="card-text" name="closingTime_{{ day }}" value="{{ profile['times'][day]['until'] }}" placeholder="Geben Sie die Schließzeit ein">
+            {% else %}
+            <input type=time class="card-text" name="openingTime_{{ day }}" placeholder="Geben Sie die Öffnungszeit ein">
+            <input type=time class="card-text" name="closingTime_{{ day }}" placeholder="Geben Sie die Schließzeit ein">
+            {% endif %}
           </div>
-      </div>
+          {% endfor %}
+        </div>
+        {% if saved_changes %}
+        <p class="text-success">Änderungen erfolgreich gespeichert</p>
+        {% endif %}
+        {% if wrong_credentials %}
+        <p class="text-danger">Nicht alle Öffnungszeiten konnten geändert werden. Bitte überprüfen!</p>
+        {% endif %}
+        <button name="save" type="submit" class="btn btn-outline-success mt-2">Änderungen übernehmen</button>
+      </form>
     </div>
+  </div>
+</div>
 {% endblock %}

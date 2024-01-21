@@ -379,14 +379,12 @@ def get_business_hours_for(username, day):
     return result
 
 def update_business_hours(username, wochentag, von, bis):
-    print("update")
     #vonTime = datetime.strptime(von, '%H:%M')
     #bisTime = datetime.strptime(bis, '%H:%M')
     #print(type(von), von)
     #print(type(von), von, type(vonTime), vonTime)
     #print(type(bis), bis, type(bisTime), bisTime)
     #print(type(list(get_business_hours_for(username, "Montag"))), list(get_business_hours_for(username, "Montag")))
-    print(type(username), username, type(wochentag), wochentag, type(von), von, type(bis), bis)
     if von != "" or bis != "":
         executeUpdate("""
         INSERT OR REPLACE INTO Oeffnungszeit(GUsername, Wochentag, Von, Bis)
@@ -394,7 +392,12 @@ def update_business_hours(username, wochentag, von, bis):
 """, (username, wochentag, von, bis))
         print("Daten geupdated")
 
-    
+def delete_business_hours(username, wochentag):
+    executeUpdate("""
+        DELETE FROM Oeffnungszeit
+        WHERE GUsername = ? AND Wochentag = ?
+        """, (username, wochentag))
+
 
 def update_orderstatus(orderid: int, status: str):
     executeUpdate("""

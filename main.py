@@ -123,47 +123,24 @@ def edit_restaurant_time():
     if "user" in session and "business" in session:
         profile = database.get_restaurant(session["user"])
         profile["times"] = database.get_business_hours(session["user"])
-        
         if request.method == "POST":
-            
-            if "save" in request.form:
+            for day in WEEKDAYS:
                 Error = False
-                if database.check_time(request.form["openingTime Montag"], request.form["closingTime Montag"]):
-                    database.update_business_hours(session["user"], "Montag", request.form["openingTime Montag"], request.form["closingTime Montag"])
-                else:
-                    Error = True
-                if database.check_time(request.form["openingTime Dienstag"], request.form["closingTime Dienstag"]):
-                    database.update_business_hours(session["user"], "Dienstag", request.form["openingTime Dienstag"], request.form["closingTime Dienstag"])
-                else:
-                    Error = True
-                if database.check_time(request.form["openingTime Mittwoch"], request.form["closingTime Mittwoch"]):
-                    database.update_business_hours(session["user"], "Mittwoch", request.form["openingTime Mittwoch"], request.form["closingTime Mittwoch"])
-                else:
-                    Error = True
-                if database.check_time(request.form["openingTime Donnerstag"], request.form["closingTime Donnerstag"]):
-                    database.update_business_hours(session["user"], "Donnerstag", request.form["openingTime Donnerstag"], request.form["closingTime Donnerstag"])
-                else:
-                    Error = True
-                if database.check_time(request.form["openingTime Freitag"], request.form["closingTime Freitag"]):   
-                    database.update_business_hours(session["user"], "Freitag", request.form["openingTime Freitag"], request.form["closingTime Freitag"])
-                else:
-                    Error = True
-                if database.check_time(request.form["openingTime Samstag"], request.form["closingTime Samstag"]):    
-                    database.update_business_hours(session["user"], "Samstag", request.form["openingTime Samstag"], request.form["closingTime Samstag"])
-                else:
-                    Error = True
-                if database.check_time(request.form["openingTime Sonntag"], request.form["closingTime Sonntag"]):   
-                    database.update_business_hours(session["user"], "Sonntag", request.form["openingTime Sonntag"], request.form["closingTime Sonntag"])
-                else:
-                    Error = True
+                if request.form["open_closed_" + day] == "open":
+                    if database.check_time(request.form["openingTime_" + day], request.form["closingTime_" + day]):
+                        database.update_business_hours(session["user"], day, request.form["openingTime_" + day], request.form["closingTime_" + day])
+                    else:
+                        Error = True
+                elif request.form["open_closed_" + day] == "closed":
+                    database.delete_business_hours(session["user"], day)
 
                 profile = database.get_restaurant(session["user"])
                 profile["times"] = database.get_business_hours(session["user"])
                     
-                if Error:
-                    return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS, wrong_credentials=True)
-                else:
-                    return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS, saved_changes=True)
+            if Error:
+                return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS, wrong_credentials=True)
+            else:
+                return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS, saved_changes=True)
 
             
         return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS)
@@ -367,7 +344,6 @@ def menue_preview_page(username):
 def order_page():
     if "user" in session:
         if request.method == "POST":
-                
                 if "abschließen" in request.form:
                     status = "abgeschlossen"
                 elif "akzeptieren" in request.form:
