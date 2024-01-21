@@ -355,6 +355,7 @@ def order_page():
                 database.update_orderstatus(request.form["orderid"], status)
         if "business" in session:
             orders = database.get_orders(session["user"], True)
+            print(not orders)
             return render_template("orders_business.html", orders=orders)
         else:
             orders = database.get_orders(session["user"], False)
