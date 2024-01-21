@@ -219,7 +219,7 @@
     orderlist_element.innerHTML = "";
     orderform_element.innerHTML = "\
       <input type='hidden' name='restaurant' value='{{ restaurant['username'] }}'></input>\
-      <button id='order' type='submit'class='btn btn-lg btn-outline-secondary mb-2 form-control'>Jetzt Bestellen</button>";
+      <button id='order' type='submit'class='btn btn-lg btn-outline-success mb-2 form-control'>Jetzt Bestellen</button>";
 
     for (let i = 0; i < orderlist.length; i++) {
       orderlist_element.insertAdjacentHTML("beforeend", "\
@@ -232,7 +232,7 @@
             <input type='hidden' name='name' value='" + orderlist[i].name + "'></input>\
             <input type='hidden' name='price' value=" + orderlist[i].price + "></input>\
             <input type='hidden' name='delete' value=1></input>\
-            <button type='button' class='btn btn-outline-secondary btn-sm mb-4'>Entfernen</button>\
+            <button type='button' class='btn btn-outline-danger btn-sm mb-4'>Entfernen</button>\
           </form>\
         </div");
       orderform_element.insertAdjacentHTML("beforeend", "\
