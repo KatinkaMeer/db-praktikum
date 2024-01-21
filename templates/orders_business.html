@@ -3,6 +3,13 @@
 {% block heading %}Bestellübersicht{% endblock %}
 
 {% block content %}
+
+{% if not orders %}
+    <div class="">
+        <p>Es gibt noch keine Bestellungen.</p>
+    </div>
+{% endif %}
+
 <div class="row g-4 mb-4">
   {% for status in ['in Bearbeitung', 'in Zubereitung', 'abgeschlossen/storniert'] %}
     {% for order in orders %}

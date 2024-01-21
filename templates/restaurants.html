@@ -3,8 +3,12 @@
 {% block heading %}Restaurants in der Nähe{% endblock %}
 
 {% block content %}
+  {% if not restaurants %}
+    <div class="">
+        <p>Aktuell haben keine Restaurants in deiner Nähe geöffnet.</p>
+    </div>
+  {% endif %}
   {% for restaurant in restaurants %}
-  
       <div class="card mt-2 mb-4 p-2">
       <img src="{{ url_for('static', filename=restaurant['image_path']) }}" class="card-img-top restau-image" alt="...">
       <div class="card-body">
