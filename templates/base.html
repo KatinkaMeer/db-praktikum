@@ -41,7 +41,7 @@
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
               {% if session['user'] %}
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown-end">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   {{ session['user'] }}
                 </a>
@@ -63,7 +63,7 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Login
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-end">
                   <li><a class="dropdown-item" href="{{ url_for('login_business_page') }}">Business</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('login_customer_page') }}">Customer</a></li>
                 </ul>
@@ -72,7 +72,7 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Sign up
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-end">
                   <li><a class="dropdown-item" href="{{ url_for('signup_business_page') }}">Business</a></li>
                   <li><a class="dropdown-item" href="{{ url_for('signup_customer_page') }}">Customer</a></li>
                 </ul>
