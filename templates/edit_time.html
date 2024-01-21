@@ -9,7 +9,7 @@
       <form action="" method="POST">
         <div class="row">
           {% for day in weekdays %}
-          <div class="bg-transparent mb-3 col-3">
+          <div class="bg-transparent mb-3 col-4">
             <div class="card-text">{{ day }}: </div>
             <select name="open_closed_{{ day }}">
               <option value="open" {% if day in profile['times'].keys() %} selected {% endif %}>geöffnet</option>
@@ -29,7 +29,7 @@
         <p class="text-success">Änderungen erfolgreich gespeichert</p>
         {% endif %}
         {% if wrong_credentials %}
-        <p class="text-danger">Nicht alle Öffnungszeiten konnten geändert werden. Bitte überprüfen!</p>
+        <p class="text-danger">Nicht alle Öffnungszeiten konnten geändert werden. Bitte überprüfen Sie Ihre Eingaben.</p>
         {% endif %}
         <button name="save" type="submit" class="btn btn-outline-success mt-2">Änderungen übernehmen</button>
       </form>
