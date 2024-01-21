@@ -4,87 +4,86 @@
 
 {% block content %}
 <!--Login Panel-->
-    <div class="">
-      <div class="card">
-        <div class="card-header">
-          Ihr Restaurant Profil bearbeiten:
-        </div>
-        <div class="card-body">
-          <form action="" method="POST" enctype=multipart/form-data>
+<div class="">
+  <div class="card">
+    <div class="card-header">
+      Ihr Restaurant Profil bearbeiten:
+    </div>
+    <div class="card-body">
+      <form action="" method="POST" enctype=multipart/form-data>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <label for="name">Restaurant Name</label>
+            <input name="name" value="{{ profile['name'] }}" type="text" class="form-control" id="name"
+              placeholder="Name des Restaurants" required>
+            <div class="invalid-feedback">
+              Bitte füllen Sie dieses Textfeld aus.
+            </div>
+
+            <label for="image">Bild</label>
+            <input name="image" type="file" accept="image/png, image/jpeg" class="form-control" id="image">
+          </div>
+          <div class="col-sm-6">
             <div class="form-group">
-              <label for="password">Passwort</label>
-              <input name="password" type="password" class="form-control" id="password"
-                placeholder="Passwort" required>
-              <div class="invalid-feedback">
-                Bitte geben Sie ihr Passwort ein.
-              </div>
-              {% if wrong_credentials %}
-              <p class="text-danger">Falsches Passwort</p>
-              {% endif %}
+              <label for="description">Beschreibung</label>
+              <textarea name="description" type="text" class="form-control" rows=4 id="description"
+                placeholder="Beschreibung des Restaurants">{{ profile['description'] }}</textarea>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-6">
-                <label for="name">Restaurant Name</label>
-                <input name="name" value="{{ profile['name'] }}" type="text" class="form-control" id="name"
-                  placeholder="Name des Restaurants" required>
-                <div class="invalid-feedback">
-                  Bitte füllen Sie dieses Textfeld aus.
-                </div>
 
-                <label for="image">Bild</label>
-                <input name = "image" type="file" accept="image/png, image/jpeg" class="form-control" id="image">
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="description">Beschreibung</label>
-                  <textarea name="description" type="text" class="form-control" rows=4 id="description"
-                    placeholder="Beschreibung des Restaurants">{{ profile['description'] }}</textarea>
-                </div>
-
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-sm-6">
-                <label for="street">Straße</label>
-                <input name="street" value="{{ profile['street'] }}" type="text" class="form-control" id="street"
-                  placeholder="Straßenname" required>
-                <div class="invalid-feedback">
-                  Bitte füllen Sie dieses Textfeld aus.
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <label for="housenumber">Hausnummer</label>
-                <input name="housenumber" value="{{ profile['housenumber'] }}" type="text" class="form-control"
-                  id="housenumber" placeholder="Hausnummer" required>
-                <div class="invalid-feedback">
-                  Bitte füllen Sie dieses Textfeld aus.
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <label for="postalcode">Postleitzahl</label>
-                <input name="postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control"
-                  id="postalcode" placeholder="PLZ" required>
-                <div class="invalid-feedback">
-                  Bitte füllen Sie dieses Textfeld aus.
-                </div>
-              </div>
-            </div>
-            {% if missing_fields %}
-            <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
-            {% endif %}
-            {% if saved_changes %}
-            <p class="text-success">Änderungen erfolgreich gespeichert</p>
-            {% endif %}
-            <button type="submit" class="btn btn-lg btn-outline-success mt-2 form-control">Änderungen
-              übernehmen</button>
-          </form>
-          <div class="mt-3">
-            <a class="btn btn-outline-secondary mt-2 form-control" href=edit_time>Öffnungszeiten bearbeiten</a>
-            <a class="btn btn-outline-secondary mt-2 form-control" href=edit_delivery_radius>Lieferradius bearbeiten</a>
-            <a class="btn btn-outline-secondary mt-2 form-control" href=edit_menue>Speisekarte bearbeiten</a>
           </div>
         </div>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <label for="street">Straße</label>
+            <input name="street" value="{{ profile['street'] }}" type="text" class="form-control" id="street"
+              placeholder="Straßenname" required>
+            <div class="invalid-feedback">
+              Bitte füllen Sie dieses Textfeld aus.
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <label for="housenumber">Hausnummer</label>
+            <input name="housenumber" value="{{ profile['housenumber'] }}" type="text" class="form-control"
+              id="housenumber" placeholder="Hausnummer" required>
+            <div class="invalid-feedback">
+              Bitte füllen Sie dieses Textfeld aus.
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <label for="postalcode">Postleitzahl</label>
+            <input name="postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control"
+              id="postalcode" placeholder="PLZ" required>
+            <div class="invalid-feedback">
+              Bitte füllen Sie dieses Textfeld aus.
+            </div>
+          </div>
+        </div>
+        {% if missing_fields %}
+        <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
+        {% endif %}
+        {% if saved_changes %}
+        <p class="text-success">Änderungen erfolgreich gespeichert</p>
+        {% endif %}
+        <div class="form-group mt-4">
+          <label for="password">zum Bestätigen Passwort eingeben</label>
+          <input name="password" type="password" class="form-control" id="password" placeholder="Passwort" required>
+          <div class="invalid-feedback">
+            Bitte geben Sie ihr Passwort ein.
+          </div>
+          {% if wrong_credentials %}
+          <p class="text-danger">Falsches Passwort</p>
+          {% endif %}
+        </div>
+        <button type="submit" class="btn btn-lg btn-outline-success mt-2 form-control">Änderungen
+          übernehmen</button>
+      </form>
+      <div class="mt-3">
+        <a class="btn btn-outline-secondary mt-2 form-control" href=edit_time>Öffnungszeiten bearbeiten</a>
+        <a class="btn btn-outline-secondary mt-2 form-control" href=edit_delivery_radius>Lieferradius bearbeiten</a>
+        <a class="btn btn-outline-secondary mt-2 form-control" href=edit_menue>Speisekarte bearbeiten</a>
       </div>
     </div>
   </div>
+</div>
+</div>
 {% endblock %}
