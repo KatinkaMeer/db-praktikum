@@ -978,13 +978,13 @@ def create_tables():
         ('subday', 'Samstag', '10:00', '21:00'),
         ('subday', 'Sonntag', '10:00', '20:00'),
 
-        ('mcdaniels', 'Montag', '06:30', '22:00'),
-        ('mcdaniels', 'Dienstag', '06:30', '22:00'),
-        ('mcdaniels', 'Mittwoch', '06:30', '22:00'),
-        ('mcdaniels', 'Donnerstag', '06:30', '23:00'),
-        ('mcdaniels', 'Freitag', '06:30', '23:00'),
-        ('mcdaniels', 'Samstag', '06:30', '23:00'),
-        ('mcdaniels', 'Sonntag', '06:30', '22:00');
+        ('mcdaniels', 'Montag', '00:00', '23:59'),
+        ('mcdaniels', 'Dienstag', '00:00', '23:59'),
+        ('mcdaniels', 'Mittwoch', '00:00', '23:59'),
+        ('mcdaniels', 'Donnerstag', '00:00', '23:59'),
+        ('mcdaniels', 'Freitag', '00:00', '23:59'),
+        ('mcdaniels', 'Samstag', '00:00', '23:59'),
+        ('mcdaniels', 'Sonntag', '00:00', '23:59');
 """)
 
     dbcon.commit()

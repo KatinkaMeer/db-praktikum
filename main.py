@@ -381,8 +381,10 @@ def confirm_order_page():
     else:
         return redirect(url_for("login_customer_page"))
 
-@app.route("/place_order", methods=["POST"])
+@app.route("/place_order", methods=["GET", "POST"])
 def place_order_page():
+    if request.method == "GET":
+        return render_template("error.html", error_message="GET Request nicht erlaubt")
     if "user" in session and not "business" in session:
         items = get_items(request.form)
         try:
