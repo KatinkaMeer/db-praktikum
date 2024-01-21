@@ -123,6 +123,23 @@ def edit_restaurant_time():
     if "user" in session and "business" in session:
         profile = database.get_restaurant(session["user"])
         profile["times"] = database.get_business_hours(session["user"])
+        if request.method == "POST":
+            #print(request.form)
+            #print("")
+            #print(request.form["openingTime Montag"])
+            #print("")
+            #print(request.form["openingTime Dienstag"])
+            if "save" in request.form:
+                database.update_business_hours(session["user"], "Montag", request.form["openingTime Montag"], request.form["closingTime Montag"])
+                database.update_business_hours(session["user"], "Dienstag", request.method["openingTime Dienstag"], request.method["closingTime Dienstag"])
+                database.update_business_hours(session["user"], "Mittwoch", request.method["openingTime Mittwoch"], request.method["closingTime Mittwoch"])
+                database.update_business_hours(session["user"], "Donnerstag", request.method["openingTime Donnerstag"], request.method["closingTime Donnerstag"])
+                database.update_business_hours(session["user"], "Freitag", request.method["openingTime Freitag"], request.method["closingTime Freitag"])
+                database.update_business_hours(session["user"], "Samstag", request.method["openingTime Samstag"], request.method["closingTime Samstag"])
+                database.update_business_hours(session["user"], "Sonntag", request.method["openingTime Sonntag"], request.method["closingTime Sonntag"])
+                profile = database.get_restaurant(session["user"])
+                return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS)
+            
         return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS)
     else:
         return redirect(url_for("login_business_page")) 
@@ -133,7 +150,6 @@ def edit_restaurant_delivery_radius():
         profile = database.get_restaurant(session["user"])
         delivery_radius = database.get_delivery_radius(session["user"])
         if request.method == "POST":
-            print(request.form)
             if "submit new PLZ" in request.form:
                 if database.check_plz(request.form["new PLZ"]):
                     delivery_radius.append(request.form["new PLZ"])

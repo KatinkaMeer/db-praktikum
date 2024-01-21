@@ -1,6 +1,6 @@
 import sqlite3
 import createdb
-import datetime
+from datetime import datetime
 
 def executeUpdate(sql, params = ()):
     dbcon = sqlite3.connect("instance/db.db")
@@ -378,6 +378,16 @@ def get_business_hours_for(username, day):
             "until": entry[3],
         }
     return result
+
+def update_business_hours(username, wochentag, von, bis):
+    #vonTime = datetime.strptime(von, '%H:%M')
+    #bisTime = datetime.strptime(bis, '%H:%M')
+    #print(vonTime)
+   #print(bisTime)
+    executeUpdate("""
+        INSERT OR REPLACE INTO Oeffnungszeit (GUsername, Wochentag, Von, Bis)
+                  VALUES(?, ?, ?, ?)
+""" (username, wochentag, von, bis))
     
 def update_orderstatus(orderid: int, status: str):
     executeUpdate("""
