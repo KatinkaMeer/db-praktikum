@@ -81,14 +81,13 @@ def update_items(restaurant, itemname, kategorie, beschreibung, preis, deaktivie
 
 def update_lieferradius(plz,username):
     executeUpdate("""
-        INSERT OR REPLACE INTO Lieferradius (Plz, GUsername)
+        INSERT OR IGNORE INTO Lieferradius (Plz, GUsername)
                   VALUES(?, ?)""",
         (plz,username)
     )
 
 def delete_lieferradius(plz,username):
-    executeUpdate(""" DELETE FROM Lieferradius WHERE Plz = ? AND GUsername = ? """, (plz,username)
-    )
+    executeUpdate(""" DELETE FROM Lieferradius WHERE Plz = ? AND GUsername = ? """, (plz,username))
 
 def login_kunde(username, passwort):
     # Ergebnis des Vergleichs mit dem original pw aus db zum username
