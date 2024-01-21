@@ -12,23 +12,23 @@
                 <div class="card-body">
                     <form action="" method="POST">
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input name = "password" type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <label for="password">Passwort</label>
+                            <input name = "password" type="password" class="form-control" id="password" placeholder="Passwort" required>
                             <div class="invalid-feedback">
                               Bitte geben Sie ihr Passwort ein.
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6">
-                                <label for="firstname">First Name</label>
-                                <input name = "firstname" value="{{ profile['firstname'] }}" type="text" class="form-control" id="firstname" placeholder="Enter your first name" required>
+                                <label for="firstname">Vorname</label>
+                                <input name = "firstname" value="{{ profile['firstname'] }}" type="text" class="form-control" id="firstname" placeholder="Vorname" required>
                                 <div class="invalid-feedback">
                                   Bitte geben Sie ihren Vornamen an.
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label for="lastname">Last Name</label>
-                                <input name = "lastname" value="{{ profile['lastname'] }}" type="text" class="form-control" id="lastname" placeholder="Enter your last name" required>
+                                <label for="lastname">Nachname</label>
+                                <input name = "lastname" value="{{ profile['lastname'] }}" type="text" class="form-control" id="lastname" placeholder="Nachname" required>
                                 <div class="invalid-feedback">
                                   Bitte geben Sie ihren Nachnamen an.
                                 </div>
@@ -36,29 +36,29 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-7">
-                                <label for="street">Street</label>
-                                <input name = "street" value="{{ profile['street'] }}" type="text" class="form-control" id="street" placeholder="Enter your street of residence" required>
+                                <label for="street">Straße</label>
+                                <input name = "street" value="{{ profile['street'] }}" type="text" class="form-control" id="street" placeholder="Straßenname" required>
                                 <div class="invalid-feedback">
                                   Bitte füllen Sie dieses Textfeld aus.
                                 </div>
                             </div>
                             <div class="col-sm-5">
-                                <label for="housenumber">House Number</label>
-                                <input name = "housenumber" value="{{ profile['housenumber'] }}" type="text" class="form-control" id="housenumber" placeholder="Enter your house number" required>
+                                <label for="housenumber">Hausnummer</label>
+                                <input name = "housenumber" value="{{ profile['housenumber'] }}" type="text" class="form-control" id="housenumber" placeholder="Hausnummer" required>
                                 <div class="invalid-feedback">
                                   Bitte füllen Sie dieses Textfeld aus.
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="postalcode">Postal Code</label>
-                            <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="Enter your postal code" required>
+                            <label for="postalcode">Postleitzahl</label>
+                            <input name = "postalcode" value="{{ profile['postalcode'] }}" type="text" class="form-control" id="postalcode" placeholder="PLZ" required>
                             <div class="invalid-feedback">
                               Bitte füllen Sie dieses Textfeld aus.
                             </div>
                         </div>
                         {% if missing_fields %}
-                        <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
+                        <p class="text-danger">Bitte füllen Sie alle Textfelder aus.</p>
                         {% endif %}
                         {% if wrong_credentials %}
                         <p class="text-danger">Falsches Passwort</p>
