@@ -35,7 +35,7 @@
               <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3" required></textarea>
             </div>
             <div class="col-2">
-              <input type="number" class="form-control" step="1" pattern="\d+" name="price" placeholder="Cent [Preis]" required></input>
+              <input type="number" class="form-control" step="1" pattern="\d+" min="1" name="price" placeholder="Cent [Preis]" required></input>
             </div>
             <div class="col-2">
               <select class="form-control" name="category">
@@ -65,7 +65,7 @@
                 <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
               </div>
               <div class="col-2">
-                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+                <input type="number" class="form-control" step="1" pattern="\d+" min="1"  name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
               </div>
               <div class="col-2">
                 <select class="form-control" name="category" placeholder="Preis">
@@ -100,7 +100,7 @@
                 <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
               </div>
               <div class="col-2">
-                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+                <input type="number" class="form-control" step="1" pattern="\d+" min="1"  name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
               </div>
               <div class="col-2">
                 <select class="form-control" name="category" placeholder="Preis">
@@ -135,7 +135,7 @@
                 <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
               </div>
               <div class="col-2">
-                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+                <input type="number" class="form-control" step="1" pattern="\d+" min="1"  name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
               </div>
               <div class="col-2">
                 <select class="form-control" name="category" placeholder="Preis">
@@ -170,7 +170,7 @@
                 <textarea name="description" class="col-2 form-control" placeholder="Beschreibung" rows="3">{{ item['description'] }}</textarea>
               </div>
               <div class="col-2">
-                <input type="number" class="form-control" step="1" pattern="\d+" name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
+                <input type="number" class="form-control" step="1" pattern="\d+" min="1"  name="price" value="{{ item['price'] }}" placeholder="Preis"></input>
               </div>
               <div class="col-2">
                 <select class="form-control" name="category" placeholder="Preis">
