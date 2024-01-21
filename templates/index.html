@@ -1,32 +1,96 @@
 {% extends "base.html" %}
 {% block title %}Speisekarte{% endblock %}
 {% block content %}
-
-  <div class="container text-center brandfont2">
+<hr/>
+<div class="container text-center brandfont2">
   <div class="row">
-    <div class="col">
-      <img src="static\ls_logo.png" height="350px" width="350px">
-    </div>
     <div class="col align-items-center align-self-center">
       <h2>Lieferspatz</h2>
       <h4>Dein Lieblingsessen im Flug zu dir!</h4>
     </div>
+    <div class="col">
+      <img src="static\ls_logo.png" height="200px" width="200px">
+    </div>
   </div>
 </div>
-<!------aboutus------>
-
-  <div class="container text-center brandfont2" style="background-color: #f8f9fa; margin-top:26px;height:350px;border:5px solid #e98757;border-radius: 25px;padding: 10px;">
-    <div class="row">
-      <div class="col">
-        <h4>Über uns</h3>
+<hr/>
+<!-- Warum bei uns bestellen? -->
+<div class="container text-center mb-4">
+  <div class="row">
+    <div class="col mb-2">
+      <h4 class="brandfont2">Warum bei uns bestellen?</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>1. Vielfältige Auswahl</strong><br>Entdecke eine breite Palette von Gerichten aus verschiedenen Küchen.</p>
+        </div>
       </div>
     </div>
-    <div class="row"> 
-      <div class="col" style="color:black;font-family: system-ui;">
-        Mach einen kulinarischen Spatz-iergang mit Speisen aus Küchen jeglicher Art. Bei uns gilt seit 2006 die absolute Genussgarantie!
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>2. Schnelle Lieferung</strong><br>Unsere Spatzen bringen dein Essen in Rekordzeit direkt zu dir nach Hause.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>3. Qualitätsgarantie</strong><br>Wir führen unangekündigte Kontrollen bei unseren Partner-Restaurants durch.</p>
+        </div>
       </div>
     </div>
   </div>
-
-
+</div>
+<!-- Über uns -->
+<div class="container text-center brandfont2 pb-4 pt-2 mb-4 mt-5" style="border:5px solid #e98757;border-radius: 25px;">
+  <div class="row">
+    <div class="col">
+      <h4>Über uns</h4>
+    </div>
+  </div>
+  <div class="row"> 
+    <div class="col text-white" style="font-family: system-ui;">
+      Mach einen kulinarischen Spatz-iergang mit Speisen aus Küchen jeglicher Art. Bei uns gilt seit 2006 die absolute Genussgarantie!
+      <br><br>
+      Unsere Geschichte begann mit der Leidenschaft für gutes Essen und dem Wunsch, diese Freude mit anderen zu teilen. Von einem kleinen Team, das lokale Restaurants unterstützte, sind wir zu einem innovativen Lieferservice herangewachsen.
+      <br><br>
+      Heute sind wir stolz darauf, Ihnen nicht nur eine Vielzahl von Optionen anzubieten, sondern auch sicherzustellen, dass jedes Gericht mit Liebe und Sorgfalt zubereitet wird. Unser Engagement für Qualität und Kundenzufriedenheit steht an erster Stelle, während wir weiterhin neue kulinarische Horizonte erkunden und Ihren Gaumen verwöhnen.
+    </div>
+  </div>
+</div>
+<!-- Professionelle Abschnitte -->
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <h4 class="brandfont2 mb-3">Unsere Highlights</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>Kulinarische Exzellenz</strong><br>Unsere Küchenchefs sind Meister ihres Fachs und zaubern Gerichte von höchster Qualität.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>Nachhaltigkeit</strong><br>Wir setzen auf nachhaltige Praktiken, vom Anbau bis zur Lieferung, um die Umwelt zu schützen.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <p><strong>Kundenorientierung</strong><br>Ihre Zufriedenheit ist unser Ziel. Wir sind stets bemüht, Ihre Erwartungen zu übertreffen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
