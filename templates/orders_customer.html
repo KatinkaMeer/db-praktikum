@@ -45,9 +45,9 @@
               <div class="col-4">
                 Anmerkung: {{ order['comment'] }}
               </div>
-              <div class="col-4"></div>
+              <div class="col-4 text-end">Summe:</div>
               <div class="col-4">
-                Summe: {{ "%.2f" | format(order['sum']/100) }}€
+                {{ "%.2f" | format(order['sum']/100) }}€
               </div>
             </div>
         </div>

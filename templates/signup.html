@@ -4,7 +4,6 @@
 
 {% block content %}
   <!--Login Panel-->
-  <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -55,7 +54,7 @@
                         {% if missing_fields %}
                         <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
                         {% endif %}
-                        <button type="submit" class="btn btn-lg btn-outline-secondary mt-2 form-control">Registrieren</button>
+                        <button type="submit" class="btn btn-lg btn-outline-success mt-2 form-control">Registrieren</button>
                     </form>
                 </div>
             </div>
@@ -124,12 +123,11 @@
                         {% if missing_fields %}
                         <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
                         {% endif %}
-                        <button type="submit" class="btn btn-lg btn-outline-secondary mt-2 form-control">Registrieren</button>
+                        <button type="submit" class="btn btn-lg btn-outline-success mt-2 form-control">Registrieren</button>
                     </form>
                 </div>
             </div>
             {% endif %}
         </div>
     </div>
-  </div>
 {% endblock %}

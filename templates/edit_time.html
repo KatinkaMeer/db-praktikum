@@ -1,51 +1,45 @@
 {% extends "base.html" %}
 {% block title %}Edit Time{% endblock %}
-{% block heading %}Ändern Sie Öffnugs- und Schließzeiten ihres Restaurants{% endblock %}
+{% block heading %}Öffnungszeiten bearbeiten{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    Ihr Restaurant Profil bearbeiten:
+    <div class="justify-content-center">
+      <div class="card">
+        <div class="card-body bg-transparent">
+            <form action="" method="POST">
+              <div class="row">
+                {% for day in weekdays %}
+                <div class="bg-transparent mb-3 col-3">
+                  <div class="card-text">{{ day }}: </div>
+                  {% if day in profile['times'].keys() %}
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="closed" value="{{ profile['times'] }}">geschlossen
+                  </div>
+                  <input type=time class="card-text" name="openingTime {{ day }}"
+                    value="{{ profile['times'][day]['from'] }}" placeholder="Geben Sie die Öffnungszeit ein">
+                  <input type=time class="card-text" name="closingTime {{ day }}"
+                    value="{{ profile['times'][day]['until'] }}" placeholder="Geben Sie die Schließzeit ein">
+                  </fieldset>
+                  {% else %}
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="closed" checked> nicht geöffnet.
+                  </div>
+                  <fieldset> <!-- disabled> -->
+                    <input type=time class="card-text" name="openingTime {{ day }}" value=""
+                      placeholder="Geben Sie die Öffnungszeit ein">
+                    <input type=time class="card-text" name="closingTime {{ day }}" value=""
+                      placeholder="Geben Sie die Schließzeit ein">
+                  </fieldset>
+                  {% endif %}
                 </div>
-<div class="card">
-    <div class="card-header">
-        Öffnungszeiten bearbeiten:
-    </div>
-    <div class="card card-body">
-      <form action="" method="POST">
-        <div class="bg-transparent mb-3 row">
-          {% for day in weekdays %}
-            <div class="bg-transparent mb-3 row">
-              <div class="card-text col">{{ day }}: </div>
-              {% if day in profile['times'].keys() %}
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="closed" value="{{ profile['times'] }}"> nicht geöffnet.
+                {% endfor %}
               </div>
-              <input type=time class="card-text col" name="openingTime {{ day }}" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit ein">
-              <input type=time class="card-text col" name="closingTime {{ day }}" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit ein"> 
-              </fieldset>
-              {% else %}
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="closed" checked> nicht geöffnet.
-              </div>
-              <fieldset> <!-- disabled> -->
-              <input type=time class="card-text col" name="openingTime {{ day }}" value="" placeholder= "Geben Sie die Öffnungszeit ein">
-              <input type=time class="card-text col" name="closingTime {{ day }}" value="" placeholder= "Geben Sie die Schließzeit ein">
-              </fieldset>
+              {% if saved_changes %}
+              <p class="text-success">Änderungen erfolgreich gespeichert</p>
               {% endif %}
-            </div>
-          {% endfor %}
-        </div>
-        {% if saved_changes %}
-        <p class="text-success">Änderungen erfolgreich gespeichert</p>
-        {% endif %}
-        <button name="save" type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
-      </form>
+              <button name="save" type="submit" class="btn btn-outline-success mt-2">Änderungen übernehmen</button>
+            </form>
+          </div>
+      </div>
     </div>
-  </div>
-</div>
-</div>
-{% endblock %}
+    {% endblock %}

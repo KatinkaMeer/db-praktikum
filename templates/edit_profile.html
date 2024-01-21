@@ -4,9 +4,7 @@
 
 {% block content %}
   <!--Login Panel-->
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="">
             <div class="card">
                 <div class="card-header">
                     Ihr Profil
@@ -68,11 +66,9 @@
                         {% if saved_changes %}
                         <p class="text-success">Änderungen erfolgreich gespeichert</p>
                         {% endif %}
-                        <button type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
+                        <button type="submit" class="btn btn-outline-success mt-2">Änderungen übernehmen</button>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-  </div>
 {% endblock %}

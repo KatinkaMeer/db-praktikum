@@ -54,14 +54,20 @@
           {% if item['category'] == 'Vorspeise' %}
           <form class="card-body">
             <div class="row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
             </div>
-            <p class="card-text">{{ item['description'] }}</p>
-            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
           </form>
           {% endif %}
           {% endfor %}
@@ -74,14 +80,20 @@
           {% if item['category'] == 'Hauptgericht' %}
           <form class="card-body">
             <div class="row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
             </div>
-            <p class="card-text">{{ item['description'] }}</p>
-            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
           </form>
           {% endif %}
           {% endfor %}
@@ -94,14 +106,20 @@
           {% if item['category'] == 'Dessert' %}
           <form class="card-body">
             <div class="row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
             </div>
-            <p class="card-text">{{ item['description'] }}</p>
-            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
           </form>
           {% endif %}
           {% endfor %}
@@ -114,14 +132,20 @@
           {% if item['category'] == 'Getränk' %}
           <form class="card-body">
             <div class="row">
-              <h5 class="card-titel col">{{ item['name'] }}</h5>
-              <p class="card-text col">{{ "%.2f" | format(item['price']/100) }}€</p>
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
             </div>
-            <p class="card-text">{{ item['description'] }}</p>
-            <input type="hidden" name="id" value="{{ item['id'] }}"></input>
-            <input type="hidden" name="name" value="{{ item['name'] }}"></input>
-            <input type="hidden" name="price" value="{{ item['price'] }}"></input>
-            <button type="button" class="btn btn-outline-secondary mb-2">zu Bestellung hinzufügen</button>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
           </form>
           {% endif %}
           {% endfor %}

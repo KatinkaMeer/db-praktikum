@@ -3,16 +3,13 @@
 {% block heading %}Lieferradius bearbeiten{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-6 card">
+        <div class="card">
             <div class="card-header bg-transparent">
                 Postleitzahlen hinzufügen oder entfernen:
             </div>
             <div class="card-body form-group nopadding">
                 <div>
                     <form action="" method="POST">
-                        <h4>Postleitzahl</h4>
                         <div class="row">
                         <div class="col-6">
                         <input name="new PLZ" type="number" min="0" class="form-control" id="new PLZ"
@@ -53,7 +50,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 {% endblock %}

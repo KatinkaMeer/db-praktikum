@@ -4,7 +4,6 @@
 
 {% block content %}
   <!--Login Panel-->
-  <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -31,11 +30,10 @@
                         {% if wrong_credentials %}
                         <p class="text-danger">Falsche Zugangsdaten</p>
                         {% endif %}
-                        <button class="btn btn-lg btn-outline-secondary mt-2 form-control">Anmelden</button>
+                        <button class="btn btn-lg btn-outline-success mt-2 form-control">Anmelden</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-  </div>
 {% endblock %}
