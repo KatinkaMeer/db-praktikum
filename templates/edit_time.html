@@ -37,9 +37,12 @@
               {% if saved_changes %}
               <p class="text-success">Änderungen erfolgreich gespeichert</p>
               {% endif %}
+              {% if wrong_credentials %}
+              <p class="text-danger">Nicht alle Öffnungszeiten konnten geändert werden. Bitte überprüfen!</p>
+              {% endif %}
               <button name="save" type="submit" class="btn btn-outline-success mt-2">Änderungen übernehmen</button>
             </form>
           </div>
       </div>
     </div>
-    {% endblock %}
+{% endblock %}

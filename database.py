@@ -406,7 +406,10 @@ def update_orderstatus(orderid: int, status: str):
 def check_plz(eingabe):
     return eingabe.isnumeric() and len(eingabe) == 5 
     
-
+def check_time(von, bis):
+    if von != "" or bis != "":
+        return von < bis
+    return True
 
 
     
