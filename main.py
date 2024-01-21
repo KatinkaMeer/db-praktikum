@@ -131,6 +131,7 @@ def edit_restaurant_time():
                         database.update_business_hours(session["user"], day, request.form["openingTime_" + day], request.form["closingTime_" + day])
                     else:
                         Error = True
+                        break
                 elif request.form["open_closed_" + day] == "closed":
                     database.delete_business_hours(session["user"], day)
 
