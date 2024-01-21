@@ -123,7 +123,19 @@ def edit_restaurant_time():
     if "user" in session and "business" in session:
         profile = database.get_restaurant(session["user"])
         profile["times"] = database.get_business_hours(session["user"])
+        print(type(database.get_business_hours_for(session["user"], "Montag")), database.get_business_hours_for(session["user"], "Montag"))
+        list(database.get_business_hours_for(session["user"], "Montag"))
+        
         if request.method == "POST":
+
+            print("Montag", type(request.form["openingTime Montag"]), request.form["openingTime Montag"])
+            print("Dienstag", type(request.form["openingTime Dienstag"]), request.form["openingTime Dienstag"])
+            print("Mittwoch", type(request.form["openingTime Mittwoch"]), request.form["openingTime Mittwoch"])
+            print("Donnerstag", type(request.form["openingTime Donnerstag"]), request.form["openingTime Donnerstag"])
+            print("Freitag", type(request.form["openingTime Freitag"]), request.form["openingTime Freitag"])
+            print("Samstag", type(request.form["openingTime Samstag"]), request.form["openingTime Samstag"])
+            print("Sonntag", type(request.form["openingTime Sonntag"]), request.form["openingTime Sonntag"])
+
             #print(request.form)
             #print("")
             #print(request.form["openingTime Montag"])
@@ -131,12 +143,12 @@ def edit_restaurant_time():
             #print(request.form["openingTime Dienstag"])
             if "save" in request.form:
                 database.update_business_hours(session["user"], "Montag", request.form["openingTime Montag"], request.form["closingTime Montag"])
-                database.update_business_hours(session["user"], "Dienstag", request.method["openingTime Dienstag"], request.method["closingTime Dienstag"])
-                database.update_business_hours(session["user"], "Mittwoch", request.method["openingTime Mittwoch"], request.method["closingTime Mittwoch"])
-                database.update_business_hours(session["user"], "Donnerstag", request.method["openingTime Donnerstag"], request.method["closingTime Donnerstag"])
-                database.update_business_hours(session["user"], "Freitag", request.method["openingTime Freitag"], request.method["closingTime Freitag"])
-                database.update_business_hours(session["user"], "Samstag", request.method["openingTime Samstag"], request.method["closingTime Samstag"])
-                database.update_business_hours(session["user"], "Sonntag", request.method["openingTime Sonntag"], request.method["closingTime Sonntag"])
+                database.update_business_hours(session["user"], "Dienstag", request.form["openingTime Dienstag"], request.form["closingTime Dienstag"])
+                database.update_business_hours(session["user"], "Mittwoch", request.form["openingTime Mittwoch"], request.form["closingTime Mittwoch"])
+                database.update_business_hours(session["user"], "Donnerstag", request.form["openingTime Donnerstag"], request.form["closingTime Donnerstag"])
+                database.update_business_hours(session["user"], "Freitag", request.form["openingTime Freitag"], request.form["closingTime Freitag"])
+                database.update_business_hours(session["user"], "Samstag", request.form["openingTime Samstag"], request.form["closingTime Samstag"])
+                database.update_business_hours(session["user"], "Sonntag", request.form["openingTime Sonntag"], request.form["closingTime Sonntag"])
                 profile = database.get_restaurant(session["user"])
                 return render_template("edit_time.html", profile=profile, weekdays=WEEKDAYS)
             
