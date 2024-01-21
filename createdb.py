@@ -62,10 +62,11 @@ def create_tables():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS Lieferradius(
-            Plz INTEGER NOT NULL,
+            Plz TEXT NOT NULL,
             GUsername TEXT NOT NULL,
             FOREIGN KEY (GUsername) REFERENCES GeschaeftsAccount(Username),
-            PRIMARY KEY (Plz, GUsername) 
+            PRIMARY KEY (Plz, GUsername),
+            UNIQUE(Plz, GUsername)
         )""")
     
     cursor.execute("""

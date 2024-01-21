@@ -150,7 +150,7 @@ def get_restaurants_near_and_open(username, day):
         hours = get_business_hours_for(restaurant["username"], day)
         if hours:
             
-            time = datetime.datetime.now().strftime("%H:%M") #Zeitstempel im Format Stunde(24):Minute
+            time = datetime.now().strftime("%H:%M") #Zeitstempel im Format Stunde(24):Minute
 
             #teile stunde und minute auf und caste zu int
             now_hour, now_min = [int(x) for x in time.split(":")]   
