@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Restaurants{% endblock %}
-{% block heading %}Kunden Ansicht des Restaurants{% endblock %}
+{% block heading %}Kundenansicht des Restaurants{% endblock %}
 
 {% block content %}
       <div class="card mt-2 mb-4 p-2">
@@ -8,7 +8,7 @@
       <div class="card-body">
           <h5 class="card-title">{{ restaurant['name'] }}</h5>
           <p class="card-text">{{ restaurant['description'] }}</p>
-          <a href="{{ url_for('menue_page', username=restaurant['username']) }}" class="btn btn-outline-secondary">Speisekarte ansehen</a>
+          <a href="{{ url_for('menue_preview_page', username=restaurant['username']) }}" class="btn btn-outline-secondary">Speisekarte ansehen</a>
       </div>
       </div>
 {% endblock %}

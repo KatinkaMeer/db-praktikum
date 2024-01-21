@@ -284,6 +284,7 @@ def login_business_page():
 @app.route("/logout/")
 def logout_page():
     session.pop("user", None)
+    session.pop("business", None)
     return redirect(url_for("start_page"))
 
 @app.route("/restaurants/")
@@ -338,6 +339,26 @@ def menue_page(username):
 
         items = database.get_items(username)
         return render_template("menue.html", restaurant=restaurant, items=items, weekdays=WEEKDAYS)
+    else:
+        return redirect(url_for("login_customer_page"))
+    
+
+@app.route("/menue_preview/<username>", methods=["GET", "POST"])
+def menue_preview_page(username):
+    if "user" in session:
+        restaurant = database.get_restaurant(username)
+        restaurant["times"] = database.get_business_hours(username)
+        image_names = os.listdir(app.config['UPLOAD_FOLDER'])
+        image_tuples = list(map(os.path.splitext, image_names))
+        restaurant["image_path"] = "test1.jpeg"
+        for index, value in enumerate(image_tuples):
+            if username == value[0]:
+                restaurant["image_path"] = 'business/' + value[0] + value[1]
+                image_tuples.pop(index)
+                break
+
+        items = database.get_items(username)
+        return render_template("menue_preview.html", restaurant=restaurant, items=items, weekdays=WEEKDAYS)
     else:
         return redirect(url_for("login_customer_page"))
 

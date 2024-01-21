@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}Speisekarte{% endblock %}
+{% block heading %}Kundenansicht der Speisekarte{% endblock %}
+
+{% block content %}
+<div class="card border-dark">
+      <img src="{{ url_for('static', filename=restaurant['image_path']) }}" class="card-img-top restau-image" alt="...">
+      <div class="card-body">
+        <h3 class="card-title card-header bg-transparent">{{ restaurant['name'] }}</h3>
+        <p class="card-text card-header bg-transparent mb-3">{{ restaurant['description'] }}</p>
+
+
+        <a class="btn btn-outline-secondary mb-2" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Öffnungszeiten
+        </a>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            {% for day in weekdays %}
+              <div class="bg-transparent mb-3 row">
+                <div class="card-text col">{{ day }}: </div>
+                {% if day in restaurant['times'].keys() %}
+                <div class="card-text col">{{ restaurant['times'][day]['from'] }} - {{ restaurant['times'][day]['until'] }}</div>
+                {% else %}
+                <div class="card-text col">geschlossen</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+
+        
+        <ul class="nav nav-pills justify-content-center mt-4">
+          <li class="nav-item">
+            <a class="nav-link" href="#Vorspeisen">Vorspeisen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Hauptgerichte">Hauptgerichte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Dessert">Dessert</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Getränke">Getränke</a>
+          </li>
+        </ul>
+          
+        <div class="sprungmarke" id="Vorspeisen"></div>
+        <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Vorspeisen</h6>
+          {% for item in items %}
+          {% if item['category'] == 'Vorspeise' %}
+          <form class="card-body">
+            <div class="row">
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
+            </div>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="sprungmarke" id="Hauptgerichte"></div>
+        <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Hauptgerichte</h6>
+          {% for item in items %}
+          {% if item['category'] == 'Hauptgericht' %}
+          <form class="card-body">
+            <div class="row">
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
+            </div>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="sprungmarke" id="Dessert"></div>
+        <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Dessert</h6>
+          {% for item in items %}
+          {% if item['category'] == 'Dessert' %}
+          <form class="card-body">
+            <div class="row">
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
+            </div>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="sprungmarke" id="Getränke"></div>
+        <div class="mt-4">
+          <h6 class ="text-center card-header bg-transparent">Getränke</h6>
+          {% for item in items %}
+          {% if item['category'] == 'Getränk' %}
+          <form class="card-body">
+            <div class="row">
+            <div class="col-6">
+              <h5 class="card-titel">{{ item['name'] }}</h5>
+              <p class="card-text">{{ item['description'] }}</p>
+            </div>
+              <p class="card-text col-2">{{ "%.2f" | format(item['price']/100) }}€</p>
+            
+            <div class="col-4">
+              <input type="hidden" name="id" value="{{ item['id'] }}"></input>
+              <input type="hidden" name="name" value="{{ item['name'] }}"></input>
+              <input type="hidden" name="price" value="{{ item['price'] }}"></input>
+
+            <button type="button" class="btn btn-outline-secondary">zu Bestellung hinzufügen</button>
+          </div>
+            </div>
+          </form>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+{% endblock %}
+
