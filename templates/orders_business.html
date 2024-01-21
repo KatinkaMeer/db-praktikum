@@ -17,7 +17,7 @@
               <p class="card-text">{{ order['ordertime'].split('.')[0] }}</p>
             </div>
             <div class="col-3">
-              <p class="card-text p-1 text-center rounded-3 text-white bg-{{
+              <p class="card-text px-1 text-center rounded-5 text-white bg-{{
                 'success' if order['orderstatus'] == 'in Zubereitung' else 'warning' if order['orderstatus'] == 'in Bearbeitung' else 'secondary'  
                 }}">{{ order['orderstatus'] }}</p>
             </div>
