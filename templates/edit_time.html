@@ -22,27 +22,18 @@
               <div class="card-text col">{{ day }}: </div>
               {% if day in profile['times'].keys() %}
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="closed" onclick="closed=!closed"> nicht geöffnet.
+                <input class="form-check-input" type="checkbox" name="closed" value="{{ profile['times'] }}"> nicht geöffnet.
               </div>
-              <input type=time class="card-text col" id="openingTime" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit ein">
-              <input type=time class="card-text col" id="closingTime" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit ein">
+              <input type=time class="card-text col" name="openingTime {{ day }}" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit ein">
+              <input type=time class="card-text col" name="closingTime {{ day }}" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit ein"> 
               </fieldset>
-              <!--{% if closed %}
-              <fieldset disabled>
-              <input type=time class="card-text col" value = null placeholder= "Geschlossen">
-              <input type=time class="card-text col" value = null placeholder= "Geschlossen">
-              </fieldset>
-              {% else %}
-              <input type=time class="card-text col" value = "{{ profile['times'][day]['from'] }}" placeholder= "Geben Sie die Öffnungszeit ein">
-              <input type=time class="card-text col" value = "{{ profile['times'][day]['until'] }}" placeholder= "Geben Sie die Schließzeit  ein">
-              {% endif %}-->
               {% else %}
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="closed" checked> nicht geöffnet.
               </div>
-              <fieldset disabled>
-              <input type=time class="card-text col" id="openingTime" placeholder= "Geben Sie die Öffnungszeit ein">
-              <input type=time class="card-text col" id="closingTime" placeholder= "Geben Sie die Schließzeit ein">
+              <fieldset> <!-- disabled> -->
+              <input type=time class="card-text col" name="openingTime {{ day }}" value="" placeholder= "Geben Sie die Öffnungszeit ein">
+              <input type=time class="card-text col" name="closingTime {{ day }}" value="" placeholder= "Geben Sie die Schließzeit ein">
               </fieldset>
               {% endif %}
             </div>
@@ -51,7 +42,7 @@
         {% if saved_changes %}
         <p class="text-success">Änderungen erfolgreich gespeichert</p>
         {% endif %}
-        <button type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
+        <button name="save" type="submit" class="btn btn-outline-secondary mt-2">Änderungen übernehmen</button>
       </form>
     </div>
   </div>
