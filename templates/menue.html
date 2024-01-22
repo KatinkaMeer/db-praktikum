@@ -246,7 +246,7 @@
 
         final_sum += orderlist[i].price * orderlist[i].amount;
     }
-    orderlist_element.insertAdjacentHTML("beforeend", "\
+    orderform_element.insertAdjacentHTML("afterbegin", "\
       <h5 class='card-header bg-transparent'>Summe:</h5>\
       <h5 class='card-header card-text bg-transparent col text-center'>" + (final_sum/100).toFixed(2) + "€</h5>");
     wrapper.removeEventListener('click', button_pressed);
