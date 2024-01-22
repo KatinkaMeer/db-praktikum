@@ -43,6 +43,8 @@ def signup_customer_page():
     for value in request.form.values():
         if value == '': return render_template("signup.html", missing_fields=True)
 
+    if database.check_plz(request.form["postalcode"]) == False: return render_template("signup.html", invalid_plz=True)
+
     database.create_KundenAccount(request.form["username"], request.form["password"], request.form["firstname"], request.form["lastname"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])
     return redirect(url_for("login_customer_page"))
@@ -160,7 +162,7 @@ def edit_restaurant_delivery_radius():
                     return render_template("edit_delivery_radius.html", delivery_radius=delivery_radius, saved_changes=True)
                 else:
                     delivery_radius = database.get_delivery_radius(session["user"])
-                    return render_template("edit_delivery_radius.html", delivery_radius=delivery_radius, wrong_credentials=True)
+                    return render_template("edit_delivery_radius.html", delivery_radius=delivery_radius, invalid_plz=True)
 
             elif "delete PLZ" in request.form:
                 database.delete_lieferradius(request.form["delete PLZ"], session["user"])
@@ -215,6 +217,7 @@ def signup_business_page():
     if "image" in request.files and request.files["image"].filename:
         save_restaurant_image(request.files["image"], request.form["username"])
         
+    if database.check_plz(request.form["postalcode"]) == False: return render_template("signup.html", business=True, invalid_plz=True)
 
     database.create_GeschaeftsAccount(request.form["username"], request.form["password"], request.form["restaurantname"], request.form["description"],\
                                 request.form["street"], request.form["housenumber"], request.form["postalcode"])

@@ -49,6 +49,9 @@
                             <div class="col-sm-3">
                                 <label for="postalcode">Postleitzahl</label>
                                 <input name = "postalcode" type="text" class="form-control" id="postalcode" placeholder="PLZ">
+                                {% if invalid_plz %}
+                                <p class="text-danger">Keine gültige Postleitzahl</p>
+                                {% endif %}
                             </div>
                         </div>
                         {% if missing_fields %}
@@ -119,6 +122,9 @@
                             <div class="invalid-feedback">
                               Bitte füllen Sie dieses Textfeld aus.
                             </div>
+                            {% if invalid_plz %}
+                            <p class="text-danger">Keine gültige Postleitzahl</p>
+                            {% endif %}
                         </div>
                         {% if missing_fields %}
                         <p class="text-danger">Bitte füllen Sie alle Textfelder aus</p>
