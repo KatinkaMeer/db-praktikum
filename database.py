@@ -230,6 +230,24 @@ def create_item(restaurant, name, category, description, price):
 
 
 def update_item(id, restaurant, name, category, description, price):
+
+    request_pointer = getData("""SELECT ID
+                              FROM Item
+                              WHERE Restaurant = ? AND Name = ? AND Kategorie = ? AND IBeschreibung = ? AND Preis = ?
+                                """,(restaurant, name, category, description, price))
+    same = request_pointer.fetchone()
+    if same:
+        request_pointer = executeUpdate("""UPDATE Item
+                                            SET Deaktiviert = 1
+                                            WHERE Restaurant = ? AND Name = ?
+                                        """,(restaurant, name))
+        request_pointer = executeUpdate("""UPDATE Item
+                                            SET Deaktiviert = 0
+                                            WHERE ID = ?
+                                        """,(same[0],))
+        return
+
+
     request_pointer = getData("""SELECT *
                               FROM bestellung_beinhaltet
                               WHERE ItemID = ?
@@ -238,14 +256,20 @@ def update_item(id, restaurant, name, category, description, price):
     if result:
         request_pointer = executeUpdate("""UPDATE Item
                                             SET Deaktiviert = 1
-                                            WHERE ID = ?
-                                        """,(id,))
-        request_pointer = executeUpdate("""INSERT OR IGNORE INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
+                                            WHERE Restaurant = ? AND Name = ?
+                                        """,(restaurant, name))
+        
+        id = request_pointer = executeUpdate("""INSERT INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
                                             VALUES (?, ?, ?, ?, ?, ?, 0)
                                             """,(None, restaurant, name, category, description, price))
-        #TODO wenn gleicher scheiß dann deaktiviert 0 wegen ignore
+
+        request_pointer = executeUpdate("""UPDATE OR IGNORE Item
+                                            SET Deaktiviert = 0
+                                            WHERE ID = ?
+                                        """,(id,))
+
     else:
-        request_pointer = executeUpdate("""UPDATE OR IGNORE ITEM
+        request_pointer = executeUpdate("""UPDATE ITEM
                                             SET Name = ?, Kategorie = ?, IBeschreibung = ?, Preis = ?
                                             WHERE ID = ?
                                             """,(name, category, description, price, id))

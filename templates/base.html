@@ -115,9 +115,7 @@
   }
 
   update_order_icon();
-  var intervalId = window.setInterval(function(){ //update every 5 seconds
-    update_order_icon();
-  }, 5000);
+  var intervalId = window.setInterval(update_order_icon, 5000); //update every 5 seconds
 
 </script>
 {% endif %}

@@ -183,10 +183,7 @@
     var item_name = item_form.elements['name'].value;
     var item_price = item_form.elements['price'].value;
 
-    var item_delete = false;
-    if ("delete" in item_form.elements) {
-      item_delete = true;
-    }
+    var item_delete = "delete" in item_form.elements;
 
     
     var found = false;
