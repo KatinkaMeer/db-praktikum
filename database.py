@@ -243,6 +243,7 @@ def update_item(id, restaurant, name, category, description, price):
         request_pointer = executeUpdate("""INSERT OR IGNORE INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
                                             VALUES (?, ?, ?, ?, ?, ?, 0)
                                             """,(None, restaurant, name, category, description, price))
+        #TODO wenn gleicher scheiß dann deaktiviert 0 wegen ignore
     else:
         request_pointer = executeUpdate("""UPDATE OR IGNORE ITEM
                                             SET Name = ?, Kategorie = ?, IBeschreibung = ?, Preis = ?
