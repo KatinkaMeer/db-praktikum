@@ -222,7 +222,7 @@ def get_item(id):
 
 def create_item(restaurant, name, category, description, price):
     try:
-        request_pointer = executeUpdate("""INSERT OR ABORT INTO Item(Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
+        request_pointer = executeUpdate("""INSERT INTO Item(Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
                                         VALUES (?, ?, ?, ?, ?, 0)
                                             """,(restaurant, name, category, description, price))
     except Exception as err:
@@ -231,48 +231,31 @@ def create_item(restaurant, name, category, description, price):
 
 def update_item(id, restaurant, name, category, description, price):
 
-    request_pointer = getData("""SELECT ID
+    request_pointer = executeUpdate("""UPDATE Item
+                                        SET Deaktiviert = 1
+                                        WHERE Restaurant = ? AND Name = ?
+                                        """,(restaurant, name))
+
+    duplicate = getData("""SELECT *
                               FROM Item
                               WHERE Restaurant = ? AND Name = ? AND Kategorie = ? AND IBeschreibung = ? AND Preis = ?
-                                """,(restaurant, name, category, description, price))
-    same = request_pointer.fetchone()
-    if same:
+                                    """,(restaurant, name, category, description, price)).fetchone()
+    if duplicate:
+
+        dupe_id = duplicate[0]
+
         request_pointer = executeUpdate("""UPDATE Item
-                                            SET Deaktiviert = 1
-                                            WHERE Restaurant = ? AND Name = ?
-                                        """,(restaurant, name))
-        request_pointer = executeUpdate("""UPDATE Item
-                                            SET Deaktiviert = 0
-                                            WHERE ID = ?
-                                        """,(same[0],))
-        return
-
-
-    request_pointer = getData("""SELECT *
-                              FROM bestellung_beinhaltet
-                              WHERE ItemID = ?
-                                    """,(id,))
-    result = request_pointer.fetchone()
-    if result:
-        request_pointer = executeUpdate("""UPDATE Item
-                                            SET Deaktiviert = 1
-                                            WHERE Restaurant = ? AND Name = ?
-                                        """,(restaurant, name))
-        
-        id = request_pointer = executeUpdate("""INSERT INTO Item(ID, Restaurant, Name, Kategorie, IBeschreibung, Preis, Deaktiviert)
-                                            VALUES (?, ?, ?, ?, ?, ?, 0)
-                                            """,(None, restaurant, name, category, description, price))
-
-        request_pointer = executeUpdate("""UPDATE OR IGNORE Item
-                                            SET Deaktiviert = 0
-                                            WHERE ID = ?
-                                        """,(id,))
-
+                                        SET Deaktiviert = 0
+                                        WHERE ID = ?
+                                        """,(dupe_id,))
     else:
-        request_pointer = executeUpdate("""UPDATE ITEM
-                                            SET Name = ?, Kategorie = ?, IBeschreibung = ?, Preis = ?
-                                            WHERE ID = ?
-                                            """,(name, category, description, price, id))
+        create_item(restaurant, name, category, description, price)
+    
+    request_pointer = executeUpdate("""DELETE FROM Item
+                                        WHERE Deaktiviert = 1 AND ID NOT IN(SELECT ItemID FROM bestellung_beinhaltet)
+                                        """,())
+
+
 
 def delete_item(id):
     request_pointer = getData("""SELECT *
