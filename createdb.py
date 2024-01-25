@@ -776,12 +776,6 @@ def create_tables():
         ('cafebluerose', 'Getränk', 'Vanille-Rosenwasser-Limonade', 500, 'Eine erfrischende Limonade mit Vanille und einem Hauch von Rosenwasser.');
         """)
     
-    cursor.execute("""
-        INSERT or IGNORE INTO Item (Restaurant, Name, IBeschreibung, Kategorie, Preis)
-        VALUES ('mamamiapizza', 'Bruschetta', 'mit gehackten Tomaten und frischem Basilikum', 'Vorspeise', 550),
-            ('mamamiapizza', 'Caprese-Salat', 'gesalzene rohe Tomatenscheiben mit Mozzarellascheiben, Basilikumblätter in Olivenöl beträufelt', 'Vorspeise', 650);
-        """)
-                    
 
     cursor.execute("""
     INSERT or IGNORE INTO Oeffnungszeit (GUsername, Wochentag, Von, Bis)
