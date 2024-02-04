@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import datetime
-import database
 import createdb
+import database
 import os
 
 UPLOAD_FOLDER = './static/business'
@@ -411,5 +411,5 @@ def get_new_orders_amount():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
 

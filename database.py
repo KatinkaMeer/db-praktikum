@@ -1,5 +1,4 @@
 import sqlite3
-import createdb
 from datetime import datetime
 
 def executeUpdate(sql, params = ()):

@@ -11,7 +11,7 @@ def create_tables():
     dbcon = sqlite3.connect("instance/db.db")
     cursor = dbcon.cursor()
     
-    ##creat etables
+    #create tables
 
     cursor.execute("""
             CREATE TABLE IF NOT EXISTS KundenAccount(
@@ -90,7 +90,11 @@ def create_tables():
     
     cursor.execute("""
         INSERT or IGNORE INTO KundenAccount (Username, Passwort, Nachname, Vorname, Strasse, Hausnummer, Plz)
-        VALUES ('edge', 'weiter', 'Pascal', 'Ritzenfeld', 'Engerweg', 6, 47057)
+        VALUES ('edge', 'weiter', 'Pascal', 'Ritzenfeld', 'Engerweg', 6, 47057),
+                   ('heinz', '1234', 'Heinz', 'Rolofson', 'Wegstraße', 1, 47137),
+                   ('jakob', '1234', 'Jakob', 'Rosenthal', 'Alleepfad', 3, 47058),
+                   ('berta', '1234', 'Berta', 'Dreiso', 'Straßenallee', 2, 47119),
+                   ('gertrude', '1234', 'Gertrude', 'Schmitt', 'Pfadende', 4, 47059)
         """)
     
     cursor.execute("""
@@ -978,7 +982,48 @@ def create_tables():
         ('mcdaniels', 'Freitag', '00:00', '23:59'),
         ('mcdaniels', 'Samstag', '00:00', '23:59'),
         ('mcdaniels', 'Sonntag', '00:00', '23:59');
-""")
+    """)
+    
+    cursor.execute("""
+        INSERT or IGNORE INTO Bestellung (KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)
+        VALUES ('edge', 'mamamiapizza', '2023-12-27 15:39:03.584558', 'Bitte ohne Käse', 'abgeschlossen'),
+                   ('edge', 'mcdaniels', '2023-12-30 18:39:03.584558', 'Cola ohne Eis', 'abgeschlossen'),
+                   ('heinz', 'sidebysoups', '2023-12-22 15:39:03.584558', '', 'abgeschlossen'),
+                   ('heinz', 'cafebluerose', '2023-12-13 18:39:03.584558', '', 'abgeschlossen'),
+                   ('jakob', 'sushiheaven', '2023-12-23 15:39:03.584558', 'Bitte mit Gari und Wasabi', 'abgeschlossen'),
+                   ('jakob', 'bowl', '2023-12-16 18:39:03.584558', 'Bitte mit Gari und Wasabi', 'abgeschlossen'),
+                   ('berta', 'mcdaniels', '2023-12-15 08:39:03.584558', 'extra knusprig', 'abgeschlossen'),
+                   ('berta', 'zoesgrill', '2023-12-15 10:39:03.584558', 'bitte nicht so salzig wie letztes mal', 'abgeschlossen'),
+                   ('gertrude', 'bowl', '2024-01-4 18:00:03.584558', '', 'abgeschlossen'),
+                   ('gertrude', 'zoesgrill', '2024-01-11 19:18:03.584558', '', 'abgeschlossen')
+        """)
+
+    cursor.execute("""
+        INSERT or IGNORE INTO bestellung_beinhaltet (Bestellung, ItemID, Menge)
+        VALUES (1, 6, 1),
+                (2, 120, 2),
+                (2, 117, 2),
+                (2, 108, 2),
+                (3, 81, 1),
+                (3, 77, 1),
+                (3, 85, 2),
+                (4, 430, 1),
+                (4, 425, 1),
+                (5, 22, 1),
+                (5, 20, 1),
+                (6, 42, 4),
+                (6, 47, 1),
+                (7, 107, 2),
+                (7, 110, 1),
+                (7, 112, 1),
+                (7, 116, 1),
+                (8, 96, 5),
+                (9, 44, 1),
+                (9, 51, 1),
+                (9, 53, 1),
+                (10, 91, 2),
+                (10, 90, 3)
+        """)
 
     dbcon.commit()
     dbcon.close()
