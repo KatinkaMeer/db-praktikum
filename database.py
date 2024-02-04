@@ -290,6 +290,18 @@ def get_orders(username, business=False):
             "orderstatus": entry[5],
         }
 
+        address_request_pointer = getData(f"""
+            SELECT Strasse, Hausnummer, Plz
+            FROM KundenAccount
+            WHERE Username = ?""",
+            (order["KUsername"],))
+        
+        address_result = address_request_pointer.fetchone()
+        order["street"] = address_result[0]
+        order["housenumber"] = address_result[1]
+        order["postalcode"] = address_result[2]
+        
+
         item_request_pointer = getData(f"""
             SELECT Item.ID, Item.Name, Item.Preis, bestellung_beinhaltet.Menge, Item.Kategorie, Item.IBeschreibung
             FROM bestellung_beinhaltet JOIN Item ON bestellung_beinhaltet.ItemID = Item.ID
@@ -313,7 +325,6 @@ def get_orders(username, business=False):
         order['sum'] = summe
 
         orders.append(order)
-
     return orders
 
 def create_order(username: str, restaurant: str, items: list[dict], comment: str):

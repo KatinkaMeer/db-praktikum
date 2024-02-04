@@ -19,6 +19,7 @@
           <div class="row card-header bg-transparent mb-4">
             <div class="col-3">
               <h5 class="card-title">{{ order['KUsername'] }}</h5>
+              <p>{{ order['street'] }} {{ order['housenumber'] }}, {{ order['postalcode'] }}</p>
             </div>
             <div class="col-3">
               <p class="card-text">{{ order['ordertime'].split('.')[0] }}</p>

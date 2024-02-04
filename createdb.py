@@ -985,44 +985,44 @@ def create_tables():
     """)
     
     cursor.execute("""
-        INSERT or IGNORE INTO Bestellung (KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)
-        VALUES ('edge', 'mamamiapizza', '2023-12-27 15:39:03.584558', 'Bitte ohne Käse', 'abgeschlossen'),
-                   ('edge', 'mcdaniels', '2023-12-30 18:39:03.584558', 'Cola ohne Eis', 'abgeschlossen'),
-                   ('heinz', 'sidebysoups', '2023-12-22 15:39:03.584558', '', 'abgeschlossen'),
-                   ('heinz', 'cafebluerose', '2023-12-13 18:39:03.584558', '', 'abgeschlossen'),
-                   ('jakob', 'sushiheaven', '2023-12-23 15:39:03.584558', 'Bitte mit Gari und Wasabi', 'abgeschlossen'),
-                   ('jakob', 'bowl', '2023-12-16 18:39:03.584558', 'Bitte mit Gari und Wasabi', 'abgeschlossen'),
-                   ('berta', 'mcdaniels', '2023-12-15 08:39:03.584558', 'extra knusprig', 'abgeschlossen'),
-                   ('berta', 'zoesgrill', '2023-12-15 10:39:03.584558', 'bitte nicht so salzig wie letztes mal', 'abgeschlossen'),
-                   ('gertrude', 'bowl', '2024-01-4 18:00:03.584558', '', 'abgeschlossen'),
-                   ('gertrude', 'zoesgrill', '2024-01-11 19:18:03.584558', '', 'abgeschlossen')
+        INSERT or IGNORE INTO Bestellung (ROWID, KUsername, GUsername, Eingangszeit, Anmerkung, Bestellstatus)
+        VALUES (1, 'edge', 'mamamiapizza', '2023-12-27 15:39:03.584558', 'Bitte ohne Käse', 'abgeschlossen'),
+                (2, 'edge', 'mcdaniels', '2023-12-30 18:39:03.584558', 'Cola ohne Eis', 'abgeschlossen'),
+                (3, 'heinz', 'sidebysoups', '2023-12-22 15:39:03.584558', '', 'abgeschlossen'),
+                (4, 'heinz', 'cafebluerose', '2023-12-13 18:39:03.584558', '', 'abgeschlossen'),
+                (5, 'jakob', 'sushiheaven', '2023-12-23 15:39:03.584558', 'Bitte mit Gari und Wasabi', 'abgeschlossen'),
+                (6, 'jakob', 'bowl', '2023-12-16 18:39:03.584558', 'Bitte mit Gari und Wasabi', 'abgeschlossen'),
+                (7, 'berta', 'mcdaniels', '2023-12-15 08:39:03.584558', 'extra knusprig', 'abgeschlossen'),
+                (8, 'berta', 'zoesgrill', '2023-12-15 10:39:03.584558', 'bitte nicht so salzig wie letztes mal', 'abgeschlossen'),
+                (9, 'gertrude', 'bowl', '2024-01-4 18:00:03.584558', '', 'abgeschlossen'),
+                (10, 'gertrude', 'zoesgrill', '2024-01-11 19:18:03.584558', '', 'abgeschlossen')
         """)
 
     cursor.execute("""
-        INSERT or IGNORE INTO bestellung_beinhaltet (Bestellung, ItemID, Menge)
-        VALUES (1, 6, 1),
-                (2, 120, 2),
-                (2, 117, 2),
-                (2, 108, 2),
-                (3, 81, 1),
-                (3, 77, 1),
-                (3, 85, 2),
-                (4, 430, 1),
-                (4, 425, 1),
-                (5, 22, 1),
-                (5, 20, 1),
-                (6, 42, 4),
-                (6, 47, 1),
-                (7, 107, 2),
-                (7, 110, 1),
-                (7, 112, 1),
-                (7, 116, 1),
-                (8, 96, 5),
-                (9, 44, 1),
-                (9, 51, 1),
-                (9, 53, 1),
-                (10, 91, 2),
-                (10, 90, 3)
+        INSERT or IGNORE INTO bestellung_beinhaltet (ROWID, Bestellung, ItemID, Menge)
+        VALUES (1, 1, 6, 1),
+                (2, 2, 120, 2),
+                (3, 2, 117, 2),
+                (4, 2, 108, 2),
+                (5, 3, 81, 1),
+                (6, 3, 77, 1),
+                (7, 3, 85, 2),
+                (8, 4, 430, 1),
+                (9, 4, 425, 1),
+                (10, 5, 22, 1),
+                (11, 5, 20, 1),
+                (12, 6, 42, 4),
+                (13, 6, 47, 1),
+                (14, 7, 107, 2),
+                (15, 7, 110, 1),
+                (16, 7, 112, 1),
+                (17, 7, 116, 1),
+                (18, 8, 96, 5),
+                (19, 9, 44, 1),
+                (20, 9, 51, 1),
+                (21, 9, 53, 1),
+                (22, 10, 91, 2),
+                (23, 10, 90, 3)
         """)
 
     dbcon.commit()
