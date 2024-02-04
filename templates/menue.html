@@ -157,7 +157,7 @@
       <div class="sticky-top" style="top: 70px; z-index: 1;">
         <div class="card border-dark px-4">
           <h4 class="card-titel card-header text-center bg-transparent mt-2 mb-4">Bestellung:</h4>
-          <div class="mb-2 px-4 overflow-auto" style="max-height: 450px" id="orderlist" ></div>
+          <div class="mb-2 px-4 overflow-auto" style="max-height: 50vh" id="orderlist" ></div>
           <form id="orderform" action="{{ url_for('confirm_order_page') }}" method="POST">
           </form>
         </div>
@@ -219,7 +219,7 @@
     orderlist_element.innerHTML = "";
     orderform_element.innerHTML = "\
       <input type='hidden' name='restaurant' value='{{ restaurant['username'] }}'></input>\
-      <button id='order' type='submit'class='btn btn-lg btn-outline-success mb-2 form-control'>Weiter</button>";
+      <button id='order' type='submit'class='btn btn-lg my-4 btn-outline-success form-control'>Weiter</button>";
 
     for (let i = 0; i < orderlist.length; i++) {
       orderlist_element.insertAdjacentHTML("beforeend", "\
