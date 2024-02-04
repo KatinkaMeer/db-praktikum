@@ -789,7 +789,7 @@ def create_tables():
         ('cafebluerose', 'Freitag', '08:00', '20:00'),
         ('cafebluerose', 'Sonntag', '10:00', '16:00'),
                    
-        ('sushiheaven', 'Dienstag', '12:00', '22:00'),
+        ('sushiheaven', 'Dienstag', '13:00', '22:00'),
         ('sushiheaven', 'Mittwoch', '12:00', '22:00'),
         ('sushiheaven', 'Donnerstag', '12:00', '22:00'),
         ('sushiheaven', 'Freitag', '12:00', '23:00'),
@@ -815,7 +815,7 @@ def create_tables():
         ('sidebysoups', 'Samstag', '11:00', '20:00'),
         ('sidebysoups', 'Sonntag', '11:00', '18:00'),
         
-        ('mamamiapizza', 'Montag', '16:00', '22:00'),
+        ('mamamiapizza', 'Montag', '10:00', '22:00'),
         ('mamamiapizza', 'Dienstag', '16:00', '22:00'),
         ('mamamiapizza', 'Mittwoch', '10:00', '19:00'),
         ('mamamiapizza', 'Donnerstag', '16:00', '22:00'),
@@ -831,7 +831,7 @@ def create_tables():
         ('zoesgrill', 'Samstag', '11:30', '22:00'),
         ('zoesgrill', 'Sonntag', '11:30', '20:00'),
         
-        ('sauerkrautundwurst', 'Montag', '11:00', '20:00'),
+        ('sauerkrautundwurst', 'Montag', '15:00', '20:00'),
         ('sauerkrautundwurst', 'Dienstag', '11:00', '20:00'),
         ('sauerkrautundwurst', 'Donnerstag', '11:00', '20:00'),
         ('sauerkrautundwurst', 'Freitag', '11:00', '21:00'),
@@ -846,7 +846,7 @@ def create_tables():
         ('pilzparadies', 'Samstag', '12:00', '22:00'),
         ('pilzparadies', 'Sonntag', '12:00', '20:00'),
 
-        ('schwarzbrotstube', 'Montag', '09:00', '18:00'),
+        ('schwarzbrotstube', 'Montag', '15:00', '18:00'),
         ('schwarzbrotstube', 'Dienstag', '09:00', '18:00'),
         ('schwarzbrotstube', 'Mittwoch', '15:00', '18:00'),
         ('schwarzbrotstube', 'Donnerstag', '09:00', '18:00'),
@@ -854,7 +854,7 @@ def create_tables():
         ('schwarzbrotstube', 'Samstag', '09:00', '20:00'),
         ('schwarzbrotstube', 'Sonntag', '10:00', '16:00'),
 
-        ('rheinweinhaus', 'Montag', '16:00', '23:00'),
+        ('rheinweinhaus', 'Montag', '13:00', '23:00'),
         ('rheinweinhaus', 'Dienstag', '16:00', '23:00'),
         ('rheinweinhaus', 'Mittwoch', '13:00', '23:00'),
         ('rheinweinhaus', 'Donnerstag', '16:00', '23:00'),
@@ -862,7 +862,7 @@ def create_tables():
         ('rheinweinhaus', 'Samstag', '12:00', '23:30'),
         ('rheinweinhaus', 'Sonntag', '12:00', '22:00'),
 
-        ('wurstundsenf', 'Montag', '11:30', '20:30'),
+        ('wurstundsenf', 'Montag', '16:30', '20:30'),
         ('wurstundsenf', 'Dienstag', '11:30', '20:30'),
         ('wurstundsenf', 'Mittwoch', '15:30', '20:30'),
         ('wurstundsenf', 'Donnerstag', '11:30', '20:30'),
@@ -870,7 +870,7 @@ def create_tables():
         ('wurstundsenf', 'Samstag', '11:30', '21:00'),
         ('wurstundsenf', 'Sonntag', '12:00', '18:00'),
 
-        ('zwiebelzirkus', 'Montag', '12:00', '21:00'),
+        ('zwiebelzirkus', 'Montag', '15:00', '21:00'),
         ('zwiebelzirkus', 'Dienstag', '12:00', '21:00'),
         ('zwiebelzirkus', 'Donnerstag', '12:00', '22:00'),
         ('zwiebelzirkus', 'Freitag', '12:00', '22:00'),
@@ -909,7 +909,7 @@ def create_tables():
         ('cocoacraze', 'Samstag', '10:00', '19:00'),
         ('cocoacraze', 'Sonntag', '10:00', '17:00'),
 
-        ('thaiharmony', 'Montag', '17:00', '22:00'),
+        ('thaiharmony', 'Montag', '13:00', '22:00'),
         ('thaiharmony', 'Dienstag', '17:00', '22:00'),
         ('thaiharmony', 'Mittwoch', '13:00', '22:00'),
         ('thaiharmony', 'Donnerstag', '17:00', '23:00'),
@@ -917,7 +917,7 @@ def create_tables():
         ('thaiharmony', 'Samstag', '12:00', '23:00'),
         ('thaiharmony', 'Sonntag', '12:00', '22:00'),
 
-        ('stellarsteaks', 'Montag', '18:00', '23:00'),
+        ('stellarsteaks', 'Montag', '13:00', '23:00'),
         ('stellarsteaks', 'Dienstag', '18:00', '23:00'),
         ('stellarsteaks', 'Mittwoch', '13:00', '23:00'),
         ('stellarsteaks', 'Donnerstag', '18:00', '23:30'),
@@ -949,7 +949,7 @@ def create_tables():
         ('fusiondelight', 'Samstag', '12:00', '21:00'),
         ('fusiondelight', 'Sonntag', '12:00', '19:00'),
 
-        ('sunsetgrill', 'Montag', '17:00', '22:30'),
+        ('sunsetgrill', 'Montag', '12:00', '22:30'),
         ('sunsetgrill', 'Dienstag', '17:00', '22:30'),
         ('sunsetgrill', 'Mittwoch', '13:00', '22:30'),
         ('sunsetgrill', 'Donnerstag', '17:00', '23:00'),
