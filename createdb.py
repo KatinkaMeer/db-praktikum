@@ -256,7 +256,6 @@ def create_tables():
             (47059, 'cafebluerose'),
             
             (47057, 'stellarsteaks'),
-            (47057, 'zoesgrill'),
             
             (47137, 'mcdaniels'),
             (47119, 'mcdaniels'),
@@ -818,6 +817,7 @@ def create_tables():
         
         ('mamamiapizza', 'Montag', '16:00', '22:00'),
         ('mamamiapizza', 'Dienstag', '16:00', '22:00'),
+        ('mamamiapizza', 'Mittwoch', '10:00', '19:00'),
         ('mamamiapizza', 'Donnerstag', '16:00', '22:00'),
         ('mamamiapizza', 'Freitag', '16:00', '23:00'),
         ('mamamiapizza', 'Samstag', '12:00', '23:00'),
@@ -833,7 +833,6 @@ def create_tables():
         
         ('sauerkrautundwurst', 'Montag', '11:00', '20:00'),
         ('sauerkrautundwurst', 'Dienstag', '11:00', '20:00'),
-        ('sauerkrautundwurst', 'Mittwoch', '11:00', '20:00'),
         ('sauerkrautundwurst', 'Donnerstag', '11:00', '20:00'),
         ('sauerkrautundwurst', 'Freitag', '11:00', '21:00'),
         ('sauerkrautundwurst', 'Samstag', '11:00', '21:00'),
@@ -849,7 +848,7 @@ def create_tables():
 
         ('schwarzbrotstube', 'Montag', '09:00', '18:00'),
         ('schwarzbrotstube', 'Dienstag', '09:00', '18:00'),
-        ('schwarzbrotstube', 'Mittwoch', '09:00', '18:00'),
+        ('schwarzbrotstube', 'Mittwoch', '15:00', '18:00'),
         ('schwarzbrotstube', 'Donnerstag', '09:00', '18:00'),
         ('schwarzbrotstube', 'Freitag', '09:00', '20:00'),
         ('schwarzbrotstube', 'Samstag', '09:00', '20:00'),
@@ -857,7 +856,7 @@ def create_tables():
 
         ('rheinweinhaus', 'Montag', '16:00', '23:00'),
         ('rheinweinhaus', 'Dienstag', '16:00', '23:00'),
-        ('rheinweinhaus', 'Mittwoch', '16:00', '23:00'),
+        ('rheinweinhaus', 'Mittwoch', '13:00', '23:00'),
         ('rheinweinhaus', 'Donnerstag', '16:00', '23:00'),
         ('rheinweinhaus', 'Freitag', '16:00', '23:30'),
         ('rheinweinhaus', 'Samstag', '12:00', '23:30'),
@@ -865,7 +864,7 @@ def create_tables():
 
         ('wurstundsenf', 'Montag', '11:30', '20:30'),
         ('wurstundsenf', 'Dienstag', '11:30', '20:30'),
-        ('wurstundsenf', 'Mittwoch', '11:30', '20:30'),
+        ('wurstundsenf', 'Mittwoch', '15:30', '20:30'),
         ('wurstundsenf', 'Donnerstag', '11:30', '20:30'),
         ('wurstundsenf', 'Freitag', '11:30', '21:00'),
         ('wurstundsenf', 'Samstag', '11:30', '21:00'),
@@ -873,7 +872,6 @@ def create_tables():
 
         ('zwiebelzirkus', 'Montag', '12:00', '21:00'),
         ('zwiebelzirkus', 'Dienstag', '12:00', '21:00'),
-        ('zwiebelzirkus', 'Mittwoch', '12:00', '21:00'),
         ('zwiebelzirkus', 'Donnerstag', '12:00', '22:00'),
         ('zwiebelzirkus', 'Freitag', '12:00', '22:00'),
         ('zwiebelzirkus', 'Samstag', '12:00', '22:00'),
@@ -889,7 +887,7 @@ def create_tables():
 
         ('saffronspice', 'Montag', '17:00', '22:30'),
         ('saffronspice', 'Dienstag', '17:00', '22:30'),
-        ('saffronspice', 'Mittwoch', '17:00', '22:30'),
+        ('saffronspice', 'Mittwoch', '15:00', '22:30'),
         ('saffronspice', 'Donnerstag', '17:00', '23:00'),
         ('saffronspice', 'Freitag', '17:00', '23:00'),
         ('saffronspice', 'Samstag', '17:00', '23:00'),
@@ -913,7 +911,7 @@ def create_tables():
 
         ('thaiharmony', 'Montag', '17:00', '22:00'),
         ('thaiharmony', 'Dienstag', '17:00', '22:00'),
-        ('thaiharmony', 'Mittwoch', '17:00', '22:00'),
+        ('thaiharmony', 'Mittwoch', '13:00', '22:00'),
         ('thaiharmony', 'Donnerstag', '17:00', '23:00'),
         ('thaiharmony', 'Freitag', '17:00', '23:00'),
         ('thaiharmony', 'Samstag', '12:00', '23:00'),
@@ -921,7 +919,7 @@ def create_tables():
 
         ('stellarsteaks', 'Montag', '18:00', '23:00'),
         ('stellarsteaks', 'Dienstag', '18:00', '23:00'),
-        ('stellarsteaks', 'Mittwoch', '18:00', '23:00'),
+        ('stellarsteaks', 'Mittwoch', '13:00', '23:00'),
         ('stellarsteaks', 'Donnerstag', '18:00', '23:30'),
         ('stellarsteaks', 'Freitag', '18:00', '23:30'),
         ('stellarsteaks', 'Samstag', '17:30', '23:30'),
@@ -953,7 +951,7 @@ def create_tables():
 
         ('sunsetgrill', 'Montag', '17:00', '22:30'),
         ('sunsetgrill', 'Dienstag', '17:00', '22:30'),
-        ('sunsetgrill', 'Mittwoch', '17:00', '22:30'),
+        ('sunsetgrill', 'Mittwoch', '13:00', '22:30'),
         ('sunsetgrill', 'Donnerstag', '17:00', '23:00'),
         ('sunsetgrill', 'Freitag', '17:00', '23:00'),
         ('sunsetgrill', 'Samstag', '17:00', '23:00'),
