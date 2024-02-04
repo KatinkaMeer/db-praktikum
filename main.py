@@ -410,4 +410,4 @@ def get_new_orders_amount():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
